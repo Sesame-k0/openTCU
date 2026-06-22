@@ -931,8 +931,8 @@
             土曜日のメニューについて</h3>
           <p
             style="font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant); margin: 0; max-width: 500px; margin-left: auto; margin-right: auto;">
-            土曜日のメニューの情報は、食堂運営からは提供されておりません。<br>
-            ショーケースでご確認ください。(丼とカレーで選択、550円？)
+            土曜日のメニューの情報は、食堂からは提供されておりません。<br>
+            ショーケースでご確認ください。
           </p>
         </div>
 
@@ -968,9 +968,9 @@
               <span class="time-num">45</span><span class="time-unit">秒</span>
             </div>
             <p class="bus-route">
-              <span class="station">学内中央</span>
+              <span class="station">世田谷キャンパス</span>
               <span style="color: var(--md-sys-color-primary); font-weight: bold;">&rarr;</span>
-              <span class="station">大学前駅</span>
+              <span class="station">横浜キャンパス</span>
             </p>
           </div>
           <div class="bus-hero-icon">
@@ -1003,10 +1003,11 @@
           </div>
 
           <div class="material-card bus-card">
-            <h4><span class="material-symbols-outlined">info</span>運行情報・お知らせ</h4>
+            <h4><span class="material-symbols-outlined">info</span>おねがい</h4>
             <p style="font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant); margin: 0;">
-              現在、道路混雑等による遅延情報はありません。ほぼ定刻通り運行しています。<br>
-              雨天時は乗降口が混雑する場合がありますので余裕を持ってお越しください。
+              このバスは、経路上において第三京浜道路を経由します。<br>
+              立ったままのご乗車はできません。また、安全のため、必ずシートベルトをご着用ください。<br>
+              雨天時はステップが滑りやすくなっておりますので、足元にご注意ください。
               <span style="font-size:12px; color: var(--md-sys-color-outline); display:block; margin-top:12px;">最終更新:
                 15:10</span>
             </p>
@@ -1171,9 +1172,10 @@
     }
 
     // ==========================================
-    // 学食メニューのデータ取得と表示
+    // 学食メニューのデータをGitHub内部からもらってくる→表示
+    // GitHub側は毎日1回JSONをもらってくるよ
     // ==========================================
-    const API_URL = "https://script.google.com/macros/s/AKfycbzBz_zXkjkq9AwmJFlQzbTSiUsFpVzb8fJ8RBuqz8Q0R7hx2hxECbCBxaJtbsVxeo8Wdg/exec";
+    const API_URL = "./menu.json";
     let allData = [];
 
     window.onload = async function () {
