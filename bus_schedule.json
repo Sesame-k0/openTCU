@@ -1,0 +1,150 @@
+{
+  "stops": [
+    {
+      "id": "S",
+      "name": "世田谷キャンパス",
+      "color": "#4CAF50",
+      "showOnMap": true
+    },
+    {
+      "id": "Y",
+      "name": "横浜キャンパス",
+      "color": "#2196F3",
+      "showOnMap": true
+    },
+    {
+      "id": "O",
+      "name": "王禅寺キャンパス",
+      "color": "#FF9800",
+      "showOnMap": true
+    },
+    {
+      "id": "T",
+      "name": "等々力キャンパス",
+      "color": "#9C27B0",
+      "showOnMap": false
+    }
+  ],
+  "runs": [
+    {
+      "from": "S",
+      "to": "Y",
+      "depTime": "13:00",
+      "arrTime": "13:30",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "Y",
+      "to": "S",
+      "depTime": "13:00",
+      "arrTime": "13:30",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "S",
+      "to": "Y",
+      "depTime": "15:40",
+      "arrTime": "16:10",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "Y",
+      "to": "S",
+      "depTime": "15:40",
+      "arrTime": "16:10",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "S",
+      "to": "Y",
+      "depTime": "16:40",
+      "arrTime": "17:10",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "Y",
+      "to": "S",
+      "depTime": "16:40",
+      "arrTime": "17:10",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "S",
+      "to": "Y",
+      "depTime": "17:30",
+      "arrTime": "18:00",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "Y",
+      "to": "S",
+      "depTime": "17:30",
+      "arrTime": "18:00",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所"
+    },
+    {
+      "from": "Y",
+      "to": "S",
+      "depTime": "13:10",
+      "arrTime": "13:40",
+      "days": [3],
+      "operator": "東急バス 東山田営業所",
+      "note": "水曜増便"
+    },
+    {
+      "from": "S",
+      "to": "Y",
+      "depTime": "14:00",
+      "arrTime": "14:30",
+      "days": [3],
+      "operator": "東急バス 東山田営業所",
+      "note": "水曜増便"
+    },
+    {
+      "from": "S",
+      "to": "O",
+      "depTime": "13:20",
+      "arrTime": "13:55",
+      "days": [2],
+      "months": [4, 5, 6, 7],
+      "operator": "東急バス 東山田営業所",
+      "note": "4月-7月 火曜運行 (横浜通過)"
+    },
+    {
+      "from": "O",
+      "to": "S",
+      "depTime": "14:30",
+      "arrTime": "15:05",
+      "days": [2],
+      "months": [4, 5, 6, 7],
+      "operator": "東急バス 東山田営業所",
+      "note": "4月-7月 火曜運行 (横浜通過)"
+    },
+    {
+      "from": "S",
+      "to": "T",
+      "depTime": "12:10",
+      "arrTime": "12:30",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所",
+      "note": "等々力便 (隠し)"
+    },
+    {
+      "from": "T",
+      "to": "S",
+      "depTime": "12:40",
+      "arrTime": "13:00",
+      "days": [1, 2, 3, 4, 5],
+      "operator": "東急バス 東山田営業所",
+      "note": "等々力便 (隠し)"
+    }
+  ]
+}

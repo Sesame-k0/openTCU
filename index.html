@@ -654,130 +654,302 @@
       gap: 24px;
     }
 
-    .bus-hero-card {
-      background: linear-gradient(135deg, var(--md-sys-color-primary-container), #E0F2FE);
-      border-radius: 28px;
-      padding: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    /* バス運行マップカード */
+    .bus-tracker-card {
+      background: var(--md-sys-color-surface-container);
+      border-radius: 24px;
       border: 1px solid var(--md-sys-color-outline-variant);
-      box-shadow: 0 4px 12px rgba(0, 102, 133, 0.05);
+      padding: 28px;
     }
 
-    .bus-hero-info h3 {
-      margin: 8px 0;
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--md-sys-color-on-primary-container);
+    .bus-map-wrapper {
+      position: relative;
+      background-color: var(--md-sys-color-surface-container-low);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 20px;
+      height: 180px;
+      margin: 20px 0;
+      padding: 0 16px;
+      overflow: hidden;
     }
 
-    .badge-bus-active {
+    .bus-map-track-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 直行トラックの破線表示 */
+    .bus-map-track {
+      position: absolute;
+      top: 75px;
+      left: 15%;
+      width: 70%;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--md-sys-color-outline-variant), var(--md-sys-color-outline-variant) 8px, transparent 8px, transparent 16px);
+    }
+
+    /* バイパストラック（世田谷〜王禅寺用） */
+    .bus-map-bypass-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .bus-map-track-bypass {
+      fill: none;
+      stroke: var(--md-sys-color-outline-variant);
+      stroke-width: 3;
+      stroke-dasharray: 6, 6;
+      transition: stroke var(--md-transition-duration);
+    }
+
+    /* バス移動マーカー */
+    .active-bus-marker {
+      position: absolute;
+      width: 32px;
+      height: 32px;
       background-color: var(--md-sys-color-primary);
       color: var(--md-sys-color-on-primary);
-    }
-
-    .bus-countdown {
-      margin: 16px 0;
-      display: flex;
-      align-items: baseline;
-      gap: 4px;
-    }
-
-    .time-num {
-      font-size: 48px;
-      font-weight: 700;
-      font-family: 'Outfit', sans-serif;
-      color: var(--md-sys-color-on-primary-container);
-      line-height: 1;
-    }
-
-    .time-unit {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--md-sys-color-on-primary-container);
-      margin-right: 12px;
-    }
-
-    .bus-route {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--md-sys-color-on-primary-container);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .bus-route .station {
-      background: rgba(255, 255, 255, 0.6);
-      padding: 4px 12px;
-      border-radius: 100px;
-      border: 1px solid var(--md-sys-color-outline-variant);
-    }
-
-    .bus-hero-icon {
-      padding: 16px;
-      background: white;
-      border-radius: 24px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 10px rgba(0, 102, 133, 0.3);
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      cursor: pointer;
+      transition: left 1s linear, top 1s linear;
+      pointer-events: auto;
     }
 
-    .bus-grid {
+    .active-bus-marker .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    /* 進行方向インジケータ */
+    .active-bus-marker.direction-left {
+      transform: translate(-50%, -50%) scaleX(-1);
+    }
+
+    /* バス詳細ツールチップ */
+    .active-bus-tooltip {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--md-sys-color-surface-container-highest);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      color: var(--md-sys-color-on-surface);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      pointer-events: none;
+      display: none;
+      z-index: 12;
+    }
+
+    .active-bus-marker:hover .active-bus-tooltip {
+      display: block;
+    }
+
+    /* 駅ノード配置 */
+    .bus-map-nodes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+      box-sizing: border-box;
+      padding: 0 15%;
+    }
+
+    .bus-node-card {
+      position: absolute;
+      top: 75px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: auto;
+    }
+
+    .stop-o { left: 15%; }
+    .stop-y { left: 50%; }
+    .stop-s { left: 85%; }
+
+    .bus-node-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 11px;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 3px solid var(--md-sys-color-surface-container-low);
+      transition: transform var(--md-transition-duration);
+      cursor: pointer;
+    }
+
+    .bus-node-circle:hover {
+      transform: scale(1.1);
+    }
+
+    .circle-s { background-color: #2E7D32; }
+    .circle-y { background-color: #1565C0; }
+    .circle-o { background-color: #EF6C00; }
+    .circle-t { background-color: #7B1FA2; }
+
+    .bus-node-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+      margin-top: 10px;
+      white-space: nowrap;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+    }
+
+    /* 時刻表グリッド */
+    .bus-timetables-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 20px;
     }
 
-    .bus-card {
-      margin-bottom: 0;
+    .bus-timetable-card {
+      background: var(--md-sys-color-surface-container);
+      border-radius: 20px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      padding: 0;
+      overflow: hidden;
     }
 
-    .bus-card h4 {
-      margin-top: 0;
-      margin-bottom: 16px;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--md-sys-color-on-surface);
+    .bus-timetable-header {
+      padding: 16px 20px;
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
     }
 
-    .bus-card h4 .material-symbols-outlined {
-      color: var(--md-sys-color-primary);
-      font-size: 20px;
-    }
+    .bus-timetable-header.bg-s { background-color: #2E7D32; }
+    .bus-timetable-header.bg-y { background-color: #1565C0; }
+    .bus-timetable-header.bg-o { background-color: #EF6C00; }
+    .bus-timetable-header.bg-t { background-color: #7B1FA2; }
 
-    .bus-schedule-list {
+    .bus-timetable-body {
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
       gap: 8px;
+      max-height: 280px;
+      overflow-y: auto;
     }
 
-    .bus-schedule-item {
+    .bus-run-item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 12px 16px;
       border-radius: 12px;
       background-color: var(--md-sys-color-surface);
       border: 1px solid var(--md-sys-color-outline-variant);
-      font-size: 14px;
+      transition: transform 0.2s, background-color 0.2s;
     }
 
-    .bus-schedule-item.active-bus {
-      background-color: var(--md-sys-color-secondary-container);
-      border-color: var(--md-sys-color-secondary-container);
+    .bus-run-item:hover {
+      transform: translateX(4px);
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+
+    .bus-run-item.running-now {
+      background-color: var(--md-sys-color-primary-container) !important;
+      border-color: var(--md-sys-color-primary) !important;
       font-weight: 700;
-      color: var(--md-sys-color-on-secondary-container);
     }
 
-    .bus-time {
+    .bus-run-item.upcoming-soon {
+      background-color: var(--md-sys-color-secondary-container);
+      border-color: var(--md-sys-color-secondary);
+    }
+
+    .bus-run-time {
       font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .bus-run-dest {
+      font-size: 13px;
       font-weight: 600;
+      color: var(--md-sys-color-on-surface-variant);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bus-run-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background-color: var(--md-sys-color-surface-variant);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .bus-run-badge.badge-running {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    .bus-run-badge.badge-soon {
+      background-color: var(--md-sys-color-secondary);
+      color: var(--md-sys-color-on-secondary);
+    }
+
+    @media (max-width: 600px) {
+      .bus-map-wrapper {
+        height: 140px;
+      }
+      .bus-map-track {
+        top: 55px;
+      }
+      .bus-node-card {
+        top: 55px;
+      }
+      .bus-node-circle {
+        width: 36px;
+        height: 36px;
+        font-size: 9px;
+        border-width: 2px;
+      }
+      .bus-node-label {
+        font-size: 10px;
+        margin-top: 6px;
+      }
+      .bus-map-track-bypass {
+        stroke-width: 2;
+      }
     }
 
     /* === レスポンシブ対応 === */
@@ -1557,64 +1729,72 @@
 
     <section id="view-bus" class="view-section">
       <div class="bus-container">
-        <h2
-          style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
+        <!-- 既存のヘッダー -->
+        <h2 style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
           <span class="material-symbols-outlined" style="font-size: 24px;">directions_bus</span>シャトルバス案内
         </h2>
 
-        <div class="bus-hero-card">
-          <div class="bus-hero-info">
-            <span class="badge badge-bus-active">運行中</span>
-            <h3>次のシャトルバス発車まで</h3>
-            <div class="bus-countdown">
-              <span class="time-num">12</span><span class="time-unit">分</span>
-              <span class="time-num">45</span><span class="time-unit">秒</span>
+        <!-- バス運行状況リアルタイムトラッカー（マップ） -->
+        <div class="material-card bus-tracker-card">
+          <h4 style="margin-top: 0; margin-bottom: 16px; font-size: 15px; font-weight: 600; color: var(--md-sys-color-on-surface); display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary);">map</span>バス運行マップ (リアルタイム位置)
+          </h4>
+          
+          <!-- マップと位置情報を包むコンテナ -->
+          <div class="bus-map-wrapper">
+            <!-- 路線図のビジュアルライン & バス移動レイヤー -->
+            <div class="bus-map-track-layer" id="busMapTrackLayer">
+              <!-- 世田谷〜横浜〜王禅寺のトラック -->
+              <div class="bus-map-track"></div>
+              <!-- 世田谷〜王禅寺（横浜通過・バイパス）のトラック -->
+              <svg class="bus-map-bypass-svg">
+                <path d="M 150,75 Q 500,0 850,75" class="bus-map-track-bypass" style="vector-effect: non-scaling-stroke;"></path>
+              </svg>
+              
+              <!-- 走っているバスアイコンをJSで動的生成し配置するコンテナ -->
+              <div id="activeBusesContainer"></div>
             </div>
-            <p class="bus-route">
-              <span class="station">世田谷キャンパス</span>
-              <span style="color: var(--md-sys-color-primary); font-weight: bold;">&rarr;</span>
-              <span class="station">横浜キャンパス</span>
-            </p>
-          </div>
-          <div class="bus-hero-icon">
-            <span class="material-symbols-outlined"
-              style="font-size: 64px; color: var(--md-sys-color-primary);">departure_board</span>
+
+            <!-- 駅ノード配置（右から世田谷、横浜、王禅寺） -->
+            <div class="bus-map-nodes">
+              <!-- 王禅寺（左） -->
+              <div class="bus-node-card stop-o">
+                <div class="bus-node-circle circle-o">王禅寺</div>
+                <div class="bus-node-label">王禅寺キャンパス</div>
+              </div>
+              
+              <!-- 横浜（中央） -->
+              <div class="bus-node-card stop-y">
+                <div class="bus-node-circle circle-y">横浜</div>
+                <div class="bus-node-label">横浜キャンパス</div>
+              </div>
+
+              <!-- 世田谷（右） -->
+              <div class="bus-node-card stop-s">
+                <div class="bus-node-circle circle-s">世田谷</div>
+                <div class="bus-node-label">世田谷キャンパス</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="bus-grid">
-          <div class="material-card bus-card">
-            <h4><span class="material-symbols-outlined">schedule</span>本日の運行スケジュール</h4>
-            <div class="bus-schedule-list">
-              <div class="bus-schedule-item active-bus">
-                <span class="bus-time">15:15</span>
-                <span class="bus-desc">直行便 (乗車中...)</span>
-              </div>
-              <div class="bus-schedule-item">
-                <span class="bus-time">15:30</span>
-                <span class="bus-desc">各停便</span>
-              </div>
-              <div class="bus-schedule-item">
-                <span class="bus-time">15:45</span>
-                <span class="bus-desc">直行便</span>
-              </div>
-              <div class="bus-schedule-item">
-                <span class="bus-time">16:00</span>
-                <span class="bus-desc">各停便</span>
-              </div>
-            </div>
+        <!-- 停留所別の時刻表カード群 -->
+        <div class="bus-timetables-grid" id="busTimetablesGrid">
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--md-sys-color-outline);">
+            時刻表を読み込み中...
           </div>
+        </div>
 
-          <div class="material-card bus-card">
-            <h4><span class="material-symbols-outlined">info</span>おねがい</h4>
-            <p style="font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant); margin: 0;">
-              このバスは、経路上において第三京浜道路を経由します。<br>
-              立ったままのご乗車はできません。また、安全のため、必ずシートベルトをご着用ください。<br>
-              雨天時はステップが滑りやすくなっておりますので、足元にご注意ください。
-              <span style="font-size:12px; color: var(--md-sys-color-outline); display:block; margin-top:12px;">最終更新:
-                15:10</span>
-            </p>
-          </div>
+        <!-- 注意書き等 -->
+        <div class="bus-footer-card material-card" style="margin-top: 24px; padding: 24px; background-color: var(--md-sys-color-surface-container-low);">
+          <h4 style="margin-top: 0; margin-bottom: 12px; font-size: 14px; font-weight: 600; color: var(--md-sys-color-on-surface); display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined" style="font-size: 20px; color: var(--md-sys-color-secondary);">info</span>シャトルバス運行について
+          </h4>
+          <p style="font-size: 13px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant); margin: 0;">
+            本シャトルバスは、各キャンパス間を移動する学生・教職員用の専用便です。<br>
+            道路混雑状況により到着時間が前後する場合があります。乗車にあたってはマナーを守り、安全第一での運行にご協力ください。<br>
+            <span style="display: block; margin-top: 8px; font-weight: 600; color: var(--md-sys-color-outline);">運行管理：東急バス 東山田営業所</span>
+          </p>
         </div>
       </div>
     </section>
@@ -1876,6 +2056,272 @@
   </div>
 
   <script>
+    // ==========================================
+    // シャトルバス案内 (Bus Timetable & Tracking) 機能ロジック
+    // ==========================================
+    let busScheduleData = { stops: [], runs: [] };
+
+    const DEFAULT_BUS_SCHEDULE = {
+      stops: [
+        { id: "S", name: "世田谷キャンパス", color: "#4CAF50", showOnMap: true },
+        { id: "Y", name: "横浜キャンパス", color: "#2196F3", showOnMap: true },
+        { id: "O", name: "王禅寺キャンパス", color: "#FF9800", showOnMap: true },
+        { id: "T", name: "等々力キャンパス", color: "#9C27B0", showOnMap: false }
+      ],
+      runs: [
+        { from: "S", to: "Y", depTime: "13:00", arrTime: "13:30", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "Y", to: "S", depTime: "13:00", arrTime: "13:30", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "S", to: "Y", depTime: "15:40", arrTime: "16:10", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "Y", to: "S", depTime: "15:40", arrTime: "16:10", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "S", to: "Y", depTime: "16:40", arrTime: "17:10", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "Y", to: "S", depTime: "16:40", arrTime: "17:10", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "S", to: "Y", depTime: "17:30", arrTime: "18:00", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "Y", to: "S", depTime: "17:30", arrTime: "18:00", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所" },
+        { from: "Y", to: "S", depTime: "13:10", arrTime: "13:40", days: [3], operator: "東急バス 東山田営業所", note: "水曜増便" },
+        { from: "S", to: "Y", depTime: "14:00", arrTime: "14:30", days: [3], operator: "東急バス 東山田営業所", note: "水曜増便" },
+        { from: "S", to: "O", depTime: "13:20", arrTime: "13:55", days: [2], months: [4, 5, 6, 7], operator: "東急バス 東山田営業所", note: "4月-7月 火曜運行 (横浜通過)" },
+        { from: "O", to: "S", depTime: "14:30", arrTime: "15:05", days: [2], months: [4, 5, 6, 7], operator: "東急バス 東山田営業所", note: "4月-7月 火曜運行 (横浜通過)" },
+        { from: "S", to: "T", depTime: "12:10", arrTime: "12:30", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所", note: "等々力便 (隠し)" },
+        { from: "T", to: "S", depTime: "12:40", arrTime: "13:00", days: [1, 2, 3, 4, 5], operator: "東急バス 東山田営業所", note: "等々力便 (隠し)" }
+      ]
+    };
+
+    async function initBusFeature() {
+      try {
+        const response = await fetch('./bus_schedule.json');
+        if (!response.ok) throw new Error('Network response was not ok');
+        busScheduleData = await response.json();
+      } catch (e) {
+        console.warn('Failed to load bus schedule JSON. Using local fallback database.', e);
+        busScheduleData = DEFAULT_BUS_SCHEDULE;
+      }
+
+      renderBusTimetables();
+      updateBusTrackerUI();
+      setInterval(updateBusTrackerUI, 10000);
+    }
+
+    function timeStringToMinutes(timeStr) {
+      if (!timeStr) return 0;
+      const [h, m] = timeStr.split(':').map(Number);
+      return h * 60 + m;
+    }
+
+    function renderBusTimetables() {
+      const container = document.getElementById('busTimetablesGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const stopsMap = {};
+      busScheduleData.stops.forEach(s => {
+        stopsMap[s.id] = s;
+      });
+
+      const groupedRuns = {};
+      busScheduleData.runs.forEach(run => {
+        if (!groupedRuns[run.from]) {
+          groupedRuns[run.from] = [];
+        }
+        groupedRuns[run.from].push(run);
+      });
+
+      busScheduleData.stops.forEach(stop => {
+        const runs = groupedRuns[stop.id] || [];
+        if (runs.length === 0) return;
+
+        runs.sort((a, b) => timeStringToMinutes(a.depTime) - timeStringToMinutes(b.depTime));
+
+        const card = document.createElement('div');
+        card.className = 'bus-timetable-card material-card';
+
+        const header = document.createElement('div');
+        header.className = `bus-timetable-header bg-${stop.id.toLowerCase()}`;
+        header.innerHTML = `
+          <span>${stop.name} 発</span>
+          <span class="material-symbols-outlined" style="font-size: 20px;">departure_board</span>
+        `;
+        card.appendChild(header);
+
+        const body = document.createElement('div');
+        body.className = 'bus-timetable-body';
+        body.id = `timetable-body-${stop.id}`;
+
+        card.appendChild(body);
+        container.appendChild(card);
+      });
+      
+      updateTimetableHighlightStates();
+      setInterval(updateTimetableHighlightStates, 60000);
+    }
+
+    function updateTimetableHighlightStates() {
+      const now = new Date();
+      const day = now.getDay();
+      const month = now.getMonth() + 1;
+      const currentMin = now.getHours() * 60 + now.getMinutes();
+
+      const stopsMap = {};
+      busScheduleData.stops.forEach(s => {
+        stopsMap[s.id] = s;
+      });
+
+      const groupedRuns = {};
+      busScheduleData.runs.forEach(run => {
+        if (!groupedRuns[run.from]) {
+          groupedRuns[run.from] = [];
+        }
+        groupedRuns[run.from].push(run);
+      });
+
+      busScheduleData.stops.forEach(stop => {
+        const body = document.getElementById(`timetable-body-${stop.id}`);
+        if (!body) return;
+
+        body.innerHTML = '';
+        const runs = groupedRuns[stop.id] || [];
+
+        runs.forEach(run => {
+          const runsToday = run.days.includes(day) && (!run.months || run.months.includes(month));
+          const depMin = timeStringToMinutes(run.depTime);
+          const arrMin = timeStringToMinutes(run.arrTime);
+          
+          let stateClass = '';
+          let badgeHTML = '';
+
+          if (runsToday) {
+            if (currentMin >= depMin && currentMin < arrMin) {
+              stateClass = 'running-now';
+              badgeHTML = '<span class="bus-run-badge badge-running">運行中</span>';
+            } else if (currentMin >= depMin - 20 && currentMin < depMin) {
+              stateClass = 'upcoming-soon';
+              badgeHTML = '<span class="bus-run-badge badge-soon">まもなく発車</span>';
+            }
+          }
+
+          let scheduleText = '平日運行';
+          if (run.days.length === 1 && run.days[0] === 3) {
+            scheduleText = '水曜運行';
+          } else if (run.days.length === 1 && run.days[0] === 2 && run.months) {
+            scheduleText = '4-7月火曜運行';
+          } else if (run.note) {
+            scheduleText = run.note;
+          }
+
+          const item = document.createElement('div');
+          item.className = `bus-run-item ${stateClass}`;
+          
+          const destStop = stopsMap[run.to];
+          const destName = destStop ? destStop.name : "未知の停留所";
+
+          item.innerHTML = `
+            <div>
+              <div class="bus-run-time">${run.depTime} <span style="font-size:11px; font-weight:normal; opacity:0.7;">→ ${run.arrTime}着</span></div>
+              <div class="bus-run-dest">
+                <span class="material-symbols-outlined" style="font-size:13px; vertical-align:middle; margin-right:4px;">arrow_forward</span>${destName} 行
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+              ${badgeHTML}
+              <span class="bus-run-badge" style="font-size:9px;">${scheduleText}</span>
+            </div>
+          `;
+          body.appendChild(item);
+        });
+
+        if (body.children.length === 0) {
+          body.innerHTML = '<div style="text-align:center; padding:20px; font-size:13px; color:var(--md-sys-color-outline);">本日運行予定 of の便はありません。</div>';
+        }
+      });
+    }
+
+    function updateBusTrackerUI() {
+      const container = document.getElementById('activeBusesContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const now = new Date();
+      const day = now.getDay();
+      const month = now.getMonth() + 1;
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      
+      const currentMin = hours * 60 + minutes + seconds / 60;
+
+      const stopsMap = {};
+      busScheduleData.stops.forEach(s => {
+        stopsMap[s.id] = s;
+      });
+
+      const bypassPath = document.querySelector('.bus-map-track-bypass');
+      let ozenjiActive = false;
+
+      busScheduleData.runs.forEach(run => {
+        const fromStop = stopsMap[run.from];
+        const toStop = stopsMap[run.to];
+        if (!fromStop || !toStop || !fromStop.showOnMap || !toStop.showOnMap) return;
+
+        const runsToday = run.days.includes(day) && (!run.months || run.months.includes(month));
+        if (!runsToday) return;
+
+        const depMin = timeStringToMinutes(run.depTime);
+        const arrMin = timeStringToMinutes(run.arrTime);
+
+        if (currentMin >= depMin && currentMin < arrMin) {
+          const t = (currentMin - depMin) / (arrMin - depMin);
+          
+          let x = 50;
+          let y = 75;
+          let isMovingLeft = true;
+
+          if (run.from === "S" && run.to === "Y") {
+            x = 85 - t * (85 - 50);
+            y = 75;
+            isMovingLeft = true;
+          } else if (run.from === "Y" && run.to === "S") {
+            x = 50 + t * (85 - 50);
+            y = 75;
+            isMovingLeft = false;
+          } else if (run.from === "S" && run.to === "O") {
+            x = (1 - t) * (1 - t) * 85 + 2 * (1 - t) * t * 50 + t * t * 15;
+            y = (1 - t) * (1 - t) * 75 + 2 * (1 - t) * t * 0 + t * t * 75;
+            isMovingLeft = true;
+            ozenjiActive = true;
+          } else if (run.from === "O" && run.to === "S") {
+            x = (1 - t) * (1 - t) * 15 + 2 * (1 - t) * t * 50 + t * t * 85;
+            y = (1 - t) * (1 - t) * 75 + 2 * (1 - t) * t * 0 + t * t * 75;
+            isMovingLeft = false;
+            ozenjiActive = true;
+          }
+
+          const busMarker = document.createElement('div');
+          busMarker.className = `active-bus-marker ${isMovingLeft ? 'direction-left' : ''}`;
+          busMarker.style.left = `${x}%`;
+          busMarker.style.top = `${y}px`;
+          busMarker.innerHTML = `
+            <span class="material-symbols-outlined">directions_bus</span>
+            <div class="active-bus-tooltip">
+              <strong>運行中のシャトルバス</strong><br>
+              ${fromStop.name} ${run.depTime}発<br>
+              &rarr; ${toStop.name} ${run.arrTime}着<br>
+              <small style="opacity: 0.8;">運行会社：東急バス 東山田営業所</small>
+            </div>
+          `;
+          container.appendChild(busMarker);
+        }
+      });
+
+      if (bypassPath) {
+        if (ozenjiActive) {
+          bypassPath.style.stroke = 'var(--md-sys-color-primary)';
+          bypassPath.style.strokeWidth = '4';
+        } else {
+          bypassPath.style.stroke = 'var(--md-sys-color-outline-variant)';
+          bypassPath.style.strokeWidth = '3';
+        }
+      }
+    }
+
     // ==========================================
     // 簡易時間割 (Timetable) 機能ロジック
     // ==========================================
@@ -2692,6 +3138,13 @@
         initTimetable();
       } catch (e) {
         console.error("Failed to initialize timetable:", e);
+      }
+
+      // 0.5. バス時刻表 & トラッカーの初期化
+      try {
+        await initBusFeature();
+      } catch (e) {
+        console.error("Failed to initialize bus feature:", e);
       }
 
       // 1. サイドバー幅の復元 (レイアウトシフトを最小にするため最初に処理)
