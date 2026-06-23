@@ -15,6 +15,8 @@
 
   <!-- External Configurations -->
   <script src="./config.js"></script>
+  <!-- HTML to Canvas for timetable image export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -841,6 +843,512 @@
         font-size: 15px;
       }
     }
+
+    /* ==========================================
+       簡易時間割 (Timetable) スタイル
+       ========================================== */
+    .timetable-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .timetable-btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background-color var(--md-transition-duration), transform 0.1s;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: #00526b;
+    }
+
+    .btn-tonal {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+
+    .btn-tonal:hover {
+      background-color: #c0d7e5;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--md-sys-color-outline);
+      color: var(--md-sys-color-primary);
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(0, 102, 133, 0.05);
+    }
+
+    /* 時間割テーブル */
+    .timetable-container {
+      overflow-x: auto;
+      background-color: var(--md-sys-color-surface-container-low);
+      border-radius: 24px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      padding: 16px;
+    }
+
+    .timetable-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 8px;
+      table-layout: fixed;
+      min-width: 750px;
+    }
+
+    .timetable-table th,
+    .timetable-table td {
+      border: none;
+      text-align: center;
+      padding: 0;
+      border-radius: 16px;
+      height: 100px;
+      vertical-align: middle;
+      position: relative;
+    }
+
+    .timetable-table th {
+      height: 48px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--md-sys-color-on-surface);
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+
+    /* 時限列（一番左） */
+    .timetable-time-col {
+      background-color: var(--md-sys-color-surface-container-highest) !important;
+      color: var(--md-sys-color-on-surface-variant);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px !important;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      height: 100% !important;
+    }
+
+    .first-period-header {
+      cursor: pointer;
+      font-size: 10px;
+      color: var(--md-sys-color-primary);
+      background-color: var(--md-sys-color-primary-container);
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-weight: 600;
+      margin-top: 4px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .first-period-header:hover {
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* 昼休み行 */
+    .timetable-lunch-row td {
+      height: 40px !important;
+      background-color: rgba(77, 97, 108, 0.08) !important;
+      color: var(--md-sys-color-secondary);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      pointer-events: none;
+    }
+
+    /* 授業コマ（セル） */
+    .timetable-cell {
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px dashed var(--md-sys-color-outline-variant);
+      transition: all var(--md-transition-duration) var(--md-transition-easing);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .timetable-cell:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+    }
+
+    /* 未登録時のプラスマーク */
+    .timetable-cell-empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--md-sys-color-outline);
+    }
+
+    .timetable-cell-empty .material-symbols-outlined {
+      font-size: 28px;
+      opacity: 0.5;
+      transition: opacity var(--md-transition-duration);
+    }
+
+    .timetable-cell-empty:hover .material-symbols-outlined {
+      opacity: 1;
+      color: var(--md-sys-color-primary);
+    }
+
+    /* 登録済みの授業コマ */
+    .timetable-cell-registered {
+      border-style: solid;
+      border-width: 1px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .timetable-subject {
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .timetable-info {
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+      opacity: 0.85;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .timetable-info .material-symbols-outlined {
+      font-size: 13px;
+    }
+
+    /* 空きコマ表示 */
+    .timetable-cell-empty-slot {
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(113, 120, 125, 0.05),
+        rgba(113, 120, 125, 0.05) 10px,
+        rgba(113, 120, 125, 0.1) 10px,
+        rgba(113, 120, 125, 0.1) 20px
+      ) !important;
+      border: 1px solid var(--md-sys-color-outline-variant) !important;
+      opacity: 0.65;
+    }
+
+    .timetable-cell-empty-slot .timetable-subject {
+      color: var(--md-sys-color-outline);
+    }
+
+    /* パステルカラーパレット (MD3に馴染むトーン) */
+    .timetable-color-0 { background-color: #E3F2FD; border-color: #90CAF9; color: #0D47A1; } /* Blue */
+    .timetable-color-1 { background-color: #E8F5E9; border-color: #A5D6A7; color: #1B5E20; } /* Green */
+    .timetable-color-2 { background-color: #FFF3E0; border-color: #FFCC80; color: #E65100; } /* Orange */
+    .timetable-color-3 { background-color: #EDE7F6; border-color: #B39DDB; color: #4A148C; } /* Purple */
+    .timetable-color-4 { background-color: #FCE4EC; border-color: #F48FB1; color: #880E4F; } /* Pink */
+    .timetable-color-5 { background-color: #E0F7FA; border-color: #80DEEA; color: #006064; } /* Cyan */
+    .timetable-color-6 { background-color: #FFFDE7; border-color: #FFF59D; color: #F57F17; } /* Yellow */
+    .timetable-color-7 { background-color: #F3E5F5; border-color: #CE93D8; color: #4A148C; } /* Magenta */
+
+    /* iPhone風編集モード */
+    @keyframes wiggle {
+      0% { transform: rotate(-0.6deg); }
+      50% { transform: rotate(0.6deg); }
+      100% { transform: rotate(-0.6deg); }
+    }
+
+    .edit-mode .timetable-cell-registered {
+      animation: wiggle 0.25s ease-in-out infinite;
+    }
+
+    /* マイナスボタン（削除用） */
+    .delete-badge {
+      display: none;
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background-color: var(--md-sys-color-error);
+      color: var(--md-sys-color-on-error);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      cursor: pointer;
+      z-index: 10;
+      border: 2px solid var(--md-sys-color-surface-container-low);
+      transition: transform 0.1s;
+    }
+
+    .delete-badge:hover {
+      transform: scale(1.1);
+    }
+
+    .delete-badge .material-symbols-outlined {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .edit-mode .delete-badge {
+      display: flex;
+    }
+
+    /* モーダルウィンドウ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-dialog {
+      background-color: var(--md-sys-color-surface-container-high);
+      border-radius: 28px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 16px 32px rgba(0,0,0,0.15);
+      transform: scale(0.95);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .modal-overlay.show .modal-dialog {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 24px 24px 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--md-sys-color-surface-variant);
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+      margin: 0;
+    }
+
+    .modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .form-control {
+      padding: 12px 16px;
+      border: 1px solid var(--md-sys-color-outline);
+      border-radius: 12px;
+      background-color: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color var(--md-transition-duration);
+    }
+
+    .form-control:focus {
+      border-color: var(--md-sys-color-primary);
+      border-width: 2px;
+      padding: 11px 15px;
+    }
+
+    /* トグルスイッチ */
+    .switch-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 32px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--md-sys-color-outline-variant);
+      transition: .3s;
+      border-radius: 32px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 24px;
+      width: 24px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    input:checked + .slider {
+      background-color: var(--md-sys-color-primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .modal-footer {
+      padding: 16px 24px 24px 24px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      border-top: 1px solid var(--md-sys-color-surface-variant);
+    }
+
+    /* 共有アドバイス表示枠 */
+    .share-helper-box {
+      margin-top: 24px;
+      background: linear-gradient(135deg, var(--md-sys-color-primary-container), #E3DFFF);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      display: none;
+      animation: fadeIn var(--md-transition-duration) var(--md-transition-easing);
+    }
+
+    .share-helper-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--md-sys-color-on-primary-container);
+      margin-top: 0;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .share-helper-desc {
+      font-size: 13px;
+      color: var(--md-sys-color-on-primary-container);
+      opacity: 0.85;
+      margin: 0 0 12px 0;
+      line-height: 1.5;
+    }
+
+    .share-links-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .share-link-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--md-sys-color-primary);
+      background-color: rgba(255,255,255,0.7);
+      padding: 6px 12px;
+      border-radius: 100px;
+      text-decoration: none;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      transition: all 0.2s;
+    }
+
+    .share-link-item:hover {
+      background-color: white;
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 
@@ -870,6 +1378,9 @@
       </li>
       <li class="nav-item" id="nav-bus" onclick="switchView('bus', this)">
         <span class="material-symbols-outlined">directions_bus</span>シャトルバス案内
+      </li>
+      <li class="nav-item" id="nav-timetable" onclick="switchView('timetable', this)">
+        <span class="material-symbols-outlined">calendar_today</span>簡易時間割
       </li>
     </ul>
 
@@ -1033,11 +1544,644 @@
       </div>
     </section>
 
+    <!-- 簡易時間割画面 -->
+    <section id="view-timetable" class="view-section">
+      <div class="timetable-actions">
+        <h2 style="margin: 0; font-weight: 600; font-size: 20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="font-size: 24px;">calendar_today</span>簡易時間割
+        </h2>
+        <div class="timetable-btn-group">
+          <button class="btn btn-tonal" id="btnEditTimetable" onclick="toggleTimetableEditMode()">
+            <span class="material-symbols-outlined" id="iconEditTimetable">settings</span>
+            <span id="textEditTimetable">編集モード</span>
+          </button>
+          <button class="btn btn-primary" onclick="openTimetableAddModal()">
+            <span class="material-symbols-outlined">add</span>授業を追加
+          </button>
+        </div>
+      </div>
+
+      <!-- 時間割テーブル本体 -->
+      <div class="timetable-container">
+        <table class="timetable-table" id="timetableTable">
+          <thead>
+            <tr>
+              <th style="width: 130px;">時限</th>
+              <th>月</th>
+              <th>火</th>
+              <th>水</th>
+              <th>木</th>
+              <th>金</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 1限 -->
+            <tr id="row-period-1">
+              <td>
+                <div class="timetable-time-col">
+                  <span>1限</span>
+                  <span id="label-period-1-time" style="font-size: 11px;">09:20 - 11:00</span>
+                  <div class="first-period-header" onclick="toggleFirstPeriodStart()" title="1限の開始時刻を切り替えます">
+                    <span id="label-period-1-start-mode">通常 (09:20)</span>
+                  </div>
+                </div>
+              </td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-mon-1" onclick="handleCellClick('mon', 1)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-tue-1" onclick="handleCellClick('tue', 1)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-wed-1" onclick="handleCellClick('wed', 1)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-thu-1" onclick="handleCellClick('thu', 1)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-fri-1" onclick="handleCellClick('fri', 1)"></td>
+            </tr>
+            <!-- 2限 -->
+            <tr id="row-period-2">
+              <td>
+                <div class="timetable-time-col">
+                  <span>2限</span>
+                  <span style="font-size: 11px;">11:15 - 12:55</span>
+                </div>
+              </td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-mon-2" onclick="handleCellClick('mon', 2)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-tue-2" onclick="handleCellClick('tue', 2)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-wed-2" onclick="handleCellClick('wed', 2)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-thu-2" onclick="handleCellClick('thu', 2)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-fri-2" onclick="handleCellClick('fri', 2)"></td>
+            </tr>
+            <!-- 昼休み -->
+            <tr class="timetable-lunch-row">
+              <td>
+                <div class="timetable-time-col" style="height: 40px !important;">
+                  <span>昼休み</span>
+                </div>
+              </td>
+              <td colspan="5">LUNCH TIME (12:55 - 13:45)</td>
+            </tr>
+            <!-- 3限 -->
+            <tr id="row-period-3">
+              <td>
+                <div class="timetable-time-col">
+                  <span>3限</span>
+                  <span style="font-size: 11px;">13:45 - 15:25</span>
+                </div>
+              </td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-mon-3" onclick="handleCellClick('mon', 3)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-tue-3" onclick="handleCellClick('tue', 3)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-wed-3" onclick="handleCellClick('wed', 3)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-thu-3" onclick="handleCellClick('thu', 3)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-fri-3" onclick="handleCellClick('fri', 3)"></td>
+            </tr>
+            <!-- 4限 -->
+            <tr id="row-period-4">
+              <td>
+                <div class="timetable-time-col">
+                  <span>4限</span>
+                  <span style="font-size: 11px;">15:40 - 17:20</span>
+                </div>
+              </td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-mon-4" onclick="handleCellClick('mon', 4)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-tue-4" onclick="handleCellClick('tue', 4)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-wed-4" onclick="handleCellClick('wed', 4)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-thu-4" onclick="handleCellClick('thu', 4)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-fri-4" onclick="handleCellClick('fri', 4)"></td>
+            </tr>
+            <!-- 5限 -->
+            <tr id="row-period-5">
+              <td>
+                <div class="timetable-time-col">
+                  <span>5限</span>
+                  <span style="font-size: 11px;">17:30 - 19:10</span>
+                </div>
+              </td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-mon-5" onclick="handleCellClick('mon', 5)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-tue-5" onclick="handleCellClick('tue', 5)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-wed-5" onclick="handleCellClick('wed', 5)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-thu-5" onclick="handleCellClick('thu', 5)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-fri-5" onclick="handleCellClick('fri', 5)"></td>
+            </tr>
+            <!-- 6限 -->
+            <tr id="row-period-6">
+              <td>
+                <div class="timetable-time-col">
+                  <span>6限</span>
+                  <span style="font-size: 11px;">19:20 - 21:00</span>
+                </div>
+              </td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-mon-6" onclick="handleCellClick('mon', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-tue-6" onclick="handleCellClick('tue', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-wed-6" onclick="handleCellClick('wed', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-thu-6" onclick="handleCellClick('thu', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-fri-6" onclick="handleCellClick('fri', 6)"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 下部ボタン類 -->
+      <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+        <div class="timetable-btn-group">
+          <button class="btn btn-tonal" onclick="exportTimetableToPNG()">
+            <span class="material-symbols-outlined">download</span>画像として保存
+          </button>
+          <button class="btn btn-outline" onclick="exportTimetableJSON()">
+            <span class="material-symbols-outlined">file_export</span>時間割を出力 (JSON)
+          </button>
+          <button class="btn btn-outline" onclick="triggerImportJSON()">
+            <span class="material-symbols-outlined">file_import</span>時間割を取込 (JSON)
+          </button>
+          <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="importTimetableJSON(event)" />
+        </div>
+
+        <!-- 共有アドバイス（エクスポート時に動的に表示） -->
+        <div class="share-helper-box" id="shareHelperBox">
+          <h4 class="share-helper-title">
+            <span class="material-symbols-outlined">ios_share</span>他の端末や友人と時間割を共有しよう
+          </h4>
+          <p class="share-helper-desc">
+            時間割データの出力が完了しました！<br>ダウンロードされたファイルを以下の共有サービスにアップロードすることで、簡単に他の端末や友達に時間割を送ることができます。
+          </p>
+          <div class="share-links-group">
+            <a href="#" id="shareLinkGoogleDrive" target="_blank" class="share-link-item">
+              <span class="material-symbols-outlined">cloud_queue</span>Google ドライブ
+            </a>
+            <a href="#" id="shareLinkGigafile" target="_blank" class="share-link-item">
+              <span class="material-symbols-outlined">attachment</span>ギガファイル便
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <!-- 授業コマ追加・編集モーダル -->
+  <div class="modal-overlay" id="timetableModalOverlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="timetableModalTitle">授業を追加</h3>
+        <button class="icon-button" onclick="closeTimetableModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="modal-day">曜日</label>
+            <select id="modal-day" class="form-control">
+              <option value="mon">月曜日</option>
+              <option value="tue">火曜日</option>
+              <option value="wed">水曜日</option>
+              <option value="thu">木曜日</option>
+              <option value="fri">金曜日</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="modal-period">時限</label>
+            <select id="modal-period" class="form-control">
+              <option value="1">1限</option>
+              <option value="2">2限</option>
+              <option value="3">3限</option>
+              <option value="4">4限</option>
+              <option value="5">5限</option>
+              <option value="6">6限</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-subject">授業名</label>
+          <input type="text" id="modal-subject" class="form-control" placeholder="例：プログラミング演習" />
+        </div>
+
+        <div class="form-group">
+          <label for="modal-teacher">教員名</label>
+          <input type="text" id="modal-teacher" class="form-control" placeholder="例：都市大 太郎" />
+        </div>
+
+        <div class="form-group">
+          <label for="modal-room">教室名</label>
+          <input type="text" id="modal-room" class="form-control" placeholder="例：14A / オンライン" />
+        </div>
+
+        <div class="form-group">
+          <label for="modal-notes">メモ</label>
+          <textarea id="modal-notes" class="form-control" rows="3" placeholder="教科書、評価基準など" style="resize: none;"></textarea>
+        </div>
+
+        <div class="switch-group">
+          <span style="font-size: 14px; font-weight: 600; color: var(--md-sys-color-on-surface);">空きコマとして設定する</span>
+          <label class="switch">
+            <input type="checkbox" id="modal-empty-slot" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeTimetableModal()">キャンセル</button>
+        <button class="btn btn-primary" onclick="saveTimetableEntry()">保存する</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // ==========================================
+    // 簡易時間割 (Timetable) 機能ロジック
+    // ==========================================
+    let timetableData = {};
+    let isTimetableEditMode = false;
+    let isFirstPeriodStart9am = false;
+
+    // パステルカラーのハッシュ選択用
+    function getTimetableColorClass(subjectName) {
+      if (!subjectName) return "timetable-color-0";
+      let hash = 0;
+      for (let i = 0; i < subjectName.length; i++) {
+        hash = subjectName.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      const colorIndex = Math.abs(hash) % 8;
+      return `timetable-color-${colorIndex}`;
+    }
+
+    // 初期化処理
+    function initTimetable() {
+      // localStorage からデータを読み込む
+      try {
+        const savedData = localStorage.getItem('opentcu_timetableData');
+        if (savedData) {
+          timetableData = JSON.parse(savedData);
+        } else {
+          timetableData = {};
+        }
+
+        const savedFirstPeriodMode = localStorage.getItem('opentcu_timetableFirstPeriodStart');
+        isFirstPeriodStart9am = (savedFirstPeriodMode === 'true');
+      } catch (e) {
+        console.error("Failed to load timetable data:", e);
+        timetableData = {};
+      }
+
+      applyFirstPeriodTimeUI();
+      renderTimetable();
+    }
+
+    // 1限目の時間表示を更新する
+    function applyFirstPeriodTimeUI() {
+      const timeLabel = document.getElementById('label-period-1-time');
+      const modeLabel = document.getElementById('label-period-1-start-mode');
+      
+      if (isFirstPeriodStart9am) {
+        timeLabel.textContent = "09:00 - 10:40";
+        modeLabel.textContent = "早朝 (09:00)";
+      } else {
+        timeLabel.textContent = "09:20 - 11:00";
+        modeLabel.textContent = "通常 (09:20)";
+      }
+    }
+
+    // 1限目の開始時間トグル
+    function toggleFirstPeriodStart() {
+      isFirstPeriodStart9am = !isFirstPeriodStart9am;
+      try {
+        localStorage.setItem('opentcu_timetableFirstPeriodStart', isFirstPeriodStart9am);
+      } catch (e) {}
+      applyFirstPeriodTimeUI();
+    }
+
+    // 時間割の再描画
+    function renderTimetable() {
+      const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+      const periods = [1, 2, 3, 4, 5, 6];
+
+      days.forEach(day => {
+        periods.forEach(period => {
+          const cellId = `cell-${day}-${period}`;
+          const cell = document.getElementById(cellId);
+          if (!cell) return;
+
+          // 一旦クラスや中身をクリア
+          cell.className = "timetable-cell";
+          cell.innerHTML = "";
+
+          const entry = timetableData[`${day}-${period}`];
+
+          if (entry && (entry.subject || entry.isEmptySlot)) {
+            // 登録あり
+            cell.classList.add("timetable-cell-registered");
+            
+            // 色クラスの割り当て
+            if (entry.isEmptySlot) {
+              cell.classList.add("timetable-cell-empty-slot");
+            } else {
+              const colorClass = getTimetableColorClass(entry.subject);
+              cell.classList.add(colorClass);
+            }
+
+            // HTML組み立て
+            const subjectDiv = document.createElement('div');
+            subjectDiv.className = "timetable-subject";
+            subjectDiv.textContent = entry.isEmptySlot ? "（空きコマ）" : entry.subject;
+            cell.appendChild(subjectDiv);
+
+            if (!entry.isEmptySlot) {
+              if (entry.room) {
+                const roomDiv = document.createElement('div');
+                roomDiv.className = "timetable-info";
+                roomDiv.innerHTML = `<span class="material-symbols-outlined">meeting_room</span>${entry.room}`;
+                cell.appendChild(roomDiv);
+              }
+              if (entry.teacher) {
+                const teacherDiv = document.createElement('div');
+                teacherDiv.className = "timetable-info";
+                teacherDiv.innerHTML = `<span class="material-symbols-outlined">person</span>${entry.teacher}`;
+                cell.appendChild(teacherDiv);
+              }
+            }
+
+            // 削除用のマイナスバッジ
+            const deleteBadge = document.createElement('div');
+            deleteBadge.className = "delete-badge";
+            deleteBadge.innerHTML = `<span class="material-symbols-outlined">remove</span>`;
+            deleteBadge.onclick = (e) => {
+              e.stopPropagation(); // セルのクリックイベントを発火させない
+              deleteTimetableEntry(day, period);
+            };
+            cell.appendChild(deleteBadge);
+
+          } else {
+            // 未登録
+            cell.classList.add("timetable-cell-empty");
+            cell.innerHTML = `<span class="material-symbols-outlined">add</span>`;
+          }
+        });
+      });
+    }
+
+    // 編集モードトグル
+    function toggleTimetableEditMode() {
+      isTimetableEditMode = !isTimetableEditMode;
+      const container = document.getElementById('timetableTable');
+      const btn = document.getElementById('btnEditTimetable');
+      const icon = document.getElementById('iconEditTimetable');
+      const text = document.getElementById('textEditTimetable');
+
+      if (isTimetableEditMode) {
+        container.classList.add('edit-mode');
+        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-tonal');
+        icon.textContent = "check";
+        text.textContent = "完了";
+      } else {
+        container.classList.remove('edit-mode');
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-tonal');
+        icon.textContent = "settings";
+        text.textContent = "編集モード";
+      }
+    }
+
+    // セルクリック時の処理
+    function handleCellClick(day, period) {
+      if (isTimetableEditMode) {
+        // 編集モード時は削除バッジのクリックのみ受け付け、セル全体クリックは無視
+        // ただし未登録のセルは編集モードでも登録できるようにする
+        const entry = timetableData[`${day}-${period}`];
+        if (!entry) {
+          openTimetableAddModal(day, period);
+        }
+        return;
+      }
+
+      openTimetableAddModal(day, period);
+    }
+
+    // モーダルを開く
+    function openTimetableAddModal(day, period) {
+      const modal = document.getElementById('timetableModalOverlay');
+      const title = document.getElementById('timetableModalTitle');
+      const daySelect = document.getElementById('modal-day');
+      const periodSelect = document.getElementById('modal-period');
+      
+      const subjectInput = document.getElementById('modal-subject');
+      const teacherInput = document.getElementById('modal-teacher');
+      const roomInput = document.getElementById('modal-room');
+      const notesInput = document.getElementById('modal-notes');
+      const emptyCheck = document.getElementById('modal-empty-slot');
+
+      // リセット
+      subjectInput.value = "";
+      teacherInput.value = "";
+      roomInput.value = "";
+      notesInput.value = "";
+      emptyCheck.checked = false;
+
+      if (day && period) {
+        // 特定コマクリック時
+        daySelect.value = day;
+        periodSelect.value = period;
+        // 曜日・時限は変更できないようにする（誤操作防止）
+        daySelect.disabled = true;
+        periodSelect.disabled = true;
+
+        const entry = timetableData[`${day}-${period}`];
+        if (entry) {
+          title.textContent = "授業を編集";
+          subjectInput.value = entry.subject || "";
+          teacherInput.value = entry.teacher || "";
+          roomInput.value = entry.room || "";
+          notesInput.value = entry.notes || "";
+          emptyCheck.checked = !!entry.isEmptySlot;
+        } else {
+          title.textContent = "授業を追加";
+        }
+      } else {
+        // 右上「授業を追加」ボタンクリック時
+        daySelect.value = "mon";
+        periodSelect.value = "1";
+        daySelect.disabled = false;
+        periodSelect.disabled = false;
+        title.textContent = "授業を追加";
+      }
+
+      modal.classList.add('show');
+    }
+
+    // モーダルを閉じる
+    function closeTimetableModal() {
+      const modal = document.getElementById('timetableModalOverlay');
+      modal.classList.remove('show');
+    }
+
+    // 保存する
+    function saveTimetableEntry() {
+      const day = document.getElementById('modal-day').value;
+      const period = parseInt(document.getElementById('modal-period').value, 10);
+      
+      const subject = document.getElementById('modal-subject').value.trim();
+      const teacher = document.getElementById('modal-teacher').value.trim();
+      const room = document.getElementById('modal-room').value.trim();
+      const notes = document.getElementById('modal-notes').value.trim();
+      const isEmptySlot = document.getElementById('modal-empty-slot').checked;
+
+      if (!isEmptySlot && !subject) {
+        alert("授業名を入力してください（または空きコマとして設定してください）。");
+        return;
+      }
+
+      const key = `${day}-${period}`;
+      timetableData[key] = {
+        subject: isEmptySlot ? "" : subject,
+        teacher: isEmptySlot ? "" : teacher,
+        room: isEmptySlot ? "" : room,
+        notes: isEmptySlot ? "" : notes,
+        isEmptySlot: isEmptySlot
+      };
+
+      try {
+        localStorage.setItem('opentcu_timetableData', JSON.stringify(timetableData));
+      } catch (e) {
+        console.error("Failed to save timetable to localStorage:", e);
+      }
+
+      renderTimetable();
+      closeTimetableModal();
+    }
+
+    // 削除する
+    function deleteTimetableEntry(day, period) {
+      const key = `${day}-${period}`;
+      const entry = timetableData[key];
+      if (!entry) return;
+
+      const displayName = entry.isEmptySlot ? "空きコマ" : (entry.subject || "この授業");
+      if (confirm(`「${displayName}」を時間割から削除しますか？`)) {
+        delete timetableData[key];
+        try {
+          localStorage.setItem('opentcu_timetableData', JSON.stringify(timetableData));
+        } catch (e) {}
+        renderTimetable();
+      }
+    }
+
+    // 画像エクスポート (html2canvas)
+    function exportTimetableToPNG() {
+      const table = document.getElementById('timetableTable');
+      if (!table) return;
+
+      // 編集モードを一時解除
+      const wasEditMode = isTimetableEditMode;
+      if (wasEditMode) {
+        toggleTimetableEditMode();
+      }
+
+      // レンダリングのためのスケールやクオリティ向上のため
+      const options = {
+        backgroundColor: '#F5FAFD',
+        scale: 2, // 高解像度
+        logging: false,
+        useCORS: true
+      };
+
+      html2canvas(table, options).then(canvas => {
+        try {
+          const link = document.createElement('a');
+          link.download = 'timetable.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        } catch (err) {
+          console.error("Canvas export failed:", err);
+          alert("画像の保存に失敗しました。お使いのブラウザでは制限されている可能性があります。");
+        }
+
+        // 編集モードだった場合は戻す
+        if (wasEditMode) {
+          toggleTimetableEditMode();
+        }
+      });
+    }
+
+    // JSONエクスポート
+    function exportTimetableJSON() {
+      try {
+        const dataStr = JSON.stringify(timetableData, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = 'timetable.json';
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+
+        // 共有アドバイスを表示
+        const helperBox = document.getElementById('shareHelperBox');
+        if (helperBox) {
+          helperBox.style.display = 'block';
+          
+          // config.js の URL を動的にセット
+          const driveLink = document.getElementById('shareLinkGoogleDrive');
+          const gigafileLink = document.getElementById('shareLinkGigafile');
+          
+          if (driveLink && typeof CONFIG !== 'undefined') driveLink.href = CONFIG.GOOGLE_DRIVE_URL || 'https://drive.google.com';
+          if (gigafileLink && typeof CONFIG !== 'undefined') gigafileLink.href = CONFIG.GIGAFILE_URL || 'https://gigafile.nu';
+        }
+      } catch (e) {
+        console.error("Failed to export JSON:", e);
+        alert("エクスポートに失敗しました。");
+      }
+    }
+
+    // JSONインポートのファイルダイアログトリガー
+    function triggerImportJSON() {
+      document.getElementById('importFileInput').click();
+    }
+
+    // JSONインポート実行
+    function importTimetableJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const importedData = JSON.parse(e.target.result);
+          
+          // 簡単な形式チェック（キーの検証など）
+          let isValid = true;
+          if (typeof importedData === 'object' && importedData !== null) {
+            for (const key in importedData) {
+              if (!/^[a-z]{3}-[1-6]$/.test(key)) {
+                isValid = false;
+                break;
+              }
+            }
+          } else {
+            isValid = false;
+          }
+
+          if (!isValid) {
+            alert("無効な時間割データ形式です。openTCUから出力された時間割JSONファイルを選択してください。");
+            return;
+          }
+
+          if (confirm("時間割データを取り込みますか？ 現在登録されている時間割データは上書きされます。")) {
+            timetableData = importedData;
+            localStorage.setItem('opentcu_timetableData', JSON.stringify(timetableData));
+            renderTimetable();
+            alert("時間割を取り込みました！");
+          }
+        } catch (err) {
+          console.error("JSON parsing error:", err);
+          alert("ファイルの解析に失敗しました。正しいJSONファイルかご確認ください。");
+        }
+      };
+      reader.readAsText(file);
+      
+      // input値をクリアして同じファイルを連続選択可能にする
+      event.target.value = "";
+    }
+
+    // ==========================================
     // 曜日の表示パーサー (ISO日付を曜日文字へ変換)
+    // formatStyle: 'short' → 曜日のみ (フィルタ用), 'long' → MM月DD日(改行)(曜日) (テーブル表示用)
+    // ==========================================
     // formatStyle: 'short' → 曜日のみ (フィルタ用), 'long' → MM月DD日(改行)(曜日) (テーブル表示用)
     // ==========================================
     function formatDayCell(dayStr, formatStyle) {
@@ -1386,6 +2530,13 @@
     }
 
     window.onload = async function () {
+      // 0. 簡易時間割の初期化
+      try {
+        initTimetable();
+      } catch (e) {
+        console.error("Failed to initialize timetable:", e);
+      }
+
       // 1. サイドバー幅の復元 (レイアウトシフトを最小にするため最初に処理)
       try {
         const savedWidth = localStorage.getItem('opentcu_sidebarWidth');
