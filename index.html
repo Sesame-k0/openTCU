@@ -452,13 +452,69 @@
       background-color: var(--md-sys-color-surface-container-low);
       border-radius: 20px;
       border: 1px solid var(--md-sys-color-outline-variant);
-      padding: 20px 24px;
+      padding: 24px;
       margin-bottom: 24px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .status-left-panel {
+      display: flex;
+      flex-direction: column;
       gap: 16px;
+    }
+
+    /* PC表示かつ店舗選択時のレイアウト切り替え */
+    @media (min-width: 1024px) {
+      .status-card.has-overview {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 32px;
+        align-items: stretch;
+      }
+
+      .status-left-panel {
+        border-right: 1px solid var(--md-sys-color-outline-variant);
+        padding-right: 32px;
+      }
+    }
+
+    .status-right-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      animation: fadeIn var(--md-transition-duration) var(--md-transition-easing);
+    }
+
+    .shop-overview-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--md-sys-color-primary);
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .shop-overview-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .shop-overview-img-container {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      background-color: var(--md-sys-color-surface-container-highest);
+    }
+
+    .shop-overview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .status-indicator {
@@ -842,6 +898,18 @@
       .price-text {
         font-size: 15px;
       }
+
+      .timetable-btn-group {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .timetable-btn-group .btn {
+        width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+      }
     }
 
     /* ==========================================
@@ -859,6 +927,7 @@
     .timetable-btn-group {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -1391,22 +1460,35 @@
 
       <!-- 営業時間 & ステータス表示 -->
       <div id="cafeteriaStatusCard" class="status-card">
-        <div class="status-indicator">
-          <span class="status-dot"></span>
-          <span id="statusText" class="status-label">判定中...</span>
+        <!-- 左半分: 営業時間情報 -->
+        <div class="status-left-panel">
+          <div class="status-indicator">
+            <span class="status-dot"></span>
+            <span id="statusText" class="status-label">判定中...</span>
+          </div>
+          <div class="status-details" id="statusDetails">
+            <div id="slot-breakfast" class="time-slot">
+              <span class="slot-name">朝食 (月-金)</span>
+              <span>08:30 - 10:00</span>
+            </div>
+            <div id="slot-lunch" class="time-slot">
+              <span class="slot-name">昼食 (月-土)</span>
+              <span>11:00 - 14:00 <small style="opacity: 0.8;">(※コスパ丼は13:30〜)</small></span>
+            </div>
+            <div id="slot-dinner" class="time-slot">
+              <span class="slot-name">夕食 (月-金)</span>
+              <span>17:00 - 19:20</span>
+            </div>
+          </div>
         </div>
-        <div class="status-details" id="statusDetails">
-          <div id="slot-breakfast" class="time-slot">
-            <span class="slot-name">朝食 (月-金)</span>
-            <span>08:30 - 10:00</span>
+        <!-- 右半分: 店舗概要情報（特定店舗選択時のみ表示） -->
+        <div class="status-right-panel" id="shopOverviewPanel" style="display: none;">
+          <div>
+            <div class="shop-overview-title">店舗概要</div>
+            <div class="shop-overview-text" id="shopOverviewText">店舗情報がありません。</div>
           </div>
-          <div id="slot-lunch" class="time-slot">
-            <span class="slot-name">昼食 (月-土)</span>
-            <span>11:00 - 14:00 <small style="opacity: 0.8;">(※コスパ丼は13:30〜)</small></span>
-          </div>
-          <div id="slot-dinner" class="time-slot">
-            <span class="slot-name">夕食 (月-金)</span>
-            <span>17:00 - 19:20</span>
+          <div class="shop-overview-img-container">
+            <img class="shop-overview-img" id="shopOverviewImg" src="" alt="店舗画像" />
           </div>
         </div>
       </div>
@@ -1694,10 +1776,10 @@
             <span class="material-symbols-outlined">download</span>画像として保存
           </button>
           <button class="btn btn-outline" onclick="exportTimetableJSON()">
-            <span class="material-symbols-outlined">file_export</span>時間割を出力 (JSON)
+            <span class="material-symbols-outlined">file_download</span>時間割を出力 (JSON)
           </button>
           <button class="btn btn-outline" onclick="triggerImportJSON()">
-            <span class="material-symbols-outlined">file_import</span>時間割を取込 (JSON)
+            <span class="material-symbols-outlined">file_upload</span>時間割を取込 (JSON)
           </button>
           <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="importTimetableJSON(event)" />
         </div>
@@ -2436,6 +2518,48 @@
       return config.checkStatus(day, timeInMinutes);
     }
 
+    // ==========================================
+    // 店舗の概要情報（宣伝文と画像パス）
+    // ==========================================
+    const SHOP_OVERVIEWS = {
+      "SC 学生食堂": {
+        // ここからSC 学生食堂の宣伝文
+        description: "世田谷キャンパスの中心にあるメイン食堂です。リーズナブルでボリューム満点な定番メニューや日替わりメニュー、そして100円朝食を提供しており、多くの学生に親しまれています。",
+        // ここまでSC 学生食堂の宣伝文
+        image: "images/sc_shokudo.png"
+      },
+      "ラウンジオーク": {
+        // ここからラウンジオークの宣伝文
+        description: "落ち着いた雰囲気の中で食事ができるラウンジスタイルの食堂です。パスタや定食などこだわりのメニューが揃っており、優雅なランチタイムを過ごすことができます。",
+        // ここまでラウンジオークの宣伝文
+        image: "images/lounge_oak.png"
+      },
+      "nana cafe": {
+        // ここからnana cafeの宣伝文
+        description: "焼きたてのパンや本格的なドリップコーヒー、スイーツなどを提供するおしゃれなカフェです。テイクアウトも充実しており、授業の合間のリフレッシュに最適です。",
+        // ここまでnana cafeの宣伝文
+        image: "images/nana_cafe.png"
+      },
+      "cafe sora": {
+        // ここからcafe soraの宣伝文
+        description: "開放的な窓から光が差し込む、明るい雰囲気のカフェ空間です。丼ものや軽食、各種ドリンクを提供しており、友人との歓談や自習の場所としても人気があります。",
+        // ここまでcafe soraの宣伝文
+        image: "images/cafe_sora.png"
+      },
+      "YC 学生食堂": {
+        // ここからYC 学生食堂の宣伝文
+        description: "横浜キャンパスの学生を支える広々とした学生食堂です。バラエティ豊かな麺類や丼もの、カレーなどを提供しており、日替わりのスペシャルメニューも人気を博しています。",
+        // ここまでYC 学生食堂の宣伝文
+        image: "images/yc_shokudo.png"
+      },
+      "YC 7号館カフェ": {
+        // ここからYC 7号館カフェの宣伝文
+        description: "横浜キャンパス7号館に併設されたモダンなカフェです。淹れたてのコーヒーやサンドイッチなどの軽食を提供しており、落ち着いた空間で休憩することができます。",
+        // ここまでYC 7号館カフェの宣伝文
+        image: "images/yc_7cafe.png"
+      }
+    };
+
     function updateCafeteriaStatusUI() {
       const selectedShop = document.getElementById('shopFilter') ? document.getElementById('shopFilter').value : "ALL";
       const config = SHOP_CONFIG[selectedShop] || SHOP_CONFIG["ALL"];
@@ -2490,6 +2614,24 @@
       if (status.mealType) {
         const activeEl = document.getElementById('slot-' + status.mealType);
         if (activeEl) activeEl.classList.add('active-slot');
+      }
+
+      // 店舗概要の表示更新
+      const overviewPanel = document.getElementById('shopOverviewPanel');
+      const overviewText = document.getElementById('shopOverviewText');
+      const overviewImg = document.getElementById('shopOverviewImg');
+
+      if (overviewPanel && overviewText && overviewImg) {
+        if (selectedShop !== "ALL" && SHOP_OVERVIEWS[selectedShop]) {
+          const overview = SHOP_OVERVIEWS[selectedShop];
+          overviewText.textContent = overview.description;
+          overviewImg.src = overview.image;
+          overviewPanel.style.display = 'flex';
+          card.classList.add('has-overview');
+        } else {
+          overviewPanel.style.display = 'none';
+          card.classList.remove('has-overview');
+        }
       }
     }
 
