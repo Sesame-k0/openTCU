@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -2293,6 +2293,17 @@
         <span class="material-symbols-outlined" style="font-size: 24px;">open_in_new</span>外部リンク集
       </h2>
 
+      <!-- 申請・訂正案内文とボタン -->
+      <div style="background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <span style="font-size: 13px; font-weight: 500;">
+          すべての施設・課外活動を網羅しているわけではありません。追加してほしい場合、もしくは訂正、削除してほしい場合はご連絡ください。
+        </span>
+        <button onclick="event.preventDefault(); alert('申請窓口は現在準備中です。');" style="background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: inherit;">
+          <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+          申請・訂正はこちら
+        </button>
+      </div>
+
       <!-- フィルター・検索バー -->
       <div class="filter-bar" style="margin-bottom: 12px;">
         <!-- キーワード検索 -->
@@ -3950,146 +3961,3367 @@
     // 外部リンク集の動的読み込みと制御ロジック
     // ==========================================
     const DEFAULT_LINKS_DATA = {
-      categories: [
-        {
-          id: "大学公式",
-          name: "大学公式",
-          bgLight: "#E0F2FE",
-          textLight: "#0369A1",
-          bgDark: "#0c4a6e",
-          textDark: "#38bdf8"
-        },
-        {
-          id: "学内窓口",
-          name: "学内窓口",
-          bgLight: "#F3E8FF",
-          textLight: "#6B21A8",
-          bgDark: "#581c87",
-          textDark: "#e9d5ff"
-        },
-        {
-          id: "学内施設",
-          name: "学内施設",
-          bgLight: "#FEF3C7",
-          textLight: "#B45309",
-          bgDark: "#78350f",
-          textDark: "#fde68a"
-        },
-        {
-          id: "課外活動団体",
-          name: "課外活動団体",
-          bgLight: "#DCFCE7",
-          textLight: "#15803D",
-          bgDark: "#064e3b",
-          textDark: "#6ee7b7"
-        }
-      ],
-      links: [
-        {
-          name: "大学公式サイト",
-          category: "大学公式",
-          description: "東京都市大学の公式ホームページです。大学のニュース、入試情報、各学部の紹介、行事予定などが掲載されています。",
-          website: "https://www.tcu.ac.jp/",
-          keywords: ["都市大", "公式", "tcu", "ホームページ", "大学"],
-          onCampusOnly: false,
-          sns: [
-            { platform: "Twitter / X", url: "https://x.com/Tokyo_city_univ" },
-            { platform: "YouTube", url: "https://www.youtube.com/@東京都市大学-p1r" }
-          ]
-        },
-        {
-          name: "五島育英会公式",
-          category: "大学公式",
-          description: "学校法人五島育英会の公式ホームページです。東京都市大学グループの情報などが掲載されています。",
-          website: "https://www.goto-ikuei.ac.jp/",
-          keywords: ["公式", "学校法人", "五島", "都市大", "附属"],
-          onCampusOnly: false,
-          sns: [
-            { platform: "Twitter / X", url: "https://x.com/toshidaigroup" },
-            { platform: "YouTube", url: "https://www.youtube.com/user/tcu104" }
-          ]
-        },
-        {
-          name: "教学課",
-          category: "学内窓口",
-          description: "履修登録、授業スケジュール、試験、成績、各種証明書の発行など、学生生活の学びに関する総合窓口です。",
-          website: "https://www.tcu.ac.jp/campuslife/",
-          keywords: ["教務", "履修", "成績", "授業", "時間割", "相談", "証明書", "窓口"],
-          onCampusOnly: false,
-          sns: []
-        },
-        {
-          name: "キャリア支援センター",
-          category: "学内窓口",
-          description: "就職活動の相談、インターンシップ情報、履歴書添削や面接練習など、学生のキャリア形成と進路決定を強力にサポートします。",
-          website: "https://www.tcu.ac.jp/career/",
-          keywords: ["就活", "キャリア", "求人", "インターン", "面接", "履歴書", "就職"],
-          onCampusOnly: false,
-          sns: []
-        },
-        {
-          name: "図書館",
-          category: "学内施設",
-          description: "学内の図書や学術論文、電子資料などの検索・閲覧が可能です。自習スペースやラーニング・コモンズも完備しています。",
-          website: "https://lib.tcu.ac.jp/",
-          keywords: ["図書", "本", "自習", "文献", "論文", "図書検索", "ライブラリ"],
-          onCampusOnly: false,
-          sns: [
-            { platform: "Twitter / X", url: "https://twitter.com/tcu_library" }
-          ]
-        },
-        {
-          name: "プリンター(PaperCut MF)",
-          category: "学内施設",
-          description: "学内各所に設置されているプリンターの管理画面です。ここからPDFをインポートし、プリントアウトできます。",
-          website: "https://print.itc.tcu.ac.jp/user",
-          keywords: ["PDF", "レポート", "プリント", "プリンター", "印刷"],
-          onCampusOnly: true,
-          sns: []
-        },
-        {
-          name: "吹奏楽部",
-          category: "課外活動団体",
-          description: "入学式や学位授与式などの式典演奏、定期演奏会、学園祭（等々力祭・世田谷祭）での演奏を中心に、仲良く活動しています。",
-          website: "https://tcu-wind.com/",
-          keywords: ["吹部", "ブラバン", "音楽", "楽器", "部活", "サークル", "すいそうがく"],
-          onCampusOnly: false,
-          sns: [
-            { platform: "Twitter / X", url: "https://twitter.com/tcu_wind" },
-            { platform: "Instagram", url: "https://www.instagram.com/tcu_wind/" }
-          ]
-        },
-        {
-          name: "新聞会",
-          category: "課外活動団体",
-          description: "学内紙の「都市大新聞」を発行している公認団体です。キャンパス内の出来事や教職員・学生へのインタビュー記事を取材・編集しています。",
-          website: "https://tcu-press.com/",
-          keywords: ["新聞", "サークル", "広報", "メディア", "取材", "学生団体", "しんぶん"],
-          onCampusOnly: false,
-          sns: [
-            { platform: "Twitter / X", url: "https://twitter.com/tcupress" }
-          ]
-        },
-        {
-          name: "授業資料共有サーバ",
-          category: "学内施設",
-          description: "各講義で使用される講義スライドや配布資料、過去問などが格納されている学内共有ストレージサーバーです。",
-          website: "http://10.1.2.3/shares/",
-          keywords: ["ファイルサーバー", "授業資料", "共有", "フォルダ", "配布資料", "ストレージ", "サーバ"],
-          onCampusOnly: true,
-          sns: []
-        },
-        {
-          name: "学内無線LAN接続ポータル",
-          category: "学内施設",
-          description: "学内Wi-Fiへの端末接続設定マニュアルや、利用機器のアドレス登録を行うためのポータルサイトです。",
-          website: "http://net-auth.internal.tcu.ac.jp/",
-          keywords: ["wifi", "ワイファイ", "インターネット", "ネットワーク", "接続設定", "認証", "学内LAN"],
-          onCampusOnly: true,
-          sns: []
-        }
-      ]
-    };
+    "categories":  [
+                       {
+                           "id":  "大学公式",
+                           "name":  "大学公式",
+                           "bgLight":  "#E0F2FE",
+                           "textLight":  "#0369A1",
+                           "bgDark":  "#0C4A6E",
+                           "textDark":  "#38BDF8"
+                       },
+                       {
+                           "id":  "学内窓口",
+                           "name":  "学内窓口",
+                           "bgLight":  "#F3E8FF",
+                           "textLight":  "#6B21A8",
+                           "bgDark":  "#581C87",
+                           "textDark":  "#E9D5FF"
+                       },
+                       {
+                           "id":  "学部・学科",
+                           "name":  "学部・学科",
+                           "bgLight":  "#FCE7F3",
+                           "textLight":  "#BE185D",
+                           "bgDark":  "#701A75",
+                           "textDark":  "#FBCFE8"
+                       },
+                       {
+                           "id":  "施設",
+                           "name":  "施設",
+                           "bgLight":  "#FEF3C7",
+                           "textLight":  "#D97706",
+                           "bgDark":  "#78350F",
+                           "textDark":  "#FDE68A"
+                       },
+                       {
+                           "id":  "システム",
+                           "name":  "システム",
+                           "bgLight":  "#E0F8E8",
+                           "textLight":  "#047857",
+                           "bgDark":  "#064E3B",
+                           "textDark":  "#A7F3D0"
+                       },
+                       {
+                           "id":  "特殊団体",
+                           "name":  "特殊団体",
+                           "bgLight":  "#FFEDD5",
+                           "textLight":  "#C2410C",
+                           "bgDark":  "#7C2D12",
+                           "textDark":  "#FED7AA"
+                       },
+                       {
+                           "id":  "体育系",
+                           "name":  "体育系",
+                           "bgLight":  "#E0E7FF",
+                           "textLight":  "#3730A3",
+                           "bgDark":  "#1E1B4B",
+                           "textDark":  "#C7D2FE"
+                       },
+                       {
+                           "id":  "文化系",
+                           "name":  "文化系",
+                           "bgLight":  "#D1FAE5",
+                           "textLight":  "#065F46",
+                           "bgDark":  "#064E3B",
+                           "textDark":  "#A7F3D0"
+                       },
+                       {
+                           "id":  "サークル・同好会",
+                           "name":  "サークル・同好会",
+                           "bgLight":  "#F1F5F9",
+                           "textLight":  "#334155",
+                           "bgDark":  "#1E293B",
+                           "textDark":  "#CBD5E1"
+                       }
+                   ],
+    "links":  [
+                  {
+                      "name":  "大学公式サイト",
+                      "category":  "大学公式",
+                      "description":  "東京都市大学の公式ホームページです。大学のニュース、入試情報、各学部の紹介、行事予定などが掲載されています。",
+                      "website":  "https://www.tcu.ac.jp/",
+                      "keywords":  [
+                                       "都市大",
+                                       "公式",
+                                       "tcu",
+                                       "ホームページ",
+                                       "大学",
+                                       "大学公式サイト",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/Tokyo_city_univ"
+                                  },
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/@東京都市大学-p1r"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "五島育英会公式",
+                      "category":  "大学公式",
+                      "description":  "学校法人五島育英会の公式ホームページです。東京都市大学グループの情報などが掲載されています。",
+                      "website":  "https://www.goto-ikuei.ac.jp/",
+                      "keywords":  [
+                                       "公式",
+                                       "学校法人",
+                                       "五島",
+                                       "都市大",
+                                       "附属",
+                                       "五島育英会公式",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/toshidaigroup"
+                                  },
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/user/tcu104"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "教学課",
+                      "category":  "学内窓口",
+                      "description":  "履修登録、授業スケジュール、試験、成績、各種証明書の発行など、学生生活の学びに関する総合窓口です。",
+                      "website":  "https://www.asc.tcu.ac.jp/",
+                      "keywords":  [
+                                       "教務",
+                                       "履修",
+                                       "成績",
+                                       "授業",
+                                       "時間割",
+                                       "相談",
+                                       "証明書",
+                                       "窓口",
+                                       "教学課",
+                                       "学内窓口",
+                                       "シラバス",
+                                       "講義",
+                                       "単位"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "キャリア支援センター",
+                      "category":  "学内窓口",
+                      "description":  "就職活動の相談、インターンシップ情報、履歴書添削や面接練習など、学生のキャリア形成と進路決定を強力にサポートします。",
+                      "website":  "https://www.tcu.ac.jp/career/",
+                      "keywords":  [
+                                       "就活",
+                                       "キャリア",
+                                       "求人",
+                                       "インターン",
+                                       "面接",
+                                       "履歴書",
+                                       "就職",
+                                       "キャリア支援センター",
+                                       "学内窓口",
+                                       "インターンシップ",
+                                       "進路"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "図書館",
+                      "category":  "施設",
+                      "description":  "学内の図書や学術論文、電子資料などの検索・閲覧が可能です。自習スペースやラーニング・コモンズも完備しています。",
+                      "website":  "https://library.tcu.ac.jp/",
+                      "keywords":  [
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "文献",
+                                       "論文",
+                                       "図書検索",
+                                       "ライブラリ",
+                                       "図書館",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "勉強",
+                                       "書籍",
+                                       "読書"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://twitter.com/tcu_library"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "プリンター(PaperCut MF)",
+                      "category":  "システム",
+                      "description":  "学内各所に設置されているプリンターの管理画面です。ここからPDFをインポートし、プリントアウトできます。",
+                      "website":  "https://print.itc.tcu.ac.jp/user",
+                      "keywords":  [
+                                       "PDF",
+                                       "レポート",
+                                       "プリント",
+                                       "プリンター",
+                                       "印刷",
+                                       "プリンター(PaperCut MF)",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "新聞会",
+                      "category":  "特殊団体",
+                      "description":  "1954年創刊の歴史を持ち、学内紙「東京都市大学新聞」の取材、執筆、編集、およびWebメディアでの情報発信を行っている公認団体です。",
+                      "website":  "https://tcuprs.com",
+                      "keywords":  [
+                                       "新聞",
+                                       "広報",
+                                       "メディア",
+                                       "取材",
+                                       "しんぶん",
+                                       "新聞会",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://twitter.com/tcupress"
+                                  },
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcuprs"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "情報基盤センター",
+                      "category":  "システム",
+                      "description":  "東京都市大学の学内ネットワーク、システム障害情報、セキュリティ情報、ソフトウェアライセンス管理など、ITインフラと各種アカウントサービスを管理・提供する機関です。",
+                      "website":  "https://www.itc.tcu.ac.jp/student/",
+                      "keywords":  [
+                                       "情報基盤センター",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "情報基盤センター - セキュリティ対策自己点検・TCUアカウントのパスワード変更",
+                      "category":  "システム",
+                      "description":  "TCUアカウントの継続利用に必要なセキュリティ自己点検の実施や、パスワード変更手続きを行うための学内専用特設サイトです。期限内に完了しない場合はアカウントが一時停止されます。",
+                      "website":  "https://www.itc.tcu.ac.jp/campaign/",
+                      "keywords":  [
+                                       "情報基盤センター - セキュリティ対策自己点検・TCUアカウントのパスワード変更",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "情報基盤センター - 学内Wi-Fi",
+                      "category":  "システム",
+                      "description":  "学内で利用可能なWi-Fiサービスの接続マニュアルや設定情報です。マニュアルの閲覧にはTCUアカウントでのログインが必要です。",
+                      "website":  "https://www.itc.tcu.ac.jp/network-3/tcuwifi/",
+                      "keywords":  [
+                                       "情報基盤センター - 学内Wi-Fi",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "wifi",
+                                       "ワイファイ",
+                                       "インターネット",
+                                       "ネット",
+                                       "無線lan",
+                                       "接続",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "情報基盤センター - ソフトウェア利用",
+                      "category":  "システム",
+                      "description":  "授業や自習で利用できる各種ソフトウェアのライセンス取得方法や、インストールガイドを掲載しています。",
+                      "website":  "https://www.itc.tcu.ac.jp/soft/",
+                      "keywords":  [
+                                       "情報基盤センター - ソフトウェア利用",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "情報基盤センター - 遠隔デスクトップ",
+                      "category":  "システム",
+                      "description":  "自宅など学外から学内のPC環境へリモート接続して作業を行う「遠隔デスクトップ（RDS）」の利用手順とログイン窓口です。",
+                      "website":  "https://www.itc.tcu.ac.jp/ictservice/rdt/",
+                      "keywords":  [
+                                       "情報基盤センター - 遠隔デスクトップ",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "学内ポータル・Webシラバス",
+                      "category":  "システム",
+                      "description":  "大学からの公式なお知らせ、授業連絡、スケジュール管理、Webシラバス（シラバス閲覧システム）などを集約した学内ポータルサイトです。",
+                      "website":  "https://websrv.tcu.ac.jp/tcu_web_v3/top.do",
+                      "keywords":  [
+                                       "学内ポータル・Webシラバス",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "文書ライブラリ",
+                      "category":  "システム",
+                      "description":  "大学から学生向けに共有される公式文書や各種ガイドライン、申請用テンプレートなどが保管されている学内SharePoint文書ライブラリです。",
+                      "website":  "https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/Forms/AllItems.aspx",
+                      "keywords":  [
+                                       "文書ライブラリ",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "Campus Life",
+                      "category":  "学内窓口",
+                      "description":  "学生支援課が運営する、奨学金の申請情報、サークル活動、学生寮、各種生活サポートに関するお役立ち情報を集約したサイトです。",
+                      "website":  "https://tculife.off.tcu.ac.jp/",
+                      "keywords":  [
+                                       "Campus Life",
+                                       "学内窓口"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "ヨコキャリ",
+                      "category":  "学内窓口",
+                      "description":  "横浜キャンパス（環境学部・メディア情報学部・デザイン・データ科学部）の学生に向けた、就職活動支援、インターンシップ、求人票などの情報掲示板です。",
+                      "website":  "https://cgi.yc.tcu.ac.jp/~otani/career/",
+                      "keywords":  [
+                                       "ヨコキャリ",
+                                       "学内窓口",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま",
+                                       "就活",
+                                       "就職",
+                                       "求人",
+                                       "インターン",
+                                       "インターンシップ",
+                                       "キャリア",
+                                       "進路",
+                                       "面接",
+                                       "履歴書"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "WebClass",
+                      "category":  "システム",
+                      "description":  "授業資料の配布、課題の提出、小テストの実施、評価フィードバックなどを行うeラーニング学習管理システム（LMS）です。大学生活で頻繁に利用します。",
+                      "website":  "https://webclass.tcu.ac.jp/webclass/login.php",
+                      "keywords":  [
+                                       "WebClass",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績",
+                                       "課題",
+                                       "宿題",
+                                       "レポート",
+                                       "提出"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "地域連携・生涯学習推進室",
+                      "category":  "学内窓口",
+                      "description":  "地域社会との連携イベントや公開講座、産官学連携プロジェクト、生涯学習プログラムの提供・推進を行う部署の公式ページです。",
+                      "website":  "https://www.chiiki.tcu.ac.jp/",
+                      "keywords":  [
+                                       "地域連携・生涯学習推進室",
+                                       "学内窓口"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Facebook",
+                                      "url":  "https://www.facebook.com/TokyoCityUniv/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "図書館 施設予約システム",
+                      "category":  "システム",
+                      "description":  "世田谷キャンパス図書館の個人閲覧室、グループ学習室、各種自習スペースをオンラインで予約するための学内専用システムです。",
+                      "website":  "http://reserve.lib.tcu.ac.jp/",
+                      "keywords":  [
+                                       "図書館 施設予約システム",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "研究者情報データベース",
+                      "category":  "大学公式",
+                      "description":  "東京都市大学に所属する教員・研究者の専門分野、研究業績、外部資金獲得状況などを公開している公式データベースです。",
+                      "website":  "https://www.risys.gl.tcu.ac.jp/",
+                      "keywords":  [
+                                       "研究者情報データベース",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "学術機関リポジトリ",
+                      "category":  "システム",
+                      "description":  "東京都市大学の研究成果や紀要論文、学術資料などのメタデータおよび本文を広く公開している学術情報リポジトリです。",
+                      "website":  "https://tcu-ar.repo.nii.ac.jp/?page=1\u0026size=20\u0026sort=-createdate",
+                      "keywords":  [
+                                       "学術機関リポジトリ",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "出席確認システム",
+                      "category":  "システム",
+                      "description":  "授業時に提示される出席キーを入力し、出席登録を行うシステムです。利用にはTCUアカウントでのログインが必要です。",
+                      "website":  "https://call.off.tcu.ac.jp/",
+                      "keywords":  [
+                                       "出席確認システム",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績",
+                                       "出席",
+                                       "出欠",
+                                       "出席登録",
+                                       "call"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "教員の出校状況",
+                      "category":  "システム",
+                      "description":  "各学科・学部の教員が本日出校（出勤）しているかどうかをリアルタイムで確認できる、学内ネットワーク限定の出校状況確認ページです。",
+                      "website":  "https://www.comm.tcu.ac.jp/~soumuka/jinji/lys.html",
+                      "keywords":  [
+                                       "教員の出校状況",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "数学質問箱(BBS)",
+                      "category":  "学内窓口",
+                      "description":  "授業や自習で分からない数学の疑問点を匿名で質問し、教員やチューターからアドバイスをもらえる学内向け質問掲示板です。",
+                      "website":  "https://www.ns.tcu.ac.jp/NS/QandA_BBS/",
+                      "keywords":  [
+                                       "数学質問箱(BBS)",
+                                       "学内窓口",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "横浜キャンパス-授業改善方策フィードバック",
+                      "category":  "学内窓口",
+                      "description":  "学生アンケートでの意見をもとに、教員がどのように講義改善やフィードバックを行うかの方針・改善策を一覧で公表しているサイトです。",
+                      "website":  "https://user.tcu.ac.jp/~otani/lessonimprove/show.cgi",
+                      "keywords":  [
+                                       "横浜キャンパス-授業改善方策フィードバック",
+                                       "学内窓口",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "メディア情報学部 情報システム学科 研究室配属システム",
+                      "category":  "システム",
+                      "description":  "メディア情報学部情報システム学科の学生が、研究室配属の希望登録や決定状況の確認を行うための学内専用システムです。",
+                      "website":  "https://user.tcu.ac.jp/~otani/infosys/systems/login.cgi",
+                      "keywords":  [
+                                       "メディア情報学部 情報システム学科 研究室配属システム",
+                                       "メディア情報学 情報システム学科 研究室配属システム",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "メディア情報学部 社会メディア学科 研究室配属システム",
+                      "category":  "システム",
+                      "description":  "メディア情報学部社会メディア学科の学生が、研究室配属の希望申請や結果確認を行うための学内専用システムです。",
+                      "website":  "https://user.tcu.ac.jp/~otani/sociomedia/system/login.cgi",
+                      "keywords":  [
+                                       "メディア情報学部 社会メディア学科 研究室配属システム",
+                                       "メディア情報学 社会メディア学科 研究室配属システム",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "環境学部 研究室配属システム",
+                      "category":  "システム",
+                      "description":  "環境学部の学生が、各研究室の配属登録や希望調整、結果確認を行うための学内専用システムです。",
+                      "website":  "https://cgi.yc.tcu.ac.jp/~otani/environment/system/login.cgi",
+                      "keywords":  [
+                                       "環境学部 研究室配属システム",
+                                       "環境学 研究室配属システム",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "都市生活学部 プロジェクト演習配属申請登録システム",
+                      "category":  "システム",
+                      "description":  "都市生活学部の学生が、各研究室（プロジェクト演習）への希望配属登録や決定結果を確認するための専用システムです。",
+                      "website":  "https://user.tcu.ac.jp/~otani/urbanlife/systems/student.cgi",
+                      "keywords":  [
+                                       "都市生活学部 プロジェクト演習配属申請登録システム",
+                                       "都市生活学 プロジェクト演習配属申請登録システム",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "学生相談室",
+                      "category":  "学内窓口",
+                      "description":  "学生の皆さんが日頃抱える学業、人間関係、将来への不安などの様々な悩みを、専門のカウンセラーに個別で相談できる窓口です。",
+                      "website":  "https://www.tcu.ac.jp/counselingroom/",
+                      "keywords":  [
+                                       "学生相談室",
+                                       "学内窓口"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "ハラスメント相談窓口",
+                      "category":  "学内窓口",
+                      "description":  "ハラスメントに関する相談を受け付け、学生が安心して学生生活を送れるようにサポートするための学内専用相談室の案内資料（PDF）です。",
+                      "website":  "https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/%E5%AD%A6%E7%94%9F/%EF%BC%B3441-01%E3%80%80%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E8%AA%B2/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%9B%B8%E8%AB%87%E7%AA%93%E5%8F%A3/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%AA%93%E5%8F%A3.pdf?web=1",
+                      "keywords":  [
+                                       "ハラスメント相談窓口",
+                                       "学内窓口"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "TCU FORCE",
+                      "category":  "システム",
+                      "description":  "修得単位や資格、課外活動の記録などを登録し、自らの学びの軌跡や大学生活を視覚化して将来に役立てるためのポートフォリオシステムです。",
+                      "website":  "https://force.tcu.ac.jp/",
+                      "keywords":  [
+                                       "TCU FORCE",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "キャリア支援サイト",
+                      "category":  "学内窓口",
+                      "description":  "キャリア支援課が提供する就職活動お役立ち情報ポータルです。就活スケジュールや選考対策、体験記などがまとめられています。",
+                      "website":  "https://career-book.jp/contents/AuB07wOd/",
+                      "keywords":  [
+                                       "キャリア支援サイト",
+                                       "学内窓口",
+                                       "就活",
+                                       "就職",
+                                       "求人",
+                                       "インターン",
+                                       "インターンシップ",
+                                       "キャリア",
+                                       "進路",
+                                       "面接",
+                                       "履歴書"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "都市大キャリアNavi",
+                      "category":  "学内窓口",
+                      "description":  "進路に関する個別面談の予約や、就活、インターンシップに役立つ概要の閲覧、進路決定届などを提出できる就職活動総合ポータルです。",
+                      "website":  "https://www2.kyujin-navi.com/sp99/",
+                      "keywords":  [
+                                       "都市大キャリアNavi",
+                                       "学内窓口",
+                                       "就活",
+                                       "就職",
+                                       "求人",
+                                       "インターン",
+                                       "インターンシップ",
+                                       "キャリア",
+                                       "進路",
+                                       "面接",
+                                       "履歴書"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "TCU メール",
+                      "category":  "システム",
+                      "description":  "TCUアカウント（Microsoft 365）で利用できる大学専用のメールサービス（Outlook Web App）です。大学からの重要な連絡が届きます。",
+                      "website":  "https://outlook.office.com/mail/?auth=2",
+                      "keywords":  [
+                                       "TCU メール",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー",
+                                       "メール",
+                                       "outlook",
+                                       "アドレス",
+                                       "メアド"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "OneDrive",
+                      "category":  "システム",
+                      "description":  "TCUアカウントのクラウドストレージサービス（OneDrive for Business）です。授業資料や課題ファイルの保存・共有に利用できます。",
+                      "website":  "https://wtcuac-my.sharepoint.com/",
+                      "keywords":  [
+                                       "OneDrive",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績",
+                                       "課題",
+                                       "宿題",
+                                       "レポート",
+                                       "提出"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "TCU Storage",
+                      "category":  "システム",
+                      "description":  "大学独自のクラウドストレージシステム（Proself）です。※現在利用規模が縮小されており、学生用保存領域は廃止されています。",
+                      "website":  "https://storage.tcu.ac.jp/",
+                      "keywords":  [
+                                       "TCU Storage",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "世田谷キャンパス 物品借用申請",
+                      "category":  "システム",
+                      "description":  "研究室や公認の学生団体が世田谷キャンパスの備品・物品を借用する際に申請を行う、学内専用のオンライン申請フォームです。",
+                      "website":  "https://www.itc.tcu.ac.jp/~soumuka/bihin/index.html",
+                      "keywords":  [
+                                       "世田谷キャンパス 物品借用申請",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "横浜キャンパス YCよやく君",
+                      "category":  "システム",
+                      "description":  "横浜キャンパス内の教室、プレゼンルーム、ミーティングエリアなどの施設・スペースをオンライン予約するための学内専用システムです。",
+                      "website":  "https://supply3.itc.tcu.ac.jp/reserve/pub/index_.php",
+                      "keywords":  [
+                                       "横浜キャンパス YCよやく君",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま",
+                                       "パソコン",
+                                       "pc",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  true,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "東京都市大学 原子力研究所",
+                      "category":  "施設",
+                      "description":  "王禅寺キャンパスに所在する東京都市大学原子力研究所の公式サイトです。規制検査の実施状況や各種測定データが公開されています。",
+                      "website":  "https://atomsun2.atom.tcu.ac.jp/",
+                      "keywords":  [
+                                       "東京都市大学 原子力研究所",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "王禅寺",
+                                       "王禅寺キャンパス",
+                                       "おうぜんじ"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "東京都市大学 総合研究所",
+                      "category":  "施設",
+                      "description":  "複数の分野を融合した先進的・横断的課題への取り組みと技術革新を推進する、東京都市大学総合研究所（ARL）の公式ホームページです。",
+                      "website":  "https://www.arl.tcu.ac.jp/",
+                      "keywords":  [
+                                       "東京都市大学 総合研究所",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "課題",
+                                       "宿題",
+                                       "レポート",
+                                       "提出"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "東京都市大学 オーストラリアプログラム",
+                      "category":  "学内窓口",
+                      "description":  "独自の語学研修と約100日間のオーストラリア留学を組み合わせた、本学を代表する留学プログラム（TAP）の公式情報サイトです。",
+                      "website":  "https://tap.tcu.ac.jp/",
+                      "keywords":  [
+                                       "東京都市大学 オーストラリアプログラム",
+                                       "学内窓口",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "Shibuya PXU",
+                      "category":  "施設",
+                      "description":  "渋谷の「五島育英会ビル」に所在し、社会人向け講座や各種地域交流プログラムを展開するサテライトキャンパス（シブヤ・パクス）の公式サイトです。",
+                      "website":  "https://shibuya-pxu.tcu.ac.jp/",
+                      "keywords":  [
+                                       "Shibuya PXU",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "CSAC 産官学交流センター",
+                      "category":  "施設",
+                      "description":  "本学の研究成果をもとに産業界、国・自治体、他大学などとの外部連携をコーディネートする産官学交流センターの公式ホームページです。",
+                      "website":  "https://www.toshidai-csac.tokyo/index.html",
+                      "keywords":  [
+                                       "CSAC 産官学交流センター",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "ものつくりセンター",
+                      "category":  "施設",
+                      "description":  "ものづくりに関わる実習講義の運営や、研究用装置・部材の製作、各種プロジェクトや課外活動でのものづくりを技術・設備面から支援する施設です。",
+                      "website":  "https://monotsukuri.tcu.ac.jp/",
+                      "keywords":  [
+                                       "ものつくりセンター",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "授業",
+                                       "シラバス",
+                                       "履修",
+                                       "時間割",
+                                       "講義",
+                                       "単位",
+                                       "成績"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/@東京都市大学ものつくり支"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "学生工房",
+                      "category":  "施設",
+                      "description":  "学生が自由に創作活動を行うことができる工作・創作スペースです。利用登録をすれば旋盤や3Dプリンターなどの設備を使用できます。",
+                      "website":  "https://fab.tcu.ac.jp/",
+                      "keywords":  [
+                                       "学生工房",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TCU_StudentFab"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ダイバーシティ推進室",
+                      "category":  "学内窓口",
+                      "description":  "性別、国籍、障害の有無に関わらず、全ての構成員が活躍できるキャンパス環境を目指すダイバーシティ推進室の公式ホームページです。",
+                      "website":  "https://www.diversity.tcu.ac.jp/",
+                      "keywords":  [
+                                       "ダイバーシティ推進室",
+                                       "学内窓口"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "ラーニングコモンズSC",
+                      "category":  "施設",
+                      "description":  "世田谷キャンパス図書館地下1階にあり、グループディスカッション、共同作業、プレゼン練習など能動的な学習を行えるコモンズスペースです。",
+                      "website":  "https://www.comm.tcu.ac.jp/~sclcweb/",
+                      "keywords":  [
+                                       "ラーニングコモンズSC",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "ぴっぴ",
+                      "category":  "施設",
+                      "description":  "人間科学科が運営する、地域貢献と実践的研修の場を兼ねた子育て支援センターです。親子が集うフリースペースを提供しています。",
+                      "website":  "https://www.tcu.ac.jp/facilities/facility1/pippi/",
+                      "keywords":  [
+                                       "ぴっぴ",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/pippi.tokyotoshidai/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ラウンジオーク",
+                      "category":  "施設",
+                      "description":  "世田谷キャンパス1号館4階にある、落ち着いた雰囲気のレストランです。通常の学食よりワンランク上のハイクオリティな定食などを楽しめます。",
+                      "website":  "https://www.itc.tcu.ac.jp/~soumuka/lounge/",
+                      "keywords":  [
+                                       "ラウンジオーク",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや",
+                                       "食堂",
+                                       "学食",
+                                       "レストラン",
+                                       "売店",
+                                       "購買",
+                                       "購買部",
+                                       "ショップ",
+                                       "ランチ",
+                                       "ご飯"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "キャンパスショップ",
+                      "category":  "施設",
+                      "description":  "世田谷キャンパスおよび横浜キャンパスの売店（キャンパスショップ）を運営するハヤト商事の公式案内ページです。",
+                      "website":  "http://www.hayato-shoji.co.jp/tcu/",
+                      "keywords":  [
+                                       "キャンパスショップ",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま",
+                                       "食堂",
+                                       "学食",
+                                       "レストラン",
+                                       "売店",
+                                       "購買",
+                                       "購買部",
+                                       "ショップ",
+                                       "ランチ",
+                                       "ご飯"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/hayato_shouji"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "後援会",
+                      "category":  "大学公式",
+                      "description":  "学生の保護者などを中心に構成され、大学の教育支援活動や学生サポートを行う東京都市大学後援会の公式ホームページです。",
+                      "website":  "https://www.comm.tcu.ac.jp/kouenkai/",
+                      "keywords":  [
+                                       "後援会",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "校友会",
+                      "category":  "大学公式",
+                      "description":  "卒業生、在校生、教職員の親睦と交流を深め、母校の発展を支える同窓会組織「校友会」の公式サイトです。各地域の支部活動情報なども発信しています。",
+                      "website":  "https://tcu-alumni.jp/",
+                      "keywords":  [
+                                       "校友会",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Note",
+                                      "url":  "https://note.tcu-alumni.jp/"
+                                  },
+                                  {
+                                      "platform":  "Facebook",
+                                      "url":  "https://www.facebook.com/TCUalumni/"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/tcu_kouyuukai/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ひらめき・こと・もの・くらし・ひと づくりプログラム",
+                      "category":  "大学公式",
+                      "description":  "専門知識を背景に、異分野融合のアプローチから新たな価値創造と問題解決に貢献できる人材を育成する、本学独自の教育プログラムです。",
+                      "website":  "https://hirameki.tcu.ac.jp/",
+                      "keywords":  [
+                                       "ひらめき・こと・もの・くらし・ひと づくりプログラム",
+                                       "大学公式",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "ヒトモノリサーチ 東京都市大学×AERA",
+                      "category":  "大学公式",
+                      "description":  "東京都市大学の教授陣や教員へのインタビューを通じ、専門の研究活動や人生観について語ってもらう特別対談連載企画です。",
+                      "website":  "https://dot.asahi.com/ad/21113001/",
+                      "keywords":  [
+                                       "ヒトモノリサーチ 東京都市大学×AERA",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "男女共同参画室",
+                      "category":  "学内窓口",
+                      "description":  "本学における女性教員・研究者の比率向上や、男女共同参画社会の実現を推進・サポートするための窓口となる組織です。",
+                      "website":  "http://www.sankaku.tcu.ac.jp/",
+                      "keywords":  [
+                                       "男女共同参画室",
+                                       "学内窓口",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "女性研究者支援室 SOFERS",
+                      "category":  "学内窓口",
+                      "description":  "女性研究者の活躍支援や次世代の育成、研究と家庭生活の両立支援などを多角的にサポートする「SOFERS」の公式ホームページです。",
+                      "website":  "http://www.sofers.tcu.ac.jp/",
+                      "keywords":  [
+                                       "女性研究者支援室 SOFERS",
+                                       "学内窓口"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "理工学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 理工学部の公式ホームページです。各学科の研究活動やカリキュラム等を紹介しています。",
+                      "website":  "https://www.se.tcu.ac.jp/",
+                      "keywords":  [
+                                       "理工学部",
+                                       "理工学",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "建築都市デザイン学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 建築都市デザイン学部の公式ホームページです。建築・都市分野の最新プログラムを紹介しています。",
+                      "website":  "https://www.acu.tcu.ac.jp/",
+                      "keywords":  [
+                                       "建築都市デザイン学部",
+                                       "建築都市デザイン学",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "情報工学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 情報工学部の公式ホームページです。先進IT、データサイエンス分野の研究教育情報を発信しています。",
+                      "website":  "https://it.tcu.ac.jp/",
+                      "keywords":  [
+                                       "情報工学部",
+                                       "情報工学",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "環境学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 環境学部の公式ホームページです。地球環境、生態系、環境政策などに関わる研究と教育の情報を掲載しています。",
+                      "website":  "https://fes.tcu.ac.jp/",
+                      "keywords":  [
+                                       "環境学部",
+                                       "環境学",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "メディア情報学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 メディア情報学部の公式ホームページです。社会メディア、情報システム等の教育研究内容を紹介しています。",
+                      "website":  "https://informatics.tcu.ac.jp/",
+                      "keywords":  [
+                                       "メディア情報学部",
+                                       "メディア情報学",
+                                       "大学公式",
+                                       "パソコン",
+                                       "pc",
+                                       "システム",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Facebook",
+                                      "url":  "https://www.facebook.com/TCUinformatics/"
+                                  },
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://twitter.com/TCUinformatics"
+                                  },
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/user/TCUInformatics/"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/facultyofinformaticstcu/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "デザイン・データ科学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 デザイン・データ科学部の公式ホームページです。データ活用とデザイン思考を融合したカリキュラムを紹介しています。",
+                      "website":  "https://toshiseikatsu-gakubu.jp/",
+                      "keywords":  [
+                                       "デザイン・データ科学部",
+                                       "デザイン・データ科学",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "都市生活学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 都市生活学部の公式ホームページです。都市生活学科の研究分野やプロジェクト演習について紹介しています。",
+                      "website":  "https://www.tcu.ac.jp/academics/urbanlife/",
+                      "keywords":  [
+                                       "都市生活学部",
+                                       "都市生活学",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "人間科学部",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学 人間科学部の公式ホームページです。児童保育、人間発達、心理学などの教育研究活動を掲載しています。",
+                      "website":  "https://www.tcu.ac.jp/academics/humanlife/",
+                      "keywords":  [
+                                       "人間科学部",
+                                       "人間科学",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "大学院 総合理工学研究科",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学大学院 総合理工学研究科の公式ホームページです。高度な専門研究と産学連携プロジェクトの情報を発信しています。",
+                      "website":  "https://www.tcu.ac.jp/academics/graduate/scienceandengineering",
+                      "keywords":  [
+                                       "大学院 総合理工学研究科",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "大学院 環境情報学研究科",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学大学院 環境情報学研究科の公式ホームページです。持続可能な環境と高度情報化に関わる研究内容を紹介しています。",
+                      "website":  "https://www.comm.tcu.ac.jp/gseis/",
+                      "keywords":  [
+                                       "大学院 環境情報学研究科",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "大学院 情報データ科学研究科",
+                      "category":  "学部・学科",
+                      "description":  "東京都市大学大学院 情報データ科学研究科の公式ホームページです。最先端の情報通信技術やデータサイエンス研究を推進しています。",
+                      "website":  "https://www.tcu.ac.jp/academics/graduate/info_ds/",
+                      "keywords":  [
+                                       "大学院 情報データ科学研究科",
+                                       "大学公式"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "世田谷祭公式サイト",
+                      "category":  "特殊団体",
+                      "description":  "世田谷キャンパスで開催される学園祭「世田谷祭」の公式情報・イベントスケジュールを掲載している公式サイトです。",
+                      "website":  "https://setagayafes.org/",
+                      "keywords":  [
+                                       "世田谷祭",
+                                       "学園祭",
+                                       "公式サイト",
+                                       "イベント",
+                                       "世田谷祭公式サイト",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/setagayafes_tcu"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/setagayafes_sfa"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "世田谷祭実行委員会",
+                      "category":  "特殊団体",
+                      "description":  "世田谷祭の企画・準備・運営を行う学生団体です。世田谷キャンパス9号館3階に会室があります。",
+                      "website":  "https://setagayafes.org/",
+                      "keywords":  [
+                                       "世田谷祭",
+                                       "実行委員会",
+                                       "9号館",
+                                       "世田谷祭実行委員会",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/setagayafes_tcu"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/setagayafes_sfa"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "横浜祭公式サイト",
+                      "category":  "特殊団体",
+                      "description":  "横浜キャンパスで開催される学園祭「横浜祭」の公式スケジュールや企画内容を紹介する公式サイトです。",
+                      "website":  "https://yokohama-fest.net/",
+                      "keywords":  [
+                                       "横浜祭",
+                                       "学園祭",
+                                       "公式サイト",
+                                       "イベント",
+                                       "横浜祭公式サイト",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/Yokohamasai"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/yokohamafestival"
+                                  },
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/@Yokohamafest"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "横浜祭実行委員会",
+                      "category":  "特殊団体",
+                      "description":  "横浜祭の企画・準備・運営を行う学生団体です。横浜キャンパスの3号館に会室があります。",
+                      "website":  "https://yokohama-fest.net/",
+                      "keywords":  [
+                                       "横浜祭",
+                                       "実行委員会",
+                                       "3号館",
+                                       "横浜祭実行委員会",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/Yokohamasai"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/yokohamafestival"
+                                  },
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/@Yokohamafest"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "等々力祭",
+                      "category":  "サークル・同好会",
+                      "description":  "等々力キャンパスで開催されていた学園祭の公式サイト。現在は等々力キャンパス廃止に伴い開催は行われていない。",
+                      "website":  "https://todorokifes.setagayafes.org/",
+                      "keywords":  [
+                                       "等々力祭",
+                                       "課外活動団体",
+                                       "団体",
+                                       "等々力",
+                                       "等々力キャンパス",
+                                       "とどろき"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "学生団体連合会 本部",
+                      "category":  "特殊団体",
+                      "description":  "全学的な学生課外活動の支援、予算管理、各種行事の運営サポートを行う生徒会のような組織です。世田谷キャンパス9号館3階に会室があります。",
+                      "website":  "http://www.sto.tcu.ac.jp/",
+                      "keywords":  [
+                                       "学生団体連合会 本部",
+                                       "学生団体連合会 本",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://twitter.com/sto_sc"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/sto_sc/"
+                                  },
+                                  {
+                                      "platform":  "Peing",
+                                      "url":  "https://peing.net/ja/sto_sc/"
+                                  },
+                                  {
+                                      "platform":  "Note",
+                                      "url":  "https://note.com/sto_sc/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "学生団体連合会 横浜分室",
+                      "category":  "特殊団体",
+                      "description":  "横浜キャンパスにおける学生課外活動・サークルを支援し、定例活動を行っている学生団体連合会の横浜支部です。4号館1階にあります。",
+                      "website":  "https://ycbunsitu.wixsite.com/tcu-ac-jp",
+                      "keywords":  [
+                                       "学生団体連合会 横浜分室",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://twitter.com/sto_yc"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/sto_yc/"
+                                  },
+                                  {
+                                      "platform":  "Peing",
+                                      "url":  "https://peing.net/ja/ycbunsitsu/"
+                                  },
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/channel/UC1XmFKKDnEIMDsmXbG-AHaQ/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "学生団体連合会 等々力分室(Twitter)",
+                      "category":  "特殊団体",
+                      "description":  "等々力キャンパスにおける学生会活動の支援を行っていた分室の公式Twitterアカウントです（現在は活動休止中）。",
+                      "website":  "https://twitter.com/todobun_2nd",
+                      "keywords":  [
+                                       "学生団体連合会 等々力分室(Twitter)",
+                                       "課外活動団体",
+                                       "団体",
+                                       "等々力",
+                                       "等々力キャンパス",
+                                       "とどろき",
+                                       "パソコン",
+                                       "pc",
+                                       "システム",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://twitter.com/todobun_2nd"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "アカペラサークル Groove",
+                      "category":  "サークル・同好会",
+                      "description":  "世田谷キャンパスを拠点に、様々なジャンルの楽曲を歌声だけで奏でるアカペラサークルです。",
+                      "website":  "https://x.com/tcu_Groove",
+                      "keywords":  [
+                                       "アカペラサークル Groove",
+                                       "アカペラ Groove",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_Groove"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "吹奏楽団",
+                      "category":  "特殊団体",
+                      "description":  "クラシックからポップスまで幅広いジャンルを合奏する吹奏楽団のポータルページです。",
+                      "website":  "https://www.comm.tcu.ac.jp/brassband/index.html",
+                      "keywords":  [
+                                       "吹奏楽団",
+                                       "課外活動団体",
+                                       "団体",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "吹奏楽団 Brass",
+                      "category":  "特殊団体",
+                      "description":  "クラシックやシンフォニックなど本格的な合奏活動を行い、定期演奏会や式典演奏を中心に活動する吹奏楽団です。",
+                      "website":  "https://x.com/tcu_brass",
+                      "keywords":  [
+                                       "吹奏楽団 Brass",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_brass"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcu_brass/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "吹奏楽団 Stack",
+                      "category":  "特殊団体",
+                      "description":  "ビッグバンドジャズやフュージョンなど、躍動感あふれるジャズ演奏を中心に活動する「Stack Sounds Orchestra」の公式サイトです。",
+                      "website":  "https://stacksoundsorc.wixsite.com/toshidai",
+                      "keywords":  [
+                                       "吹奏楽団 Stack",
+                                       "課外活動団体",
+                                       "団体",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/Stack_TCU2"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://x.com/STACKSOUNDSORCHESTRA"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "硬式野球部",
+                      "category":  "体育系",
+                      "description":  "東都大学野球連盟に加盟し、神宮球場などを舞台にリーグ昇格と勝利を目指して日々活動している硬式野球部です。",
+                      "website":  "https://www.tcubaseball.club/",
+                      "keywords":  [
+                                       "硬式野球部",
+                                       "硬式野球",
+                                       "課外活動団体",
+                                       "団体",
+                                       "野球",
+                                       "ベースボール"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_bb"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/toshidai_baseball"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "競技麻雀部",
+                      "category":  "サークル・同好会",
+                      "description":  "賭けを行わないクリーンな健全麻雀をモットーに、土曜日に11号館で活動している競技麻雀部です。",
+                      "website":  "https://www.instagram.com/tcumahjong15",
+                      "keywords":  [
+                                       "競技麻雀部",
+                                       "競技麻雀",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/tcumahjong15"
+                                  },
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/m_tcu (旧)"
+                                  },
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_ma"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "学生フォーミュラチーム Mi-Tech Racing",
+                      "category":  "サークル・同好会",
+                      "description":  "学生自らがレーシングマシンの設計・製作・走行テストを一貫して行い、学生フォーミュラ日本大会に出場するプロジェクト団体です。",
+                      "website":  "https://mitech-racing.com",
+                      "keywords":  [
+                                       "学生フォーミュラチーム Mi-Tech Racing",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/MiTechRacing"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/mitechracing"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "航空研究部 APSARAS",
+                      "category":  "文化系",
+                      "description":  "滑空機（人力飛行機）を自作し、琵琶湖で開催される「鳥人間コンテスト」出場などを目指して製作と研究を行っている部活です。",
+                      "website":  "https://x.com/tcu_apsaras",
+                      "keywords":  [
+                                       "航空研究部 APSARAS",
+                                       "航空研究 APSARAS",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_apsaras"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/apsaras_tcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "鉄道研究部",
+                      "category":  "文化系",
+                      "description":  "鉄道ファンが幅広く集まり、模型製作や現地への撮影旅行、学内展示、会報誌の発行などの活動を行っている鉄道研究部です。",
+                      "website":  "https://www.comm.tcu.ac.jp/steelcar/tekken_alpha/",
+                      "keywords":  [
+                                       "鉄道研究部",
+                                       "鉄道研究",
+                                       "げんち",
+                                       "鉄道",
+                                       "鉄研",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_rail"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcu_rail/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ラグビー部",
+                      "category":  "体育系",
+                      "description":  "リーグ戦での昇格とチームの一体感を目指し、練習を重ねて熱く活動している体育会ラグビー部です。",
+                      "website":  "https://x.com/tcurfc634",
+                      "keywords":  [
+                                       "ラグビー部",
+                                       "ラグビー",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcurfc634"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "写真部",
+                      "category":  "文化系",
+                      "description":  "デジタル・アナログ両方の写真撮影を楽しみ、学外展示や学園祭での写真展の開催を中心に活動しているサークルです。",
+                      "website":  "https://x.com/photo_tcu",
+                      "keywords":  [
+                                       "写真部",
+                                       "写真",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/photo_tcu"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/photo_tcu/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "グリークラブ！",
+                      "category":  "文化系",
+                      "description":  "混声合唱の響きを追求し、火・水・金曜日に1BN教室などを練習拠点としてアットホームに歌い上げている合唱サークルです。",
+                      "website":  "https://tcuglee.com",
+                      "keywords":  [
+                                       "グリークラブ！",
+                                       "課外活動団体",
+                                       "団体",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcuglee"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "放送会",
+                      "category":  "特殊団体",
+                      "description":  "学内イベントや学園祭の音響サポート、番組制作、アナウンス活動などを行う、本格的な放送部にあたる団体です。9号館3階に会室があります。",
+                      "website":  "https://x.com/TBAhousoukai",
+                      "keywords":  [
+                                       "放送会",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TBAhousoukai"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "アメフト部 Helios",
+                      "category":  "体育系",
+                      "description":  "ヘルメットや防具を身につけ、高い戦術と激しいぶつかり合いでリーグ昇格を狙い団結して挑む体育会アメリカンフットボール部です。",
+                      "website":  "https://x.com/helios_tcu",
+                      "keywords":  [
+                                       "アメフト部 Helios",
+                                       "アメフト Helios",
+                                       "課外活動団体",
+                                       "団体",
+                                       "サッカー",
+                                       "フットボール"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/helios_tcu"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/helios.tcu.football/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "アイスホッケー部",
+                      "category":  "体育系",
+                      "description":  "氷上の格闘技とも言われるスピーディな試合展開に挑み、初心者から経験者まで一丸となって戦うアイスホッケー部です。",
+                      "website":  "https://tcuicehockeyhp.wixsite.com/tcuicehockey-hp",
+                      "keywords":  [
+                                       "アイスホッケー部",
+                                       "アイスホッケー",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_icehockey"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "陸上競技部",
+                      "category":  "体育系",
+                      "description":  "自己記録の更新や対校戦での勝利を目指し、短距離・長距離・フィールドの各種目で日々練習に励む体育会陸上競技部です。",
+                      "website":  "https://tcutf.web.fc2.com",
+                      "keywords":  [
+                                       "陸上競技部",
+                                       "陸上競技",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tf_635"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/tcu_tf"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "卓球部",
+                      "category":  "体育系",
+                      "description":  "関東学生卓球連盟などのリーグ戦昇格を目指し、練習に励む体育会卓球部です。",
+                      "website":  "https://x.com/tcu_ttc",
+                      "keywords":  [
+                                       "卓球部",
+                                       "卓球",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_ttc"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "天文研究部",
+                      "category":  "文化系",
+                      "description":  "星空や夜空の観測、プラネタリウムの自作、天体写真の撮影などを通じて宇宙の魅力を楽しむアットホームな天文サークルです。",
+                      "website":  "https://x.com/tenmon_tcu",
+                      "keywords":  [
+                                       "天文研究部",
+                                       "天文研究",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tenmon_tcu"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/tenmon_tcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ISO学生委員会",
+                      "category":  "特殊団体",
+                      "description":  "横浜キャンパスの環境マネジメントシステム（ISO14001）維持・啓発活動を行う委員会です。省資源・省エネ等の活動を行っています。",
+                      "website":  "https://ycisosc.wixsite.com/tcu-ac-jp",
+                      "keywords":  [
+                                       "ISO学生委員会",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま",
+                                       "パソコン",
+                                       "pc",
+                                       "システム",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/yc_isosc"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "http://Instagram.com/ycisosc"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "デジタルコンテンツ研究会",
+                      "category":  "文化系",
+                      "description":  "DTM（音楽制作）、イラスト、CG、プログラミング、動画編集など、多彩な創作活動を行う本学最大級のインドア系創作サークルです。",
+                      "website":  "https://tcu-dc.net/",
+                      "keywords":  [
+                                       "デジタルコンテンツ研究会",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_dc"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "水泳部",
+                      "category":  "体育系",
+                      "description":  "水泳競技でのタイム更新や大会での上位入賞を目標に、それぞれのレベルに合わせて練習を行っている水泳部です。",
+                      "website":  "https://swimtcu.wordpress.com",
+                      "keywords":  [
+                                       "水泳部",
+                                       "水泳",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcuswimteam"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ヨット部",
+                      "category":  "体育系",
+                      "description":  "風を読みヨットを操るマリンスポーツの魅力を満喫し、大会での上位入賞を目指して週末を中心に海で活動しているヨット部です。",
+                      "website":  "https://x.com/TCU_Yacht",
+                      "keywords":  [
+                                       "ヨット部",
+                                       "ヨット",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TCU_Yacht"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcuyac"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "弓道部",
+                      "category":  "体育系",
+                      "description":  "弓道の精神を学び、部員同士で切磋琢磨して大会に挑む体育会弓道部です。",
+                      "website":  "https://sosteam.sakura.ne.jp",
+                      "keywords":  [
+                                       "弓道部",
+                                       "弓道",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_kyudo"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "フットサル部 woodsbear",
+                      "category":  "体育系",
+                      "description":  "初心者から経験者までフットサルの楽しさを共有しつつ、大会や定期的なゲームで技術を高め合うフットサルチームです。",
+                      "website":  "https://www.youtube.com/@woodsbear5973",
+                      "keywords":  [
+                                       "フットサル部 woodsbear",
+                                       "フットサル woodsbear",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "YouTube",
+                                      "url":  "https://www.youtube.com/@woodsbear5973"
+                                  },
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/woodsbear001"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcu_woodsbear/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ハワイアンクラブ",
+                      "category":  "サークル・同好会",
+                      "description":  "軽音楽団体として活動し、自由が丘や溝の口付近のスタジオを練習拠点に幅広いポップスやロックを演奏するサークルです。",
+                      "website":  "https://x.com/tcuhawaiian",
+                      "keywords":  [
+                                       "ハワイアンクラブ",
+                                       "課外活動団体",
+                                       "団体",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcuhawaiian"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/hawai_ianclub"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ソフトテニス部",
+                      "category":  "体育系",
+                      "description":  "水曜日に18号館付近のテニスコートをメインに活動し、ダブルスの連携力とショットの正確さを競い合うソフトテニス部です。",
+                      "website":  "https://x.com/citysofttennis",
+                      "keywords":  [
+                                       "ソフトテニス部",
+                                       "ソフトテニス",
+                                       "課外活動団体",
+                                       "団体",
+                                       "テニス",
+                                       "庭球"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/citysofttennis"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "コンピュータ技術研究会 CTRL",
+                      "category":  "文化系",
+                      "description":  "ゲーム開発、グラフィック、サーバー構築などのITスキルを高め合い、世田谷キャンパスを拠点にクリエイティブな開発に挑む研究会です。",
+                      "website":  "https://home.tcu-ctrl.jp",
+                      "keywords":  [
+                                       "コンピュータ技術研究会 CTRL",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや",
+                                       "パソコン",
+                                       "pc",
+                                       "システム",
+                                       "アカウント",
+                                       "パスワード",
+                                       "ログイン",
+                                       "認証",
+                                       "サーバー"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcuctrl"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "柏甌会",
+                      "category":  "サークル・同好会",
+                      "description":  "伝統的な茶道を通じて礼儀作法やおもてなしの心を学び、和室での定期的なお稽古や茶会の開催を中心に活動しているサークルです。",
+                      "website":  "https://x.com/tcu_tea",
+                      "keywords":  [
+                                       "柏甌会",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_tea"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "スナイパーズ",
+                      "category":  "文化系",
+                      "description":  "軽音楽団体としてバンド活動を展開し、18号館を主な拠点として月・水・金曜日に練習を重ねライブハウス等で演奏するサークルです。",
+                      "website":  "https://x.com/tcu_snipers",
+                      "keywords":  [
+                                       "スナイパーズ",
+                                       "課外活動団体",
+                                       "団体",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_snipers"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "東京都市大学将棋サークル",
+                      "category":  "サークル・同好会",
+                      "description":  "将棋を通じた親睦と棋力向上を図る将棋サークルです。対局から戦術の研究までアットホームに楽しめます。",
+                      "website":  "https://tcushougi.blog.fc2.com",
+                      "keywords":  [
+                                       "東京都市大学将棋サークル",
+                                       "東京都市大学将棋",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcushogi26fu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "少林寺拳法部",
+                      "category":  "体育系",
+                      "description":  "護身術としての突きや蹴り、関節技の技法を身につけ、世田谷キャンパス武道場での練習を通じて心身を鍛える少林寺拳法部です。",
+                      "website":  "https://mittcushorin.wp.xdomain.jp",
+                      "keywords":  [
+                                       "少林寺拳法部",
+                                       "少林寺拳法",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcushorinji"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "バスケットボール部",
+                      "category":  "体育系",
+                      "description":  "世田谷キャンパス体育館等で練習に励み、リーグ戦での勝利とチームワーク向上を目指して活動するバスケットボール部です。",
+                      "website":  "https://x.com/tcu_bbc",
+                      "keywords":  [
+                                       "バスケットボール部",
+                                       "バスケットボール",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_bbc"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "夢キャンコミュニケーター",
+                      "category":  "サークル・同好会",
+                      "description":  "二子玉川夢キャンパスなどを拠点とし、子ども向けの科学工作教室や地域イベントの企画・運営を学生主体で行う公認ボランティア団体です。",
+                      "website":  "https://grp.tcu.ac.jp/yumecomm/",
+                      "keywords":  [
+                                       "夢キャンコミュニケーター",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/yumecampus_tcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "二子玉川夢キャンパス",
+                      "category":  "施設",
+                      "description":  "二子玉川に開設されていた地域連携・交流拠点の活動報告アーカイブサイトです（現在は施設としては閉鎖されています）。",
+                      "website":  "https://www.chiiki.tcu.ac.jp/yumecampus_archive/",
+                      "keywords":  [
+                                       "二子玉川夢キャンパス",
+                                       "学内施設",
+                                       "施設",
+                                       "設備",
+                                       "システム",
+                                       "学内"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+
+                              ]
+                  },
+                  {
+                      "name":  "宇宙開発教育コミュニティ TAC",
+                      "category":  "サークル・同好会",
+                      "description":  "ロケットや人工衛星の開発、打ち上げプロジェクトの実現に向けて、工学的アプローチから挑戦を続ける宇宙開発コミュニティです。",
+                      "website":  "https://grp.tcu.ac.jp/tac/",
+                      "keywords":  [
+                                       "宇宙開発教育コミュニティ TAC",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TAC_toshidai"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "サッカー部",
+                      "category":  "体育系",
+                      "description":  "関東大学サッカーリーグへの昇格と勝利を合言葉に、日々の激しいトレーニングに励む伝統の体育会サッカー部です。",
+                      "website":  "https://x.com/toshidai_soccer",
+                      "keywords":  [
+                                       "サッカー",
+                                       "運動",
+                                       "フットボール",
+                                       "サッカー部",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://Instagram.com/toshidai_soccer"
+                                  },
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/toshidai_soccer"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ダンス部 UPBEAT",
+                      "category":  "サークル・同好会",
+                      "description":  "ヒップホップ、ロック、ポップなど多様なジャンルのダンスを楽しみ、学園祭や外部ステージでの発表を目指して活動するダンス部です。",
+                      "website":  "https://x.com/TCU_UPBEAT",
+                      "keywords":  [
+                                       "ダンス部 UPBEAT",
+                                       "ダンス UPBEAT",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TCU_UPBEAT"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/TCU_UPBEAT"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "自動車部",
+                      "category":  "サークル・同好会",
+                      "description":  "18号館に専用ガレージを持ち、マシンの整備・チューニング方法を学びながらラリーや走行会に向けて活動する伝統ある部活動です。",
+                      "website":  "https://ameblo.jp/tokyocitycarclub/",
+                      "keywords":  [
+                                       "自動車部",
+                                       "自動車",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/univ_carclub"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ハンドボール部",
+                      "category":  "体育系",
+                      "description":  "世田谷キャンパス9号館体育館などで活動し、激しいフェイントや豪快なシュートを武器にリーグ戦昇格を目指すハンドボール部です。",
+                      "website":  "https://tcuhand.web.fc2.com/home/home.html",
+                      "keywords":  [
+                                       "ハンドボール部",
+                                       "ハンドボール",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcuhand"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/handball.tcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "学科研究会連合本部",
+                      "category":  "特殊団体",
+                      "description":  "各学科の学びに関連した課外活動や学術・研究会プロジェクトを統括・サポートする、学科研究会連合の運営本部です。",
+                      "website":  "https://x.com/tcu_dra",
+                      "keywords":  [
+                                       "学科研究会連合本部",
+                                       "学科研究会連合本",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_dra"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcu_dra"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "モーターサイクル部",
+                      "category":  "体育系",
+                      "description":  "二輪車（バイク）のツーリングや走行会、安全運転指導などの活動を行い、マシンのカスタムや知識交換を楽しむモーターサイクル部です。",
+                      "website":  "https://www2.hp-ez.com/hp/tcumcc",
+                      "keywords":  [
+                                       "モーターサイクル部",
+                                       "モーターサイクル",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/MCCTCU"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/mcctcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "バドミントン部",
+                      "category":  "体育系",
+                      "description":  "男女合同でシングルス・ダブルスの技術を磨き、リーグ戦や大会での上位進出を目指してシャトルを追う体育会バドミントン部です。",
+                      "website":  "https://tcubadclub.web.fc2.com",
+                      "keywords":  [
+                                       "バドミントン部",
+                                       "バドミントン",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TCU_badminton_7"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "ダンス部 LAVI",
+                      "category":  "サークル・同好会",
+                      "description":  "横浜キャンパスを主な拠点とし、メンバー同士で振り付けやステージ構成を考案して活動しているダンスサークルです。",
+                      "website":  "https://x.com/LAVI_Dance",
+                      "keywords":  [
+                                       "ダンス部 LAVI",
+                                       "ダンス LAVI",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/LAVI_Dance"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/lavi_tcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "arte",
+                      "category":  "サークル・同好会",
+                      "description":  "横浜キャンパスを中心にイラストや漫画の制作活動を行い、部誌の発行や文化祭での展示・物販活動を展開する創作サークルです。",
+                      "website":  "https://arteofficial.web.fc2.com/index.html",
+                      "keywords":  [
+                                       "arte",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/arteofficial"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "音楽団体PLAM",
+                      "category":  "サークル・同好会",
+                      "description":  "横浜キャンパスを拠点とし、多様なジャンルのバンドを組んで定期的な学内ライブや音楽イベントを主催・出演する軽音サークルです。",
+                      "website":  "https://x.com/PLAM20201",
+                      "keywords":  [
+                                       "音楽団体PLAM",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/PLAM20201"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "潜水科学研究会 ダイビング部",
+                      "category":  "体育系",
+                      "description":  "ライセンス取得や合宿での離島ダイビングを行い、美しい海の世界とまったりとした水中散歩を楽しむダイビング部です。",
+                      "website":  "https://x.com/senkenTCU",
+                      "keywords":  [
+                                       "潜水科学研究会 ダイビング部",
+                                       "潜水科学研究会 ダイビング",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/senkenTCU"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcu_senken"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "空手道部",
+                      "category":  "体育系",
+                      "description":  "形（かた）や組手（くみて）の練習を通じた心身の練磨を目標とし、大会入賞を目指して世田谷キャンパス等で励む体育会空手道部です。",
+                      "website":  "https://x.com/TCUkarate",
+                      "keywords":  [
+                                       "空手道部",
+                                       "空手道",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TCUkarate"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcukarate2222/"
+                                  },
+                                  {
+                                      "platform":  "Facebook",
+                                      "url":  "https://facebook.com/TCU.KARATE"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "都市緑化研究会",
+                      "category":  "サークル・同好会",
+                      "description":  "横浜キャンパス付近の環境保全や老馬谷ガーデン（HRG）の維持管理を行い、自然との共生を目指す緑化研究会です。",
+                      "website":  "https://x.com/toshiryokka",
+                      "keywords":  [
+                                       "都市緑化研究会",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/toshiryokka"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/toshiryokkakenkyuuka"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "同好会連合本部",
+                      "category":  "特殊団体",
+                      "description":  "文化系・体育系など多様な愛好会・同好会サークルの統括、予算管理、行事サポート、公認化手続きなどを行う組織です。",
+                      "website":  "https://comm.tcu.ac.jp/tcu-acc/",
+                      "keywords":  [
+                                       "同好会連合本部",
+                                       "同好会連合本",
+                                       "連合本部",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_acc"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "古生物同好会",
+                      "category":  "サークル・同好会",
+                      "description":  "化石や鉱物のフィールドワーク・発掘、標本の作製や観察を通じて、古生物学の魅力や地球の歴史を学ぶサークルです。",
+                      "website":  "https://x.com/TCU_koseibutsu",
+                      "keywords":  [
+                                       "古生物同好会",
+                                       "古生物",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TCU_koseibutsu"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/tcu_paleo"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "合気道部",
+                      "category":  "体育系",
+                      "description":  "相手の力を利用する護身武道として知られる合気道の技を学び、世田谷キャンパス等で安全かつ楽しく武の心を磨く合気道部です。",
+                      "website":  "https://x.com/TCU_aiki",
+                      "keywords":  [
+                                       "合気道部",
+                                       "合気道",
+                                       "課外活動団体",
+                                       "団体",
+                                       "世田谷",
+                                       "世田谷キャンパス",
+                                       "せたがや"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/TCU_aiki"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "体育会本部",
+                      "category":  "特殊団体",
+                      "description":  "体育会に所属する全20以上の運動系部活動を束ね、体育祭やTCUラリーなどのスポーツイベントの企画・運営を行う本部組織です。",
+                      "website":  "https://taiikukaihonbu0.wixsite.com/tcu-taiikukai",
+                      "keywords":  [
+                                       "体育会本部",
+                                       "体育会本",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_taiikukai0"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "エレクトーンサークル sky tone",
+                      "category":  "文化系",
+                      "description":  "電子オルガン（エレクトーン）の演奏やアンサンブルを楽しみ、他大学との交流ライブや定期演奏会の開催を目標とするサークルです。",
+                      "website":  "https://skytone.jimdo.com",
+                      "keywords":  [
+                                       "エレクトーンサークル sky tone",
+                                       "エレクトーン sky tone",
+                                       "課外活動団体",
+                                       "団体",
+                                       "音楽",
+                                       "軽音",
+                                       "バンド",
+                                       "ライブ",
+                                       "楽器",
+                                       "演奏"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_skytone"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "お散歩同好会",
+                      "category":  "サークル・同好会",
+                      "description":  "横浜キャンパスを中心に、四季折々のスポットへのお散歩や散策を通じて学生同士の親睦とQOL向上を図るのどかな同好会です。",
+                      "website":  "https://x.com/Dosannpo_tcu",
+                      "keywords":  [
+                                       "お散歩同好会",
+                                       "お散歩",
+                                       "課外活動団体",
+                                       "団体",
+                                       "横浜",
+                                       "横浜キャンパス",
+                                       "よこはま"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/Dosannpo_tcu"
+                                  },
+                                  {
+                                      "platform":  "Pixiv",
+                                      "url":  "https://www.pixiv.net/users/101580325"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "東京都市大 SF研",
+                      "category":  "文化系",
+                      "description":  "SF小説やアニメの考察、TRPG、ボードゲームなど、SF的・ファンタジー的世界観を共有するメンバーで活動するボードゲーム・TRPGサークルです。",
+                      "website":  "https://x.com/sf_TOKIOcity",
+                      "keywords":  [
+                                       "東京都市大 SF研",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/sf_TOKIOcity"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://instagram.com/sf_tokiocity"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "漫画アニメ研究部 まに",
+                      "category":  "文化系",
+                      "description":  "マンガ、アニメ、イラスト、ゲームなどの創作や情報共有を楽しみ、同人イベントや学園祭での展示物製作を行う研究部です。",
+                      "website":  "https://tcumaniportal.web.fc2.com",
+                      "keywords":  [
+                                       "漫画アニメ研究部 まに",
+                                       "漫画アニメ研究 まに",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/maniportal_tcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "Skyview",
+                      "category":  "サークル・同好会",
+                      "description":  "ハンググライダーやパラグライダーを操り、広大な空を自力で飛ぶ爽快なスカイスポーツに挑戦しているサークルです。",
+                      "website":  "https://x.com/skyview_tcu",
+                      "keywords":  [
+                                       "Skyview",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/skyview_tcu"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "カードゲーム同好会",
+                      "category":  "サークル・同好会",
+                      "description":  "遊戯王やポケモンカードゲームなどのトレーディングカードゲームを楽しみ、公認化を目指してメンバーで対戦や研究に励む同好会です。",
+                      "website":  "https://x.com/tcu_tcg",
+                      "keywords":  [
+                                       "カードゲーム同好会",
+                                       "カードゲーム",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_tcg"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "自転車競技同好会",
+                      "category":  "サークル・同好会",
+                      "description":  "ロードバイクなどの実業団レース登録や長距離ツーリングを行い、己の体力とスピードの限界に挑戦する公認の自転車競技同好会です。",
+                      "website":  "https://x.com/tcu_bicycleteam",
+                      "keywords":  [
+                                       "自転車競技同好会",
+                                       "自転車競技",
+                                       "課外活動団体",
+                                       "団体"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tcu_bicycleteam"
+                                  },
+                                  {
+                                      "platform":  "Instagram",
+                                      "url":  "https://www.instagram.com/tcu_bicycleteam/"
+                                  }
+                              ]
+                  },
+                  {
+                      "name":  "たまこま部",
+                      "category":  "サークル・同好会",
+                      "description":  "全日本製造業コマ大戦の出場と上位進出を目指し、自ら精密な金属製コマを設計・旋盤加工して製作に挑むプロジェクト団体です。",
+                      "website":  "https://x.com/tamakomabu2025",
+                      "keywords":  [
+                                       "たまこま部",
+                                       "たまこま",
+                                       "課外活動団体",
+                                       "団体",
+                                       "図書",
+                                       "本",
+                                       "自習",
+                                       "勉強",
+                                       "文献",
+                                       "論文",
+                                       "書籍",
+                                       "読書",
+                                       "図書館"
+                                   ],
+                      "onCampusOnly":  false,
+                      "sns":  [
+                                  {
+                                      "platform":  "Twitter / X",
+                                      "url":  "https://x.com/tamakomabu2025"
+                                  }
+                              ]
+                  }
+              ]
+};
 
     let externalCategories = [];
     let externalLinksData = [];

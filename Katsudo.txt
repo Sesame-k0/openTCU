@@ -1,0 +1,605 @@
+﻿東京都市大学
+Twitter: @Tokyo_city_univ
+
+
+学校法人五島育英会
+Facebook: https://www.facebook.com/TCUgroup
+Twitter: https://twitter.com/toshidaigroup
+YouTube: https://www.youtube.com/user/tcu104
+
+情報基盤センター
+https://www.itc.tcu.ac.jp/student/
+東京都市大学で使用されるネットワーク、システム障害情報、セキュリティ情報、ライセンス管理など、大学IDやコンピュータ系に関すること。
+
+情報基盤センター - セキュリティ対策自己点検・TCUアカウントのパスワード変更
+https://www.itc.tcu.ac.jp/campaign/
+自己点検をやらないとアカウントが止まる。
+
+情報基盤センター - 学内Wi-Fi
+https://www.itc.tcu.ac.jp/network-3/tcuwifi/
+学内で使用できるWi-Fiの概要、および接続方法。
+サイトのアクセスは可能だが、Wi-Fiへのアクセスには大学のIDへのログインが必要。
+
+情報基盤センター - ソフトウェア利用
+https://www.itc.tcu.ac.jp/soft/
+学生が使用できるソフトウェアのライセンス有効化の方法など。
+
+情報基盤センター - 遠隔デスクトップ
+https://www.itc.tcu.ac.jp/ictservice/rdt/
+学内でのみ使用可能な遠隔デスクトップの使用方法・ログイン画面。使用には大学のIDへのログインが必要。
+
+学内ポータル・Webシラバス
+https://websrv.tcu.ac.jp/tcu_web_v3/top.do
+ポータルサイト。大学からの学内向けのお知らせなどはここに格納されている。一部機能は大学のIDへのログインが必須。
+
+文書ライブラリ
+https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/Forms/AllItems.aspx
+大学から配布される資料などはここに入っていることもある。あまり使う用事はないかもしれない。SharePoint。大学のIDへのログインが必須。
+
+教学課
+https://www.asc.tcu.ac.jp/
+履修登録概要や時間割の概要、学年暦などのPDFをダウンロード可能。
+
+Campus Life
+https://tculife.off.tcu.ac.jp/
+学生支援課の作成したサイト。奨学金や学生生活に関する情報など。
+Twitter(世田谷キャンパス): @tcu_sc_gsc
+Twitter(横浜キャンパス): @tcu_yc_gsc
+Twitter(等々力キャンパス): @tcu_tc_gsc (休止済)
+
+ヨコキャリ
+https://cgi.yc.tcu.ac.jp/~otani/career/
+横浜キャンパスの就職関連情報、求人情報などの掲示板。
+
+WebClass
+https://webclass.tcu.ac.jp/webclass/login.php
+かなり重要なサイト。課題や資料の配布、提出、採点などはこのサービスで行われる。個別の授業情報などは、学内ポータル以外でここから流されることもある。大学のIDへのログインが必須。
+
+地域連携・生涯学習推進室
+https://www.chiiki.tcu.ac.jp/
+地域連携イベントなど。
+Facebook: https://www.facebook.com/TokyoCityUniv/
+
+図書館
+https://library.tcu.ac.jp/
+開館イベント、展示、蔵書や資料データベースなど
+世田谷キャンパス図書館Twiter: https://twitter.com/tcu_lib
+横浜キャンパス図書館Twitter: https://twitter.com/tcu_yclib
+
+図書館 施設予約システム
+http://reserve.lib.tcu.ac.jp/
+世田谷キャンパスの個人閲覧室(自習室)やメディア学習室などを予約可能。学内からのアクセスのみ。
+
+研究者情報データベース
+https://www.risys.gl.tcu.ac.jp/
+都市大の研究者についての情報発信、および研究活動状況の公表
+
+学術機関リポジトリ
+https://tcu-ar.repo.nii.ac.jp/?page=1&size=20&sort=-createdate
+
+出席確認システム
+https://call.off.tcu.ac.jp/
+このサイトにアクセスして、授業の出席の確認を行う。大学のIDへのログインが必要。
+
+教員の出校状況
+https://www.comm.tcu.ac.jp/~soumuka/jinji/lys.html
+学内からのアクセスのみ。教員が出勤しているかどうかが分かる。
+
+数学質問箱(BBS)
+https://www.ns.tcu.ac.jp/NS/QandA_BBS/
+数学において分からないことを質問するための掲示板。気軽に使っていいらしいが、雰囲気が怪しい(ホンモノであることは確実だが...)
+
+横浜キャンパス-授業改善方策フィードバック
+https://user.tcu.ac.jp/~otani/lessonimprove/show.cgi
+教員がより質の良い授業ができるよう、学生からもらった意見をもとにどうフィードバックする方針かが一覧となって分かるサイト。横浜キャンパス用。
+
+メディア情報学部 情報システム学科 研究室配属システム
+https://user.tcu.ac.jp/~otani/infosys/systems/login.cgi
+学内からのアクセスのみ。
+
+メディア情報学部 社会メディア学科 研究室配属システム
+https://user.tcu.ac.jp/~otani/sociomedia/system/login.cgi
+学内からのアクセスのみ。
+
+環境学部 研究室配属システム
+https://cgi.yc.tcu.ac.jp/~otani/environment/system/login.cgi
+学内からのアクセスのみ。
+
+都市生活学部 プロジェクト演習配属申請登録システム
+https://user.tcu.ac.jp/~otani/urbanlife/systems/student.cgi
+
+学生相談室
+https://www.tcu.ac.jp/counselingroom/
+学生の日頃の悩み、誰かに話したい想い、そういったものを気軽に相談できる学生の味方(らしい)
+
+ハラスメント相談窓口
+https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/%E5%AD%A6%E7%94%9F/%EF%BC%B3441-01%E3%80%80%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E8%AA%B2/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%9B%B8%E8%AB%87%E7%AA%93%E5%8F%A3/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%AA%93%E5%8F%A3.pdf?web=1
+学内からのアクセスのみ。PDFファイル。一人で苦しまなくて済むように。
+
+TCU FORCE
+https://force.tcu.ac.jp/
+大学生活の道筋を「見える化」し、これからの道筋、大学生活をどう送るかを見直し、将来に役立つ個のできるポートフォリオ。
+大学IDが必要。
+
+キャリア支援サイト
+https://career-book.jp/contents/AuB07wOd/
+キャリア支援課が運営。東京都市大学で就活をするうえで役立つ情報やコツなどが満載。
+
+都市大キャリアNavi
+https://www2.kyujin-navi.com/sp99/
+進路に関する個人面談の予約や、就活、インターンシップに役立つ概要の閲覧、進路決定届などを提出できる。
+
+TCU メール
+https://outlook.office.com/mail/?auth=2
+TCU アカウントで使えるメール機能。TCUアカウントはMicrosoftのサービスを使っているため、これもシステムやURL自体はOutlook。
+大学IDが必要だが、なかったとしてもふつうに個人のOutlookにログインされるだけである
+
+OneDrive
+https://wtcuac-my.sharepoint.com/
+TCUアカウントで使えるストレージ。一人100GBずつ割り振られる。
+大学IDが必要。
+
+TCU Storage
+https://storage.tcu.ac.jp/
+大学独自のクラウドストレージ。現在利用を縮小中であり、学生の保存領域はすでに廃止されている。Proselfで構築されている。
+
+世田谷キャンパス 物品借用申請
+https://www.itc.tcu.ac.jp/~soumuka/bihin/index.html
+学内アクセス限定。研究室・団体での利用のみ。学内のものを借用する際にこのサイトから申請する。
+
+横浜キャンパス YCよやく君
+https://supply3.itc.tcu.ac.jp/reserve/pub/index_.php
+学内アクセス限定。横浜キャンパスの施設を日にちごとに予約することができる。
+
+東京都市大学 原子力研究所
+https://atomsun2.atom.tcu.ac.jp/
+王禅寺キャンパスの原子力研究所の公式HP。原子力規制検査の実施状況やマンスリーレポートなどの掲載もここにある。
+
+東京都市大学 総合研究所
+https://www.arl.tcu.ac.jp/
+総合研究所。様々な事項の融合課題に対する技術革新を進めているという。
+
+東京都市大学 オーストラリアプログラム
+https://tap.tcu.ac.jp/
+通称TAP。東京都市大学独自の、英語の特別授業を受けたうえで100日間のオーストラリア留学を行うプログラムの公式HP。いろいろコミコミで楽なので、たくさんの都市大生が参加する。
+
+Shibuya PXU
+https://shibuya-pxu.tcu.ac.jp/
+しぶやパクス、と読む。渋谷駅から徒歩圏内にあるビル(五島育英会ビル)に所在し、社会人対象の講座などを中心に行っている。
+
+CSAC 産官学交流センター
+https://www.toshidai-csac.tokyo/index.html
+本学の研究を中心に産官学を結びつける窓口となる部署。
+
+ものつくりセンター
+https://monotsukuri.tcu.ac.jp/
+機械工作実習などの正課の実習の実施や、研究活動で使用する装置や試験片の作製、課外活動でのものつくりを支援。
+YouTube: https://www.youtube.com/@東京都市大学ものつくり支
+
+学生工房
+https://fab.tcu.ac.jp/
+いつでも自由に使える学生のための創作活動エリア。入口で学科・学年・利用目的を登録すればいつでも使用可能。平日1300-1900。
+Twitter: @TCU_StudentFab
+
+ダイバーシティ推進室
+https://www.diversity.tcu.ac.jp/
+性別や国籍等を問わず学び、働くことが幸せと思えるような環境づくりを行っている。
+
+ラーニングコモンズSC
+https://www.comm.tcu.ac.jp/~sclcweb/
+図書館の地下1階に所在。学生が集まり、議論や共同作業等で学習を効果的に進めていくための空間。
+
+ぴっぴ
+https://www.tcu.ac.jp/facilities/facility1/pippi/
+人間科学科(児童保育など)が実践的な研修と地域貢献活動をするための場所として設立した、子育て支援センター。
+Instagram: https://www.instagram.com/pippi.tokyotoshidai/
+
+ラウンジオーク
+https://www.itc.tcu.ac.jp/~soumuka/lounge/
+1号館4階にある、落ち着いた雰囲気のレストラン。ふつうの学食とは一味違う、クオリティが高い定食を楽しめる。なお、料金は学食にしてはやや高めになりがちな印象。
+
+キャンパスショップ
+http://www.hayato-shoji.co.jp/tcu/
+世田谷・横浜キャンパスに所在する売店、キャンパスショップを運営するハヤト商事の公式HP。(いまはリンクが切れている模様)
+Twitter: https://x.com/hayato_shouji
+
+後援会
+https://www.comm.tcu.ac.jp/kouenkai/
+大学後援会の公式HP。後援会からのお知らせや報告が掲示されている。
+
+校友会
+https://tcu-alumni.jp/
+心からのつながりを誰もが得られる校友会...がスローガン。
+在校生・卒業生・教職員が枠を超えて交流し、つながりを深める組織。日本各地に支部があり、OBやOGが所属している。
+活動報告などをこのサイトから確認できる。
+Note: https://note.tcu-alumni.jp/
+Facebook: https://www.facebook.com/TCUalumni/
+Instagram: https://www.instagram.com/tcu_kouyuukai/
+
+ひらめき・こと・もの・くらし・ひと づくりプログラム
+https://hirameki.tcu.ac.jp/
+「自身の専門分野を活かしつつ異分野融合に取り組むことで、今までにないものを生み出す」力を育成する、らしい独自プログラム。
+この枠を使うための入試方式もあるくらいには、利用者が多い。
+
+ヒトモノリサーチ 東京都市大学×AERA
+https://dot.asahi.com/ad/21113001/
+東京都市大学の教授にインタビューを行い、人生観を語ってもらうリサーチ連載。
+
+男女共同参画室
+http://www.sankaku.tcu.ac.jp/
+
+女性研究者支援室 SOFERS
+http://www.sofers.tcu.ac.jp/
+
+理工学部
+https://www.se.tcu.ac.jp/
+
+建築都市デザイン学部
+https://www.acu.tcu.ac.jp/
+
+情報工学部
+https://it.tcu.ac.jp/
+
+環境学部
+https://fes.tcu.ac.jp/
+
+メディア情報学部
+https://informatics.tcu.ac.jp/
+Facebook: https://www.facebook.com/TCUinformatics/
+Twitter: https://twitter.com/TCUinformatics
+YouTube: https://www.youtube.com/user/TCUInformatics/
+Instagram: https://www.instagram.com/facultyofinformaticstcu/
+
+デザイン・データ科学部
+https://toshiseikatsu-gakubu.jp/
+
+
+都市生活学部
+https://www.tcu.ac.jp/academics/urbanlife/
+
+人間科学部
+https://www.tcu.ac.jp/academics/humanlife/
+
+大学院 総合理工学研究科
+https://www.tcu.ac.jp/academics/graduate/scienceandengineering
+
+大学院 環境情報学研究科
+https://www.comm.tcu.ac.jp/gseis/
+
+大学院 情報データ科学研究科
+https://www.tcu.ac.jp/academics/graduate/info_ds/
+
+世田谷祭 / 世田谷祭実行委員会
+https://setagayafes.org/
+例年10-11月に世田谷キャンパスで開催される学園祭の公式サイト、およびその団体(外部リンクページにおいての「世田谷祭公式サイト」としてのリンクと、「委員会」としてのリンクは別のものとして扱うこと)
+9号館3階に会室がある。
+Twitter: @setagayafes_tcu
+Instagram: @setagayafes_sfa
+(SNSアカウントは両方におなじことを書いておくように)
+
+横浜祭 / 横浜祭実行委員会
+https://yokohama-fest.net/
+例年9-10月に横浜キャンパスで開催される学園祭の公式サイト、およびその団体。
+横浜キャンパスの3号館に会室がある。
+Twitter: https://x.com/Yokohamasai
+Instagram: https://www.instagram.com/yokohamafestival
+YouTube: https://www.youtube.com/@Yokohamafest
+
+等々力祭
+https://todorokifes.setagayafes.org/
+等々力キャンパスで開催されていた学園祭の公式サイト。現在は等々力キャンパス廃止に伴い開催は行われていない。
+
+学生団体連合会 本部
+学生の課外活動を支える団体。世田谷キャンパス9号館3階の会室で、毎週月曜日の昼休みに活動。
+高校の生徒会に近い内容。
+http://www.sto.tcu.ac.jp/
+Twitter: https://twitter.com/sto_sc
+Instagram: https://www.instagram.com/sto_sc/
+peing: https://peing.net/ja/sto_sc/
+note: https://note.com/sto_sc/
+
+学生団体連合会 横浜分室
+毎週木曜日に横浜キャンパス4号館1階にある横浜分室にてミーティングを行っている。
+https://ycbunsitu.wixsite.com/tcu-ac-jp
+Twitter: https://twitter.com/sto_yc
+Instagram: https://www.instagram.com/sto_yc/
+peing: https://peing.net/ja/ycbunsitsu/
+YouTube: https://www.youtube.com/channel/UC1XmFKKDnEIMDsmXbG-AHaQ/
+
+学生団体連合会 等々力分室(Twitter)
+現在は等々力キャンパス廃止に伴い、アカウントは休止された。
+https://twitter.com/todobun_2nd
+
+ーーー
+
+アカペラサークル Groove
+Twitter: https://x.com/tcu_Groove
+
+吹奏楽団
+https://www.comm.tcu.ac.jp/brassband/index.html
+ブラスバンド Brass（火・水・金）/ ジャズバンド Stack（月・水・木）に、世田谷キャンパス1号館の地下1階で活動。
+
+吹奏楽団 Brass
+いわゆる普通の吹奏楽部。
+Twitter: https://x.com/tcu_brass
+Instagram: instagram.com/tcu_brass/
+
+吹奏楽団 Stack
+stacksoundsorc.wixsite.com/toshidai
+おなじ吹奏楽団だが、こちらはバンド的な演奏をする。
+Twitter: https://x.com/Stack_TCU2
+Instagram: @STACKSOUNDSORCHESTRA
+
+
+硬式野球部
+https://www.tcubaseball.club/
+Twitter: https://x.com/tcu_bb
+Instagram: https://www.instagram.com/toshidai_baseball
+
+競技麻雀部
+賭博はもちろんしないという。土曜に11Aで活動。
+https://www.instagram.com/tcumahjong15
+https://x.com/m_tcu (旧)
+https://x.com/tcu_ma
+
+学生フォーミュラチーム Mi-Tech Racing
+(読み方は「マイテック」)
+mitech-racing.com
+https://x.com/MiTechRacing
+https://instagram.com/mitechracing
+
+航空研究部 APSARAS
+https://x.com/tcu_apsaras
+https://instagram.com/apsaras_tcu
+
+鉄道研究部
+(検索ワードに「げんち」を追加しておいて)
+https://www.comm.tcu.ac.jp/steelcar/tekken_alpha/
+https://x.com/tcu_rail
+https://instagram.com/tcu_rail/
+
+ラグビー部
+https://x.com/tcurfc634
+
+写真部
+https://x.com/photo_tcu
+instagram.com/photo_tcu/
+
+グリークラブ！
+(混声合唱団。火曜日・水曜日・金曜日に1BN教室で活動。)
+tcuglee.com
+https://x.com/tcuglee
+
+放送会
+撮影、映像編集、音響、トーク、アナウンス。いわゆる放送部に当たる活動をしている。世田谷キャンパス9号館3階に放送会室がある。
+https://x.com/TBAhousoukai
+
+新聞会
+1954年創刊。WEBを中心に活動。月に2回の定例会を行っている。世田谷と横浜の両方に会室を保有する。
+https://x.com/tcuprs
+tcuprs.com
+
+アメフト部 Helios
+https://x.com/helios_tcu
+https://www.instagram.com/helios.tcu.football/
+
+アイスホッケー部
+https://tcuicehockeyhp.wixsite.com/tcuicehockey-hp
+https://x.com/tcu_icehockey
+
+陸上競技部
+tcutf.web.fc2.com
+https://x.com/tf_635
+https://www.instagram.com/tcu_tf
+
+卓球部
+https://x.com/tcu_ttc
+
+天文研究部
+https://x.com/tenmon_tcu
+https://www.instagram.com/tenmon_tcu
+
+ISO学生委員会
+ycisosc.wixsite.com/tcu-ac-jp
+横浜キャンパスが取得しているISO14001に関する維持と学内外の環境意識向上を目的に、環境教育部会、省資源部会、省エネルギー部会の3部会構成で日々活動。
+不定期だが火曜日に定例会を開いている。
+https://x.com/yc_isosc
+http://Instagram.com/ycisosc
+
+デジタルコンテンツ研究会
+https://tcu-dc.net/
+都市大で最大級の創作サークル。DTM、イラスト、動画、プログラミング、などなど。オンライン活動が主体だが、本部は横浜キャンパスという扱いになっている。世田谷キャンパスのCTRLとの仲がいいのかは不明。。
+イメージキャラクターは、水色の髪の毛にピンク色のリボンの髪留めが特徴的な「でじこんちゃん」。
+https://x.com/tcu_dc
+
+水泳部
+swimtcu.wordpress.com
+https://x.com/tcuswimteam
+
+ヨット部
+https://x.com/TCU_Yacht
+instagram.com/tcuyac
+
+弓道部
+sosteam.sakura.ne.jp
+https://x.com/tcu_kyudo
+
+フットサル部 woodsbear
+https://www.youtube.com/@woodsbear5973
+https://x.com/woodsbear001
+instagram.com/tcu_woodsbear/
+
+ハワイアンクラブ
+軽音楽団体。自由が丘や溝の口などの、環状18号線付近のスタジオで活動している。
+https://x.com/tcuhawaiian
+instagram.com/hawai_ianclub
+
+ソフトテニス部
+水曜日に18号館付近のテニスコートで活動している。
+https://x.com/citysofttennis
+
+コンピュータ技術研究会 CTRL
+home.tcu-ctrl.jp
+シーティーアールエル、と読む。世田谷キャンパスを中心に、ゲームやプログラミングなどの活動を中心に行っている。横浜キャンパスが拠点のデジコンには勢力で負けるが、仲が悪いわけではないらしい？
+イメージキャラクターは、やや青色がかった灰色の髪の毛にピンク色のスカートを履いた女の子の「アンナちゃん」。
+https://x.com/tcuctrl
+
+柏甌会
+茶道サークル。インカレではない。
+https://x.com/tcu_tea
+
+スナイパーズ
+軽音楽団体。月・水・金に18号館で練習会をしている。
+https://x.com/tcu_snipers
+
+東京都市大学将棋サークル
+tcushougi.blog.fc2.com
+活動実態は不明、現在保留すべきか？
+https://x.com/tcushogi26fu
+
+少林寺拳法部
+mittcushorin.wp.xdomain.jp
+月木17:20〜20:00,土14:30〜17:30 世田谷キャンパス武道場
+https://x.com/tcushorinji
+
+バスケットボール部
+月金17:30〜20:00・水13:30〜17:00 土9:30〜13:00に活動。世田谷キャンパス。
+https://x.com/tcu_bbc
+
+夢キャンコミュニケーター
+https://grp.tcu.ac.jp/yumecomm/
+自由な発想でプロジェクトを企画・運営し、「夢」をテーマに活動する東京都市大学の学生団体。
+かつては「二子玉川夢キャンパス」を拠点に活動していた。現在も二子玉川が活動拠点。
+https://x.com/yumecampus_tcu
+
+二子玉川夢キャンパス
+https://www.chiiki.tcu.ac.jp/yumecampus_archive/
+かつて存在した地域交流拠点。実際のキャンパスではない。
+現在は閉鎖されているが、アーカイブ用ホームページが残存する。
+
+宇宙開発教育コミュニティ TAC
+grp.tcu.ac.jp/tac/
+ロケットと人工衛星を開発中。まもなく人工衛星を民間のロケットに積んで打ち上げるらしい。
+https://x.com/TAC_toshidai
+
+サッカー部
+Twitter: https://x.com/toshidai_soccer
+Instagram: https://instagram.com/toshidai_soccer
+
+ダンス部 UPBEAT
+https://x.com/TCU_UPBEAT
+instagram.com/TCU_UPBEAT
+
+自動車部
+https://ameblo.jp/tokyocitycarclub/
+18号館にガレージがある。プレオRS シビックEG6を部車として保有。
+https://x.com/univ_carclub
+
+ハンドボール部
+tcuhand.web.fc2.com/home/home.html
+9号館2F 体育館で活動。
+https://x.com/tcuhand
+instagram.com/handball.tcu
+
+学科研究会連合本部
+https://x.com/tcu_dra
+instagram.com/tcu_dra
+
+モーターサイクル部
+www2.hp-ez.com/hp/tcumcc
+https://x.com/MCCTCU
+https://instagram.com/mcctcu
+
+バドミントン部
+tcubadclub.web.fc2.com
+https://x.com/TCU_badminton_7
+
+ダンス部 LAVI
+横浜キャンパス拠点。
+https://x.com/LAVI_Dance
+instagram.com/lavi_tcu
+
+arte
+arteofficial.web.fc2.com/index.html
+アルテ、と読む。横浜キャンパス拠点。デジコンとは友好関係。イラスト創作が中心。
+イメージキャラクターは、赤色の服とカチューシャ？が特徴的な「アカマキさん」と、赤いマフラーを付けた白猫の「ネコマフラー」。
+https://x.com/arteofficial
+
+音楽団体PLAM
+横浜キャンパス唯一の軽音団体。
+https://x.com/PLAM20201
+
+潜水科学研究会 ダイビング部
+離島の海がきれいなところに行って、「まったり」ダイビングをやっている、らしい。
+https://x.com/senkenTCU
+instagram.com/tcu_senken
+
+空手道部
+https://x.com/TCUkarate
+instagram.com/tcukarate2222/
+facebook.com/TCU.KARATE
+
+都市緑化研究会
+横浜キャンパス中心。早渕川・老馬谷ガーデン（HRG）の維持管理を目的とした団体。
+文化祭では、HRGの植物を使って制作した商品の販売も行う。
+https://x.com/toshiryokka
+https://www.instagram.com/toshiryokkakenkyuuka
+
+同好会連合本部
+comm.tcu.ac.jp/tcu-acc/
+都市大のサークルの管轄、予算管理やイベントの企画・運営、運営補助などを行う上部団体。
+https://x.com/tcu_acc
+
+古生物同好会
+化石や鉱物の採集をする。
+https://x.com/TCU_koseibutsu
+instagram.com/tcu_paleo
+
+合気道部
+火.金 17:30〜20:00 水 13:30-15:00/ 世田谷 9号館2階第4アリーナで活動している。
+https://x.com/TCU_aiki
+
+体育会本部
+https://taiikukaihonbu0.wixsite.com/tcu-taiikukai
+26ほどの運動系部活動を傘下にし、体育祭や「TCUラリー」というイベントの運営をしている。
+https://x.com/tcu_taiikukai0
+
+エレクトーンサークル sky tone 
+skytone.jimdo.com
+目黒にある「エレクトーンシティ」で活動中のエレクトーンサークル。
+https://x.com/tcu_skytone
+
+お散歩同好会
+横浜キャンパスが中心。散歩に行きQOLを上げることを目標とする。
+イメージキャラクターは、暗い青色の髪の毛が特徴の女の子、「どどどさん」。Pixivがある。
+https://x.com/Dosannpo_tcu
+https://www.pixiv.net/users/101580325
+
+東京都市大 SF研
+TRPGやボドゲを楽しむ部活。毎週水曜土曜の13時頃より18号館4Fホールと部室で、20時よりオンラインで活動しているという。
+https://x.com/sf_TOKIOcity
+instagram.com/sf_tokiocity
+
+漫画アニメ研究部 まに
+tcumaniportal.web.fc2.com
+毎週水曜日に世田谷キャンパスの12E教室で活動しているという。
+https://x.com/maniportal_tcu
+
+Skyview
+スカイスポーツ部。パラグライダー･ハンググライダーで空を飛んでいる。足尾山などで活動。入会金が高いらしい。
+https://x.com/skyview_tcu
+
+カードゲーム同好会
+都市大の非公認カードゲームコミュニティ。公認化を目指している。
+https://x.com/tcu_tcg
+
+自転車競技同好会
+2025年春に公認化。実業団登録名「EeS」として活動中。
+https://x.com/tcu_bicycleteam
+https://www.instagram.com/tcu_bicycleteam/
+
+たまこま部
+非公認サークル。全日本製造業コマ大戦への出場を目標に日々金属製のコマを製作している。
+https://x.com/tamakomabu2025
+
+
