@@ -239,9 +239,7 @@
                                        "メディア",
                                        "取材",
                                        "しんぶん",
-                                       "新聞会",
-                                       "課外活動団体",
-                                       "団体"
+                                       "新聞会"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -599,7 +597,7 @@
                       "name":  "学術機関リポジトリ",
                       "category":  "システム",
                       "description":  "東京都市大学の研究成果や紀要論文、学術資料などのメタデータおよび本文を広く公開している学術情報リポジトリです。",
-                      "website":  "https://tcu-ar.repo.nii.ac.jp/?page=1\u0026size=20\u0026sort=-createdate",
+                      "website":  "https://tcu-ar.repo.nii.ac.jp/?page=1&size=20&sort=-createdate",
                       "keywords":  [
                                        "学術機関リポジトリ",
                                        "学内施設",
@@ -1681,8 +1679,6 @@
                                        "公式サイト",
                                        "イベント",
                                        "世田谷祭公式サイト",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -1709,8 +1705,6 @@
                                        "実行委員会",
                                        "9号館",
                                        "世田谷祭実行委員会",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -1738,8 +1732,6 @@
                                        "公式サイト",
                                        "イベント",
                                        "横浜祭公式サイト",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま"
@@ -1770,8 +1762,6 @@
                                        "実行委員会",
                                        "3号館",
                                        "横浜祭実行委員会",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま"
@@ -1799,8 +1789,6 @@
                       "website":  "https://todorokifes.setagayafes.org/",
                       "keywords":  [
                                        "等々力祭",
-                                       "課外活動団体",
-                                       "団体",
                                        "等々力",
                                        "等々力キャンパス",
                                        "とどろき"
@@ -1818,8 +1806,6 @@
                       "keywords":  [
                                        "学生団体連合会 本部",
                                        "学生団体連合会 本",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや",
@@ -1860,8 +1846,6 @@
                       "website":  "https://ycbunsitu.wixsite.com/tcu-ac-jp",
                       "keywords":  [
                                        "学生団体連合会 横浜分室",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま"
@@ -1893,8 +1877,6 @@
                       "website":  "https://twitter.com/todobun_2nd",
                       "keywords":  [
                                        "学生団体連合会 等々力分室(Twitter)",
-                                       "課外活動団体",
-                                       "団体",
                                        "等々力",
                                        "等々力キャンパス",
                                        "とどろき",
@@ -1923,8 +1905,6 @@
                       "keywords":  [
                                        "アカペラサークル Groove",
                                        "アカペラ Groove",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -1944,8 +1924,6 @@
                       "website":  "https://www.comm.tcu.ac.jp/brassband/index.html",
                       "keywords":  [
                                        "吹奏楽団",
-                                       "課外活動団体",
-                                       "団体",
                                        "音楽",
                                        "軽音",
                                        "バンド",
@@ -1965,8 +1943,6 @@
                       "website":  "https://x.com/tcu_brass",
                       "keywords":  [
                                        "吹奏楽団 Brass",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -2002,8 +1978,6 @@
                       "website":  "https://stacksoundsorc.wixsite.com/toshidai",
                       "keywords":  [
                                        "吹奏楽団 Stack",
-                                       "課外活動団体",
-                                       "団体",
                                        "音楽",
                                        "軽音",
                                        "バンド",
@@ -2031,8 +2005,6 @@
                       "keywords":  [
                                        "硬式野球部",
                                        "硬式野球",
-                                       "課外活動団体",
-                                       "団体",
                                        "野球",
                                        "ベースボール"
                                    ],
@@ -2055,9 +2027,7 @@
                       "website":  "https://www.instagram.com/tcumahjong15",
                       "keywords":  [
                                        "競技麻雀部",
-                                       "競技麻雀",
-                                       "課外活動団体",
-                                       "団体"
+                                       "競技麻雀"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2082,8 +2052,6 @@
                       "website":  "https://mitech-racing.com",
                       "keywords":  [
                                        "学生フォーミュラチーム Mi-Tech Racing",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -2113,9 +2081,7 @@
                       "website":  "https://x.com/tcu_apsaras",
                       "keywords":  [
                                        "航空研究部 APSARAS",
-                                       "航空研究 APSARAS",
-                                       "課外活動団体",
-                                       "団体"
+                                       "航空研究 APSARAS"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2139,9 +2105,7 @@
                                        "鉄道研究",
                                        "げんち",
                                        "鉄道",
-                                       "鉄研",
-                                       "課外活動団体",
-                                       "団体"
+                                       "鉄研"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2162,9 +2126,7 @@
                       "website":  "https://x.com/tcurfc634",
                       "keywords":  [
                                        "ラグビー部",
-                                       "ラグビー",
-                                       "課外活動団体",
-                                       "団体"
+                                       "ラグビー"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2181,9 +2143,7 @@
                       "website":  "https://x.com/photo_tcu",
                       "keywords":  [
                                        "写真部",
-                                       "写真",
-                                       "課外活動団体",
-                                       "団体"
+                                       "写真"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2204,8 +2164,6 @@
                       "website":  "https://tcuglee.com",
                       "keywords":  [
                                        "グリークラブ！",
-                                       "課外活動団体",
-                                       "団体",
                                        "音楽",
                                        "軽音",
                                        "バンド",
@@ -2228,8 +2186,6 @@
                       "website":  "https://x.com/TBAhousoukai",
                       "keywords":  [
                                        "放送会",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -2256,8 +2212,6 @@
                       "keywords":  [
                                        "アメフト部 Helios",
                                        "アメフト Helios",
-                                       "課外活動団体",
-                                       "団体",
                                        "サッカー",
                                        "フットボール"
                                    ],
@@ -2280,9 +2234,7 @@
                       "website":  "https://tcuicehockeyhp.wixsite.com/tcuicehockey-hp",
                       "keywords":  [
                                        "アイスホッケー部",
-                                       "アイスホッケー",
-                                       "課外活動団体",
-                                       "団体"
+                                       "アイスホッケー"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2299,9 +2251,7 @@
                       "website":  "https://tcutf.web.fc2.com",
                       "keywords":  [
                                        "陸上競技部",
-                                       "陸上競技",
-                                       "課外活動団体",
-                                       "団体"
+                                       "陸上競技"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2322,9 +2272,7 @@
                       "website":  "https://x.com/tcu_ttc",
                       "keywords":  [
                                        "卓球部",
-                                       "卓球",
-                                       "課外活動団体",
-                                       "団体"
+                                       "卓球"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2341,9 +2289,7 @@
                       "website":  "https://x.com/tenmon_tcu",
                       "keywords":  [
                                        "天文研究部",
-                                       "天文研究",
-                                       "課外活動団体",
-                                       "団体"
+                                       "天文研究"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2364,8 +2310,6 @@
                       "website":  "https://ycisosc.wixsite.com/tcu-ac-jp",
                       "keywords":  [
                                        "ISO学生委員会",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま",
@@ -2397,8 +2341,6 @@
                       "website":  "https://tcu-dc.net/",
                       "keywords":  [
                                        "デジタルコンテンツ研究会",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -2430,9 +2372,7 @@
                       "website":  "https://swimtcu.wordpress.com",
                       "keywords":  [
                                        "水泳部",
-                                       "水泳",
-                                       "課外活動団体",
-                                       "団体"
+                                       "水泳"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2449,9 +2389,7 @@
                       "website":  "https://x.com/TCU_Yacht",
                       "keywords":  [
                                        "ヨット部",
-                                       "ヨット",
-                                       "課外活動団体",
-                                       "団体"
+                                       "ヨット"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2472,9 +2410,7 @@
                       "website":  "https://sosteam.sakura.ne.jp",
                       "keywords":  [
                                        "弓道部",
-                                       "弓道",
-                                       "課外活動団体",
-                                       "団体"
+                                       "弓道"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2491,9 +2427,7 @@
                       "website":  "https://www.youtube.com/@woodsbear5973",
                       "keywords":  [
                                        "フットサル部 woodsbear",
-                                       "フットサル woodsbear",
-                                       "課外活動団体",
-                                       "団体"
+                                       "フットサル woodsbear"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2518,8 +2452,6 @@
                       "website":  "https://x.com/tcuhawaiian",
                       "keywords":  [
                                        "ハワイアンクラブ",
-                                       "課外活動団体",
-                                       "団体",
                                        "音楽",
                                        "軽音",
                                        "バンド",
@@ -2547,8 +2479,6 @@
                       "keywords":  [
                                        "ソフトテニス部",
                                        "ソフトテニス",
-                                       "課外活動団体",
-                                       "団体",
                                        "テニス",
                                        "庭球"
                                    ],
@@ -2567,8 +2497,6 @@
                       "website":  "https://home.tcu-ctrl.jp",
                       "keywords":  [
                                        "コンピュータ技術研究会 CTRL",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや",
@@ -2595,9 +2523,7 @@
                       "description":  "伝統的な茶道を通じて礼儀作法やおもてなしの心を学び、和室での定期的なお稽古や茶会の開催を中心に活動しているサークルです。",
                       "website":  "https://x.com/tcu_tea",
                       "keywords":  [
-                                       "柏甌会",
-                                       "課外活動団体",
-                                       "団体"
+                                       "柏甌会"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2614,8 +2540,6 @@
                       "website":  "https://x.com/tcu_snipers",
                       "keywords":  [
                                        "スナイパーズ",
-                                       "課外活動団体",
-                                       "団体",
                                        "音楽",
                                        "軽音",
                                        "バンド",
@@ -2638,9 +2562,7 @@
                       "website":  "https://tcushougi.blog.fc2.com",
                       "keywords":  [
                                        "東京都市大学将棋サークル",
-                                       "東京都市大学将棋",
-                                       "課外活動団体",
-                                       "団体"
+                                       "東京都市大学将棋"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2658,8 +2580,6 @@
                       "keywords":  [
                                        "少林寺拳法部",
                                        "少林寺拳法",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -2680,8 +2600,6 @@
                       "keywords":  [
                                        "バスケットボール部",
                                        "バスケットボール",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -2700,9 +2618,7 @@
                       "description":  "二子玉川夢キャンパスなどを拠点とし、子ども向けの科学工作教室や地域イベントの企画・運営を学生主体で行う公認ボランティア団体です。",
                       "website":  "https://grp.tcu.ac.jp/yumecomm/",
                       "keywords":  [
-                                       "夢キャンコミュニケーター",
-                                       "課外活動団体",
-                                       "団体"
+                                       "夢キャンコミュニケーター"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2736,9 +2652,7 @@
                       "description":  "ロケットや人工衛星の開発、打ち上げプロジェクトの実現に向けて、工学的アプローチから挑戦を続ける宇宙開発コミュニティです。",
                       "website":  "https://grp.tcu.ac.jp/tac/",
                       "keywords":  [
-                                       "宇宙開発教育コミュニティ TAC",
-                                       "課外活動団体",
-                                       "団体"
+                                       "宇宙開発教育コミュニティ TAC"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2757,9 +2671,7 @@
                                        "サッカー",
                                        "運動",
                                        "フットボール",
-                                       "サッカー部",
-                                       "課外活動団体",
-                                       "団体"
+                                       "サッカー部"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2780,9 +2692,7 @@
                       "website":  "https://x.com/TCU_UPBEAT",
                       "keywords":  [
                                        "ダンス部 UPBEAT",
-                                       "ダンス UPBEAT",
-                                       "課外活動団体",
-                                       "団体"
+                                       "ダンス UPBEAT"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2803,9 +2713,7 @@
                       "website":  "https://ameblo.jp/tokyocitycarclub/",
                       "keywords":  [
                                        "自動車部",
-                                       "自動車",
-                                       "課外活動団体",
-                                       "団体"
+                                       "自動車"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2823,8 +2731,6 @@
                       "keywords":  [
                                        "ハンドボール部",
                                        "ハンドボール",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -2849,8 +2755,6 @@
                       "keywords":  [
                                        "学科研究会連合本部",
                                        "学科研究会連合本",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -2880,9 +2784,7 @@
                       "website":  "https://www2.hp-ez.com/hp/tcumcc",
                       "keywords":  [
                                        "モーターサイクル部",
-                                       "モーターサイクル",
-                                       "課外活動団体",
-                                       "団体"
+                                       "モーターサイクル"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2903,9 +2805,7 @@
                       "website":  "https://tcubadclub.web.fc2.com",
                       "keywords":  [
                                        "バドミントン部",
-                                       "バドミントン",
-                                       "課外活動団体",
-                                       "団体"
+                                       "バドミントン"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -2923,8 +2823,6 @@
                       "keywords":  [
                                        "ダンス部 LAVI",
                                        "ダンス LAVI",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま"
@@ -2948,8 +2846,6 @@
                       "website":  "https://arteofficial.web.fc2.com/index.html",
                       "keywords":  [
                                        "arte",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま"
@@ -2969,8 +2865,6 @@
                       "website":  "https://x.com/PLAM20201",
                       "keywords":  [
                                        "音楽団体PLAM",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま",
@@ -2996,9 +2890,7 @@
                       "website":  "https://x.com/senkenTCU",
                       "keywords":  [
                                        "潜水科学研究会 ダイビング部",
-                                       "潜水科学研究会 ダイビング",
-                                       "課外活動団体",
-                                       "団体"
+                                       "潜水科学研究会 ダイビング"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -3020,8 +2912,6 @@
                       "keywords":  [
                                        "空手道部",
                                        "空手道",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -3049,8 +2939,6 @@
                       "website":  "https://x.com/toshiryokka",
                       "keywords":  [
                                        "都市緑化研究会",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま"
@@ -3076,8 +2964,6 @@
                                        "同好会連合本部",
                                        "同好会連合本",
                                        "連合本部",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -3104,8 +2990,6 @@
                       "keywords":  [
                                        "古生物同好会",
                                        "古生物",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -3136,8 +3020,6 @@
                       "keywords":  [
                                        "合気道部",
                                        "合気道",
-                                       "課外活動団体",
-                                       "団体",
                                        "世田谷",
                                        "世田谷キャンパス",
                                        "せたがや"
@@ -3158,8 +3040,6 @@
                       "keywords":  [
                                        "体育会本部",
                                        "体育会本",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
@@ -3186,8 +3066,6 @@
                       "keywords":  [
                                        "エレクトーンサークル sky tone",
                                        "エレクトーン sky tone",
-                                       "課外活動団体",
-                                       "団体",
                                        "音楽",
                                        "軽音",
                                        "バンド",
@@ -3211,8 +3089,6 @@
                       "keywords":  [
                                        "お散歩同好会",
                                        "お散歩",
-                                       "課外活動団体",
-                                       "団体",
                                        "横浜",
                                        "横浜キャンパス",
                                        "よこはま"
@@ -3235,9 +3111,7 @@
                       "description":  "SF小説やアニメの考察、TRPG、ボードゲームなど、SF的・ファンタジー的世界観を共有するメンバーで活動するボードゲーム・TRPGサークルです。",
                       "website":  "https://x.com/sf_TOKIOcity",
                       "keywords":  [
-                                       "東京都市大 SF研",
-                                       "課外活動団体",
-                                       "団体"
+                                       "東京都市大 SF研"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -3258,9 +3132,7 @@
                       "website":  "https://tcumaniportal.web.fc2.com",
                       "keywords":  [
                                        "漫画アニメ研究部 まに",
-                                       "漫画アニメ研究 まに",
-                                       "課外活動団体",
-                                       "団体"
+                                       "漫画アニメ研究 まに"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -3276,9 +3148,7 @@
                       "description":  "ハンググライダーやパラグライダーを操り、広大な空を自力で飛ぶ爽快なスカイスポーツに挑戦しているサークルです。",
                       "website":  "https://x.com/skyview_tcu",
                       "keywords":  [
-                                       "Skyview",
-                                       "課外活動団体",
-                                       "団体"
+                                       "Skyview"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -3295,9 +3165,7 @@
                       "website":  "https://x.com/tcu_tcg",
                       "keywords":  [
                                        "カードゲーム同好会",
-                                       "カードゲーム",
-                                       "課外活動団体",
-                                       "団体"
+                                       "カードゲーム"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -3314,9 +3182,7 @@
                       "website":  "https://x.com/tcu_bicycleteam",
                       "keywords":  [
                                        "自転車競技同好会",
-                                       "自転車競技",
-                                       "課外活動団体",
-                                       "団体"
+                                       "自転車競技"
                                    ],
                       "onCampusOnly":  false,
                       "sns":  [
@@ -3338,8 +3204,6 @@
                       "keywords":  [
                                        "たまこま部",
                                        "たまこま",
-                                       "課外活動団体",
-                                       "団体",
                                        "図書",
                                        "本",
                                        "自習",
