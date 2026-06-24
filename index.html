@@ -1707,8 +1707,8 @@
     /* === 外部リンク集スタイル === */
     .links-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 横5列程度になるよう縮小 */
+      gap: 12px;
       width: 100%;
       box-sizing: border-box;
       margin-top: 16px;
@@ -1717,8 +1717,8 @@
     .link-card {
       background: var(--md-sys-color-surface-container);
       border: 1px solid var(--md-sys-color-outline-variant);
-      border-radius: 20px;
-      padding: 24px;
+      border-radius: 16px;
+      padding: 16px; /* パディングを小さくしてコンパクト化 */
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -1731,33 +1731,97 @@
 
     .link-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       background-color: var(--md-sys-color-surface-container-high);
       border-color: var(--md-sys-color-primary);
     }
 
     .link-card-category {
-      font-size: 11px;
+      display: inline-block;
+      font-size: 9px;
       font-weight: 700;
-      color: var(--md-sys-color-primary);
-      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 100px;
       margin-bottom: 8px;
+      text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
+    /* カテゴリ別の色設定 */
+    .link-card-category.cat-official {
+      background-color: #E0F2FE;
+      color: #0369A1;
+    }
+    .link-card-category.cat-office {
+      background-color: #F3E8FF;
+      color: #6B21A8;
+    }
+    .link-card-category.cat-facility {
+      background-color: #FEF3C7;
+      color: #B45309;
+    }
+    .link-card-category.cat-activity {
+      background-color: #DCFCE7;
+      color: #15803D;
+    }
+    .link-card-category.cat-other {
+      background-color: #F3F4F6;
+      color: #374151;
+    }
+
+    /* ダークモード用のカテゴリ色上書き（視認性確保） */
+    html[data-theme="dark"] .link-card-category.cat-official {
+      background-color: #0c4a6e;
+      color: #38bdf8;
+    }
+    html[data-theme="dark"] .link-card-category.cat-office {
+      background-color: #581c87;
+      color: #e9d5ff;
+    }
+    html[data-theme="dark"] .link-card-category.cat-facility {
+      background-color: #78350f;
+      color: #fde68a;
+    }
+    html[data-theme="dark"] .link-card-category.cat-activity {
+      background-color: #064e3b;
+      color: #6ee7b7;
+    }
+    html[data-theme="dark"] .link-card-category.cat-other {
+      background-color: #374151;
+      color: #e5e7eb;
+    }
+
     .link-card-name {
-      font-size: 16px;
+      font-size: 13px; /* 少し小さめに変更 */
       font-weight: 600;
       color: var(--md-sys-color-on-surface);
       margin: 0;
       line-height: 1.4;
     }
 
+    /* 学内専用バッジ（黄色地に黒文字） */
+    .link-card-campus-only {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 9px;
+      font-weight: 700;
+      color: #78350f;
+      background-color: #FCD34D; /* 明るい黄色 */
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 6px;
+    }
+
+    .link-card-campus-only .material-symbols-outlined {
+      font-size: 11px;
+    }
+
     .link-card-footer {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin-top: 16px;
+      margin-top: 8px; /* 間隔を縮小 */
       color: var(--md-sys-color-outline);
     }
 
@@ -2207,6 +2271,24 @@
         style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
         <span class="material-symbols-outlined" style="font-size: 24px;">open_in_new</span>外部リンク集
       </h2>
+
+      <!-- フィルター・検索バー -->
+      <div class="filter-bar" style="margin-bottom: 16px;">
+        <!-- キーワード検索 -->
+        <div style="position: relative; flex-grow: 1; min-width: 200px;">
+          <input type="text" id="linkSearchInput" placeholder="キーワード・略称で検索 (例: 吹部)" oninput="filterLinks()" style="padding: 10px 16px 10px 40px; width: 100%; border: 1px solid var(--md-sys-color-outline); border-radius: 100px; font-size: 14px; font-weight: 500; font-family: inherit; color: var(--md-sys-color-on-surface); background-color: var(--md-sys-color-surface); box-sizing: border-box;" />
+          <span class="material-symbols-outlined" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--md-sys-color-outline); font-size: 20px; pointer-events: none;">search</span>
+        </div>
+        <!-- カテゴリ絞り込み -->
+        <select id="linkCategoryFilter" onchange="filterLinks()" style="min-width: 150px;">
+          <option value="ALL">すべてのカテゴリ</option>
+          <option value="公式">公式</option>
+          <option value="学内窓口">学内窓口</option>
+          <option value="学内施設">学内施設</option>
+          <option value="課外活動">課外活動</option>
+        </select>
+      </div>
+
       <div class="links-grid" id="linksGrid">
         <!-- JSにより動的生成 -->
       </div>
@@ -3845,7 +3927,7 @@
         const response = await fetch('./links.json');
         if (!response.ok) throw new Error('Failed to fetch links.json');
         externalLinksData = await response.json();
-        renderExternalLinks();
+        renderExternalLinks(externalLinksData);
       } catch (e) {
         console.error("Error loading links:", e);
         const grid = document.getElementById('linksGrid');
@@ -3859,32 +3941,80 @@
       }
     }
 
-    function renderExternalLinks() {
+    function getCategoryClass(category) {
+      switch (category) {
+        case '公式': return 'cat-official';
+        case '学内窓口': return 'cat-office';
+        case '学内施設': return 'cat-facility';
+        case '課外活動': return 'cat-activity';
+        default: return 'cat-other';
+      }
+    }
+
+    function renderExternalLinks(linksArray) {
       const grid = document.getElementById('linksGrid');
       if (!grid) return;
 
-      if (externalLinksData.length === 0) {
+      if (linksArray.length === 0) {
         grid.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--md-sys-color-outline);">
-            リンクが登録されていません。
+            一致するリンクが見つかりません。
           </div>
         `;
         return;
       }
 
-      grid.innerHTML = externalLinksData.map((link, index) => {
+      grid.innerHTML = linksArray.map(link => {
+        // 元のデータのインデックスを見つけてクリックイベントに渡す
+        const originalIndex = externalLinksData.findIndex(item => item.name === link.name);
+        const catClass = getCategoryClass(link.category);
+        const campusBadge = link.onCampusOnly 
+          ? `<div class="link-card-campus-only"><span class="material-symbols-outlined">gpp_maybe</span>学内専用</div>` 
+          : '';
+
         return `
-          <div class="link-card" onclick="handleLinkCardClick(${index})">
+          <div class="link-card" onclick="handleLinkCardClick(${originalIndex})">
             <div>
-              <div class="link-card-category">${link.category || 'その他'}</div>
+              <div class="link-card-category ${catClass}">${link.category || 'その他'}</div>
               <h3 class="link-card-name">${link.name}</h3>
+              ${campusBadge}
             </div>
             <div class="link-card-footer">
-              <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+              <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    function filterLinks() {
+      const searchQuery = document.getElementById('linkSearchInput').value.toLowerCase().trim();
+      const selectedCategory = document.getElementById('linkCategoryFilter').value;
+
+      const filtered = externalLinksData.filter(link => {
+        // カテゴリの絞り込み
+        const matchCategory = (selectedCategory === "ALL" || link.category === selectedCategory);
+
+        // 検索ワードの絞り込み
+        let matchSearch = true;
+        if (searchQuery !== "") {
+          const matchName = link.name && link.name.toLowerCase().includes(searchQuery);
+          const matchCatText = link.category && link.category.toLowerCase().includes(searchQuery);
+          const matchDesc = link.description && link.description.toLowerCase().includes(searchQuery);
+          
+          // 略称・別名のマッチング
+          let matchKeywords = false;
+          if (link.keywords && Array.isArray(link.keywords)) {
+            matchKeywords = link.keywords.some(kw => kw.toLowerCase().includes(searchQuery));
+          }
+
+          matchSearch = matchName || matchCatText || matchDesc || matchKeywords;
+        }
+
+        return matchCategory && matchSearch;
+      });
+
+      renderExternalLinks(filtered);
     }
 
     function handleLinkCardClick(index) {
@@ -3938,11 +4068,30 @@
         `;
       }
 
+      // 学内専用の注意文枠
+      const campusWarningHtml = linkData.onCampusOnly
+        ? `
+          <div style="background-color: #FEF3C7; border: 1px solid #FCD34D; border-radius: 12px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px;">
+            <span class="material-symbols-outlined" style="color: #B45309; font-size: 20px; flex-shrink: 0; margin-top: 1px;">gpp_maybe</span>
+            <div style="color: #78350f; font-size: 12px; font-weight: 600; line-height: 1.5;">
+              ※ このリンクは学内回線（学内LAN、学内Wi-Fi等）からのみ閲覧可能です。外部回線からはアクセスできません。
+            </div>
+          </div>
+        `
+        : '';
+
+      const catClass = getCategoryClass(linkData.category);
+
       if (bodyEl) {
         bodyEl.innerHTML = `
           <div style="display: flex; flex-direction: column; gap: 16px;">
-            ${linkData.category ? `<div style="align-self: flex-start; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;">${linkData.category}</div>` : ''}
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+              ${linkData.category ? `<span class="link-card-category ${catClass}" style="margin-bottom: 0;">${linkData.category}</span>` : ''}
+              ${linkData.onCampusOnly ? `<span class="link-card-campus-only" style="margin-top: 0; padding: 3px 8px;">学内専用</span>` : ''}
+            </div>
             
+            ${campusWarningHtml}
+
             <p style="font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface); margin: 0; white-space: pre-wrap;">${linkData.description || '概要説明はありません。'}</p>
             
             <div style="margin-top: 8px;">
