@@ -3949,6 +3949,148 @@
     // ==========================================
     // 外部リンク集の動的読み込みと制御ロジック
     // ==========================================
+    const DEFAULT_LINKS_DATA = {
+      categories: [
+        {
+          id: "大学公式",
+          name: "大学公式",
+          bgLight: "#E0F2FE",
+          textLight: "#0369A1",
+          bgDark: "#0c4a6e",
+          textDark: "#38bdf8"
+        },
+        {
+          id: "学内窓口",
+          name: "学内窓口",
+          bgLight: "#F3E8FF",
+          textLight: "#6B21A8",
+          bgDark: "#581c87",
+          textDark: "#e9d5ff"
+        },
+        {
+          id: "学内施設",
+          name: "学内施設",
+          bgLight: "#FEF3C7",
+          textLight: "#B45309",
+          bgDark: "#78350f",
+          textDark: "#fde68a"
+        },
+        {
+          id: "課外活動団体",
+          name: "課外活動団体",
+          bgLight: "#DCFCE7",
+          textLight: "#15803D",
+          bgDark: "#064e3b",
+          textDark: "#6ee7b7"
+        }
+      ],
+      links: [
+        {
+          name: "大学公式サイト",
+          category: "大学公式",
+          description: "東京都市大学の公式ホームページです。大学のニュース、入試情報、各学部の紹介、行事予定などが掲載されています。",
+          website: "https://www.tcu.ac.jp/",
+          keywords: ["都市大", "公式", "tcu", "ホームページ", "大学"],
+          onCampusOnly: false,
+          sns: [
+            { platform: "Twitter / X", url: "https://x.com/Tokyo_city_univ" },
+            { platform: "YouTube", url: "https://www.youtube.com/@東京都市大学-p1r" }
+          ]
+        },
+        {
+          name: "五島育英会公式",
+          category: "大学公式",
+          description: "学校法人五島育英会の公式ホームページです。東京都市大学グループの情報などが掲載されています。",
+          website: "https://www.goto-ikuei.ac.jp/",
+          keywords: ["公式", "学校法人", "五島", "都市大", "附属"],
+          onCampusOnly: false,
+          sns: [
+            { platform: "Twitter / X", url: "https://x.com/toshidaigroup" },
+            { platform: "YouTube", url: "https://www.youtube.com/user/tcu104" }
+          ]
+        },
+        {
+          name: "教学課",
+          category: "学内窓口",
+          description: "履修登録、授業スケジュール、試験、成績、各種証明書の発行など、学生生活の学びに関する総合窓口です。",
+          website: "https://www.tcu.ac.jp/campuslife/",
+          keywords: ["教務", "履修", "成績", "授業", "時間割", "相談", "証明書", "窓口"],
+          onCampusOnly: false,
+          sns: []
+        },
+        {
+          name: "キャリア支援センター",
+          category: "学内窓口",
+          description: "就職活動の相談、インターンシップ情報、履歴書添削や面接練習など、学生のキャリア形成と進路決定を強力にサポートします。",
+          website: "https://www.tcu.ac.jp/career/",
+          keywords: ["就活", "キャリア", "求人", "インターン", "面接", "履歴書", "就職"],
+          onCampusOnly: false,
+          sns: []
+        },
+        {
+          name: "図書館",
+          category: "学内施設",
+          description: "学内の図書や学術論文、電子資料などの検索・閲覧が可能です。自習スペースやラーニング・コモンズも完備しています。",
+          website: "https://lib.tcu.ac.jp/",
+          keywords: ["図書", "本", "自習", "文献", "論文", "図書検索", "ライブラリ"],
+          onCampusOnly: false,
+          sns: [
+            { platform: "Twitter / X", url: "https://twitter.com/tcu_library" }
+          ]
+        },
+        {
+          name: "プリンター(PaperCut MF)",
+          category: "学内施設",
+          description: "学内各所に設置されているプリンターの管理画面です。ここからPDFをインポートし、プリントアウトできます。",
+          website: "https://print.itc.tcu.ac.jp/user",
+          keywords: ["PDF", "レポート", "プリント", "プリンター", "印刷"],
+          onCampusOnly: true,
+          sns: []
+        },
+        {
+          name: "吹奏楽部",
+          category: "課外活動団体",
+          description: "入学式や学位授与式などの式典演奏、定期演奏会、学園祭（等々力祭・世田谷祭）での演奏を中心に、仲良く活動しています。",
+          website: "https://tcu-wind.com/",
+          keywords: ["吹部", "ブラバン", "音楽", "楽器", "部活", "サークル", "すいそうがく"],
+          onCampusOnly: false,
+          sns: [
+            { platform: "Twitter / X", url: "https://twitter.com/tcu_wind" },
+            { platform: "Instagram", url: "https://www.instagram.com/tcu_wind/" }
+          ]
+        },
+        {
+          name: "新聞会",
+          category: "課外活動団体",
+          description: "学内紙の「都市大新聞」を発行している公認団体です。キャンパス内の出来事や教職員・学生へのインタビュー記事を取材・編集しています。",
+          website: "https://tcu-press.com/",
+          keywords: ["新聞", "サークル", "広報", "メディア", "取材", "学生団体", "しんぶん"],
+          onCampusOnly: false,
+          sns: [
+            { platform: "Twitter / X", url: "https://twitter.com/tcupress" }
+          ]
+        },
+        {
+          name: "授業資料共有サーバ",
+          category: "学内施設",
+          description: "各講義で使用される講義スライドや配布資料、過去問などが格納されている学内共有ストレージサーバーです。",
+          website: "http://10.1.2.3/shares/",
+          keywords: ["ファイルサーバー", "授業資料", "共有", "フォルダ", "配布資料", "ストレージ", "サーバ"],
+          onCampusOnly: true,
+          sns: []
+        },
+        {
+          name: "学内無線LAN接続ポータル",
+          category: "学内施設",
+          description: "学内Wi-Fiへの端末接続設定マニュアルや、利用機器のアドレス登録を行うためのポータルサイトです。",
+          website: "http://net-auth.internal.tcu.ac.jp/",
+          keywords: ["wifi", "ワイファイ", "インターネット", "ネットワーク", "接続設定", "認証", "学内LAN"],
+          onCampusOnly: true,
+          sns: []
+        }
+      ]
+    };
+
     let externalCategories = [];
     let externalLinksData = [];
 
@@ -3973,15 +4115,21 @@
         // 4. 初期表示のレンダリング
         renderLinksLayout(externalLinksData, false);
       } catch (e) {
-        console.error("Error loading links:", e);
-        const container = document.getElementById('linksContainer');
-        if (container) {
-          container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: var(--md-sys-color-error);">
-              外部リンクデータの取得に失敗しました。
-            </div>
-          `;
-        }
+        console.warn("Failed to fetch links.json. Using local fallback database.", e);
+        externalCategories = DEFAULT_LINKS_DATA.categories || [];
+        externalLinksData = DEFAULT_LINKS_DATA.links || [];
+
+        // 1. カテゴリ色の動的注入
+        injectCategoryStyles(externalCategories);
+
+        // 2. カテゴリフィルター選択肢の動的生成
+        populateCategoryFilter(externalCategories);
+
+        // 3. アンカーナビゲーションの動的生成
+        populateAnchorNav(externalCategories);
+
+        // 4. 初期表示のレンダリング
+        renderLinksLayout(externalLinksData, false);
       }
     }
 
