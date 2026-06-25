@@ -224,6 +224,7 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
+      flex: 1;
       overflow: hidden;
     }
 
@@ -1987,6 +1988,183 @@
       font-weight: 500;
       animation: fadeIn var(--md-transition-duration) var(--md-transition-easing);
     }
+
+    /* === ホーム画面 & 設定画面用追加 CSS === */
+    .home-welcome-card {
+      background: linear-gradient(135deg, var(--md-sys-color-primary) 0%, #004d66 100%);
+      color: var(--md-sys-color-on-primary);
+      padding: 24px;
+      border-radius: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(0, 102, 133, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .home-welcome-card::before {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      top: -30px;
+      right: -30px;
+    }
+    .home-welcome-card h3 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .home-welcome-card p {
+      margin: 8px 0 0 0;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    .dashboard-card {
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .dashboard-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dashboard-card-title .material-symbols-outlined {
+      color: var(--md-sys-color-primary);
+    }
+    .tracker-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tracker-highlight {
+      background-color: var(--md-sys-color-surface-container-high);
+      border-left: 4px solid var(--md-sys-color-primary);
+      padding: 12px 16px;
+      border-radius: 0 12px 12px 0;
+    }
+    .tracker-subject {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .tracker-details {
+      font-size: 12px;
+      color: var(--md-sys-color-on-surface-variant);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .countdown-timer {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      color: var(--md-sys-color-primary);
+      margin-top: 8px;
+    }
+    .countdown-unit {
+      font-size: 14px;
+      font-weight: 500;
+      margin-left: 4px;
+    }
+    .trivia-box {
+      background-color: var(--md-sys-color-surface-container-low);
+      border: 1px dashed var(--md-sys-color-outline);
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--md-sys-color-on-surface-variant);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .settings-panel {
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+    }
+    .settings-group-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--md-sys-color-primary);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .settings-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .settings-row label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--md-sys-color-on-surface);
+    }
+    .form-input, .form-select {
+      width: 100%;
+      background-color: var(--md-sys-color-surface-container-high);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      color: var(--md-sys-color-on-surface);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
+    }
+    .btn-action {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s;
+    }
+    .btn-action:hover {
+      background-color: #00508f;
+    }
+    .btn-danger {
+      background-color: var(--md-sys-color-error);
+      color: var(--md-sys-color-on-error);
+    }
+    .btn-danger:hover {
+      background-color: #900a0a;
+    }
   </style>
 </head>
 
@@ -2015,17 +2193,25 @@
       </button>
     </div>
     <ul class="nav-list">
-      <li class="nav-item active" id="nav-cafeteria" onclick="switchView('cafeteria', this)">
-        <span class="material-symbols-outlined">restaurant</span>学食メニュー
+      <li class="nav-item active" id="nav-home" onclick="switchView('home', this)">
+        <span class="material-symbols-outlined">home</span>ホーム
       </li>
-      <li class="nav-item" id="nav-bus" onclick="switchView('bus', this)">
-        <span class="material-symbols-outlined">directions_bus</span>シャトルバス案内
-      </li>
+      <li class="nav-divider" style="height: 1px; background-color: var(--md-sys-color-outline-variant); margin: 8px 16px; flex-shrink: 0;"></li>
       <li class="nav-item" id="nav-timetable" onclick="switchView('timetable', this)">
         <span class="material-symbols-outlined">calendar_today</span>簡易時間割
       </li>
+      <li class="nav-item" id="nav-cafeteria" onclick="switchView('cafeteria', this)">
+        <span class="material-symbols-outlined">restaurant</span>学食メニュー
+      </li>
+      <li class="nav-item" id="nav-bus" onclick="switchView('bus', this)">
+        <span class="material-symbols-outlined">directions_bus</span>シャトルバス時刻表
+      </li>
+      <div style="flex-grow: 1;"></div>
       <li class="nav-item" id="nav-links" onclick="switchView('links', this)">
         <span class="material-symbols-outlined">open_in_new</span>外部リンク集
+      </li>
+      <li class="nav-item" id="nav-settings" onclick="switchView('settings', this)">
+        <span class="material-symbols-outlined">settings</span>設定
       </li>
     </ul>
 
@@ -2035,7 +2221,61 @@
 
   <main class="main-content">
 
-    <section id="view-cafeteria" class="view-section active">
+    <!-- ホーム画面 -->
+    <section id="view-home" class="view-section active">
+      <div class="home-welcome-card">
+        <h3 id="homeWelcomeMessage">こんにちは、都市大生！</h3>
+        <p id="homeCurrentDateDisplay">日付を読み込み中...</p>
+      </div>
+
+      <div class="home-grid">
+        <!-- 左カラム: 次の授業トラッカー -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span class="material-symbols-outlined">schedule</span>次の授業トラッカー
+          </div>
+          <div class="tracker-content" id="nextClassTrackerContent">
+            <p style="color: var(--md-sys-color-outline); margin: 0;">読み込み中...</p>
+          </div>
+        </div>
+
+        <!-- 右カラム: クイックインフォ -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span class="material-symbols-outlined">info</span>学内クイックインフォ
+          </div>
+          <div class="tracker-content" style="gap: 16px;">
+            <div>
+              <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; color: var(--md-sys-color-on-surface);">
+                <span class="material-symbols-outlined" style="font-size: 18px;">directions_bus</span>次のシャトルバス便
+              </h4>
+              <div id="homeNextBusContent" class="tracker-highlight" style="background-color: var(--md-sys-color-surface-container-high); border-left-color: var(--md-sys-color-secondary);">
+                <p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">バス時刻データを読み込み中...</p>
+              </div>
+            </div>
+            <div>
+              <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; color: var(--md-sys-color-on-surface);">
+                <span class="material-symbols-outlined" style="font-size: 18px;">restaurant</span>本日のおすすめ学食メニュー
+              </h4>
+              <div id="homeMenuContent" class="tracker-highlight" style="background-color: var(--md-sys-color-surface-container-high); border-left-color: var(--md-sys-color-tertiary);">
+                <p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">学食メニューを読み込み中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 下部: 都市大トリビア -->
+      <div class="trivia-box">
+        <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary); font-size: 24px;">lightbulb</span>
+        <div>
+          <strong style="display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">都市大トリビア</strong>
+          <span id="homeTriviaContent">読み込み中...</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-cafeteria" class="view-section">
       <h2
         style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
         <span class="material-symbols-outlined" style="font-size: 24px;">restaurant</span>学食メニュー
@@ -2492,6 +2732,71 @@
 
       <!-- 警告文バナー用プレースホルダー（下部） -->
       <div id="bottomWarningPlaceholder" style="margin-top: 16px;"></div>
+    </section>
+
+    <!-- 設定画面 -->
+    <section id="view-settings" class="view-section">
+      <h2
+        style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
+        <span class="material-symbols-outlined" style="font-size: 24px;">settings</span>設定
+      </h2>
+
+      <div class="settings-panel">
+        <div>
+          <div class="settings-group-title">プロフィール設定</div>
+          
+          <div class="settings-row">
+            <label for="settings-username">ユーザー名（ニックネーム）</label>
+            <input type="text" id="settings-username" class="form-input" placeholder="例: 都市大太郎" />
+          </div>
+
+          <div class="settings-row">
+            <label for="settings-campus">所属キャンパス</label>
+            <select id="settings-campus" class="form-select">
+              <option value="S">世田谷キャンパス</option>
+              <option value="Y">横浜キャンパス</option>
+            </select>
+          </div>
+
+          <div class="settings-row">
+            <label for="settings-faculty">学部・学科</label>
+            <input type="text" id="settings-faculty" class="form-input" placeholder="例: デザイン・データ科学部" />
+          </div>
+
+          <div class="settings-row">
+            <label for="settings-grade">学年</label>
+            <select id="settings-grade" class="form-select">
+              <option value="1">1年</option>
+              <option value="2">2年</option>
+              <option value="3">3年</option>
+              <option value="4">4年</option>
+              <option value="M1">修士1年</option>
+              <option value="M2">修士2年</option>
+              <option value="other">その他</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <div class="settings-group-title">テーマ設定</div>
+          <div class="settings-row">
+            <label for="settings-theme">表示モード</label>
+            <select id="settings-theme" class="form-select" onchange="handleSettingsThemeChange(this.value)">
+              <option value="light">ライトモード</option>
+              <option value="dark">ダークモード</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top: 12px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn-action" onclick="saveSettingsProfile()">
+            <span class="material-symbols-outlined">save</span>設定を保存する
+          </button>
+          <button class="btn-action btn-danger" onclick="resetTimetableData()">
+            <span class="material-symbols-outlined">delete_forever</span>時間割リセット
+          </button>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -3339,6 +3644,13 @@
       // 現在のビューをlocalStorageに保存
       try { localStorage.setItem('opentcu_activeView', viewId); } catch (e) { }
 
+      // ビュー特有の更新処理
+      if (viewId === 'home') {
+        try { updateHomeView(); } catch (e) { console.error("Error updating home:", e); }
+      } else if (viewId === 'settings') {
+        try { loadSettingsIntoForm(); } catch (e) { console.error("Error loading settings:", e); }
+      }
+
       if (window.innerWidth < 1024) {
         sidebar.classList.remove('open');
         overlay.classList.remove('show');
@@ -3728,13 +4040,21 @@
 
       // 3. アクティブなタブ（ビュー）の復元
       try {
-        const activeView = localStorage.getItem('opentcu_activeView') || 'cafeteria';
+        const activeView = localStorage.getItem('opentcu_activeView') || 'home';
         const navItem = document.getElementById('nav-' + activeView);
         if (navItem) {
           switchView(activeView, navItem);
         }
       } catch (e) {
         console.error("Failed to restore active view:", e);
+      }
+
+      // 3.5. ホーム画面の初期更新 & 定期更新
+      try {
+        updateHomeView();
+        setInterval(updateHomeView, 60000);
+      } catch (e) {
+        console.error("Failed to initialize home view updates:", e);
       }
 
       // 4. メニューデータの Stale-While-Revalidate キャッシュ処理
@@ -4686,6 +5006,332 @@
     function closeLinkModal() {
       const overlay = document.getElementById('linkModalOverlay');
       if (overlay) overlay.classList.remove('show');
+    }
+
+    // ==========================================
+    // ホーム画面 & 設定画面 制御ロジック
+    // ==========================================
+    function getUserProfile() {
+      try {
+        const profile = localStorage.getItem('opentcu_userProfile');
+        if (profile) return JSON.parse(profile);
+      } catch (e) {}
+      return { username: '都市大生', campus: 'S', faculty: '理工学部', grade: '1' };
+    }
+
+    function loadSettingsIntoForm() {
+      const profile = getUserProfile();
+      const nameInput = document.getElementById('settings-username');
+      const campusSelect = document.getElementById('settings-campus');
+      const facultyInput = document.getElementById('settings-faculty');
+      const gradeSelect = document.getElementById('settings-grade');
+      const themeSelect = document.getElementById('settings-theme');
+
+      if (nameInput) nameInput.value = profile.username;
+      if (campusSelect) campusSelect.value = profile.campus;
+      if (facultyInput) facultyInput.value = profile.faculty || '';
+      if (gradeSelect) gradeSelect.value = profile.grade || '1';
+
+      if (themeSelect) {
+        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+        themeSelect.value = theme;
+      }
+    }
+
+    function saveSettingsProfile() {
+      const nameInput = document.getElementById('settings-username');
+      const campusSelect = document.getElementById('settings-campus');
+      const facultyInput = document.getElementById('settings-faculty');
+      const gradeSelect = document.getElementById('settings-grade');
+
+      const username = nameInput ? nameInput.value.trim() || '都市大生' : '都市大生';
+      const campus = campusSelect ? campusSelect.value : 'S';
+      const faculty = facultyInput ? facultyInput.value.trim() : '';
+      const grade = gradeSelect ? gradeSelect.value : '1';
+
+      const profile = { username, campus, faculty, grade };
+      try {
+        localStorage.setItem('opentcu_userProfile', JSON.stringify(profile));
+        alert('設定を保存しました。');
+        updateHomeView();
+      } catch (e) {
+        alert('設定の保存に失敗しました。');
+      }
+    }
+
+    function handleSettingsThemeChange(themeValue) {
+      document.documentElement.setAttribute('data-theme', themeValue);
+      localStorage.setItem('theme', themeValue);
+      updateThemeIcon(themeValue);
+    }
+
+    function resetTimetableData() {
+      if (confirm('登録されている時間割データをすべて削除しますか？\n（この操作は取り消せません）')) {
+        try {
+          localStorage.removeItem('opentcu_timetableData');
+          timetableData = {};
+          renderTimetable();
+          updateHomeView();
+          alert('時間割データをリセットしました。');
+        } catch (e) {
+          alert('リセットに失敗しました。');
+        }
+      }
+    }
+
+    const triviaList = [
+      "世田谷キャンパスの3号館自習室は、空調も効いていて非常に快適な学習スペースです。",
+      "横浜キャンパスの食堂は、メディア情報学部・環境学部生でいつも賑わっています。",
+      "世田谷キャンパスの図書館は、かつて日本初の民間原子炉が設置されていた原子力研究所の跡地近くに建てられました。",
+      "東京都市大学のシャトルバス（ワンロマ車）は、一般の路線バスにはないロマンスシートを装備した珍しい特別仕様車です。",
+      "二子玉川にある『夢キャンパス』は、地域交流や子供向けのワークショップを行う都市大のサテライト施設です。",
+      "等々力キャンパスは2022年度をもって世田谷キャンパスに統合されましたが、かつての歴史は世田谷の学生に受け継がれています。",
+      "都市大には独自のポータルサイトがあり、WebClassや出席登録システム、ヨコキャリなどが連携しています。",
+      "世田谷キャンパスの1号館地下には、かつて学生に愛された生協食堂がありました。"
+    ];
+
+    function updateHomeView() {
+      const profile = getUserProfile();
+      
+      // 1. 歓迎メッセージ
+      const welcomeEl = document.getElementById('homeWelcomeMessage');
+      if (welcomeEl) {
+        const facultyText = profile.faculty ? `${profile.faculty} ` : '';
+        const gradeText = profile.grade ? (isNaN(profile.grade) ? profile.grade : `${profile.grade}年生`) : '';
+        const suffix = (facultyText || gradeText) ? ` (${facultyText}${gradeText})` : '';
+        welcomeEl.textContent = `こんにちは、${profile.username}さん！${suffix}`;
+      }
+
+      // 2. 現在の日付と曜日
+      const dateEl = document.getElementById('homeCurrentDateDisplay');
+      if (dateEl) {
+        const now = new Date();
+        const format = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+        dateEl.textContent = "本日: " + now.toLocaleDateString('ja-JP', format);
+      }
+
+      // 3. 次の授業トラッカー
+      const trackerContainer = document.getElementById('nextClassTrackerContent');
+      if (trackerContainer) {
+        trackerContainer.innerHTML = getNextClassTrackerHtml(profile.campus);
+      }
+
+      // 4. 次のシャトルバス便
+      const busContainer = document.getElementById('homeNextBusContent');
+      if (busContainer) {
+        busContainer.innerHTML = getNextBusHtml(profile.campus);
+      }
+
+      // 5. 本日の学食おすすめ
+      const menuContainer = document.getElementById('homeMenuContent');
+      if (menuContainer) {
+        menuContainer.innerHTML = getRecommendMenuHtml(profile.campus);
+      }
+
+      // 6. 都市大トリビア (リロードのたびにランダム表示)
+      const triviaEl = document.getElementById('homeTriviaContent');
+      if (triviaEl && (!triviaEl.dataset.loaded || triviaEl.textContent === "読み込み中...")) {
+        const randomTrivia = triviaList[Math.floor(Math.random() * triviaList.length)];
+        triviaEl.textContent = randomTrivia;
+        triviaEl.dataset.loaded = "true";
+      }
+    }
+
+    function getNextClassTrackerHtml(campus) {
+      const now = new Date();
+      const dayMap = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      const day = dayMap[now.getDay()];
+      
+      if (day === 'sun') {
+        return `<p style="margin: 0; color: var(--md-sys-color-outline);">日曜日は授業がありません。ゆっくり休みましょう！</p>`;
+      }
+
+      // 時限設定
+      const isEarly = dayStartTimes && dayStartTimes[day];
+      const periods = [
+        { p: 1, start: isEarly ? "09:00" : "09:20", end: isEarly ? "10:40" : "11:00", sm: isEarly ? 540 : 560, em: isEarly ? 640 : 660 },
+        { p: 2, start: isEarly ? "10:50" : "11:10", end: isEarly ? "12:30" : "12:50", sm: isEarly ? 650 : 670, em: isEarly ? 750 : 770 },
+        { p: 3, start: isEarly ? "13:30" : "13:50", end: isEarly ? "15:10" : "15:30", sm: isEarly ? 810 : 830, em: isEarly ? 910 : 930 },
+        { p: 4, start: isEarly ? "15:20" : "15:40", end: isEarly ? "17:00" : "17:20", sm: isEarly ? 920 : 940, em: isEarly ? 1020 : 1040 },
+        { p: 5, start: isEarly ? "17:10" : "17:30", end: isEarly ? "18:50" : "19:10", sm: isEarly ? 1030 : 1050, em: isEarly ? 1130 : 1150 }
+      ];
+
+      const curMin = now.getHours() * 60 + now.getMinutes();
+
+      // 現在進行中の授業を確認
+      let activePeriod = null;
+      for (let i = 0; i < periods.length; i++) {
+        if (curMin >= periods[i].sm && curMin <= periods[i].em) {
+          activePeriod = periods[i];
+          break;
+        }
+      }
+
+      if (activePeriod) {
+        const key = `${day}-${activePeriod.p}`;
+        const classObj = timetableData && timetableData[key];
+        if (classObj && !classObj.isEmptySlot && classObj.subject) {
+          const diff = activePeriod.em - curMin;
+          return `
+            <div class="tracker-highlight">
+              <div style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-primary); margin-bottom: 2px;">現在授業中</div>
+              <div class="tracker-subject">${classObj.subject}</div>
+              <div class="tracker-details">
+                <span style="display: inline-flex; align-items: center; gap: 2px;"><span class="material-symbols-outlined" style="font-size: 14px;">meeting_room</span>${classObj.room || '教室未登録'}</span>
+                <span>${activePeriod.p}限 (${activePeriod.start}-${activePeriod.end})</span>
+              </div>
+            </div>
+            <div>
+              <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">授業終了まで</span>
+              <div class="countdown-timer">${diff}<span class="countdown-unit">分</span></div>
+            </div>
+          `;
+        }
+      }
+
+      // 次の授業を探す
+      let nextPeriod = null;
+      for (let i = 0; i < periods.length; i++) {
+        if (curMin < periods[i].sm) {
+          const key = `${day}-${periods[i].p}`;
+          const classObj = timetableData && timetableData[key];
+          if (classObj && !classObj.isEmptySlot && classObj.subject) {
+            nextPeriod = periods[i];
+            break;
+          }
+        }
+      }
+
+      if (nextPeriod) {
+        const key = `${day}-${nextPeriod.p}`;
+        const classObj = timetableData[key];
+        const diff = nextPeriod.sm - curMin;
+        return `
+          <div class="tracker-highlight" style="border-left-color: #4CAF50;">
+            <div style="font-size: 11px; font-weight: 700; color: #4CAF50; margin-bottom: 2px;">次の授業</div>
+            <div class="tracker-subject">${classObj.subject}</div>
+            <div class="tracker-details">
+              <span style="display: inline-flex; align-items: center; gap: 2px;"><span class="material-symbols-outlined" style="font-size: 14px;">meeting_room</span>${classObj.room || '教室未登録'}</span>
+              <span>${nextPeriod.p}限 (${nextPeriod.start}-${nextPeriod.end})</span>
+            </div>
+          </div>
+          <div>
+            <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">授業開始まで</span>
+            <div class="countdown-timer">${diff}<span class="countdown-unit">分</span></div>
+          </div>
+        `;
+      }
+
+      // 今日のすべての授業が終わっている、または授業がない場合
+      let hasAnyClassToday = false;
+      for (let p = 1; p <= 5; p++) {
+        const key = `${day}-${p}`;
+        const classObj = timetableData && timetableData[key];
+        if (classObj && !classObj.isEmptySlot && classObj.subject) {
+          hasAnyClassToday = true;
+          break;
+        }
+      }
+
+      if (hasAnyClassToday) {
+        return `<p style="margin: 0; color: var(--md-sys-color-on-surface-variant);">今日の授業はすべて終了しました。お疲れ様でした！</p>`;
+      } else {
+        return `<p style="margin: 0; color: var(--md-sys-color-outline);">本日は登録されている授業がありません。</p>`;
+      }
+    }
+
+    function getNextBusHtml(campus) {
+      if (typeof busScheduleData === 'undefined' || !busScheduleData.runs) {
+        return `<p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">バス運行データを読み込めませんでした。</p>`;
+      }
+
+      const now = new Date();
+      const day = now.getDay();
+      if (day === 0) {
+        return `<p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">日曜日はシャトルバスの運行はありません。</p>`;
+      }
+
+      const fromStop = campus === 'Y' ? 'Y' : 'S'; 
+      const destName = fromStop === 'S' ? '横浜キャンパス行' : '世田谷キャンパス行';
+      const curMin = now.getHours() * 60 + now.getMinutes();
+
+      const todayRuns = busScheduleData.runs.filter(r => {
+        return r.from === fromStop && r.days.includes(day) && !r.isDeadhead;
+      });
+
+      let nextRun = null;
+      for (let i = 0; i < todayRuns.length; i++) {
+        const run = todayRuns[i];
+        const depMin = timeStringToMinutes(run.depTime);
+        if (depMin >= curMin) {
+          if (!nextRun || depMin < timeStringToMinutes(nextRun.depTime)) {
+            nextRun = run;
+          }
+        }
+      }
+
+      if (nextRun) {
+        const depMin = timeStringToMinutes(nextRun.depTime);
+        const diff = depMin - curMin;
+        return `
+          <div style="font-weight: 700; font-size: 14px; margin-bottom: 2px; color: var(--md-sys-color-on-surface);">
+            ${nextRun.depTime}発 (${destName})
+          </div>
+          <div style="font-size: 12px; color: var(--md-sys-color-on-surface-variant);">
+            出発まであと <strong style="font-size: 16px; color: var(--md-sys-color-primary); font-family: 'Outfit';">${diff}</strong> 分
+          </div>
+        `;
+      }
+
+      return `<p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin: 0;">本日のシャトルバス運行はすべて終了しました。</p>`;
+    }
+
+    function getRecommendMenuHtml(campus) {
+      let menuData = null;
+      try {
+        const cachedDataStr = localStorage.getItem('opentcu_menuData');
+        if (cachedDataStr) {
+          menuData = JSON.parse(cachedDataStr);
+        }
+      } catch (e) {}
+
+      if (!menuData || !Array.isArray(menuData)) {
+        return `<p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">学食メニューデータがありません。</p>`;
+      }
+
+      const scCafeterias = ["SC 学生食堂", "ラウンジオーク", "nana cafe", "cafe sora"];
+      const ycCafeterias = ["YC 学生食堂", "YC 7号館カフェ"];
+      const targetCafes = campus === 'Y' ? ycCafeterias : scCafeterias;
+
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+
+      let todayMenus = menuData.filter(m => {
+        return targetCafes.includes(m[1]);
+      });
+
+      const strictTodayMenus = todayMenus.filter(m => {
+        const mDate = new Date(m[0]);
+        mDate.setHours(0, 0, 0, 0);
+        return mDate.getTime() === now.getTime();
+      });
+
+      const displayPool = strictTodayMenus.length > 0 ? strictTodayMenus : todayMenus;
+
+      if (displayPool.length === 0) {
+        return `<p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin: 0;">本日の営業はありません。</p>`;
+      }
+
+      const menu = displayPool[Math.floor(Math.random() * displayPool.length)];
+
+      return `
+        <div style="font-weight: 700; font-size: 14px; margin-bottom: 2px; color: var(--md-sys-color-on-surface);">
+          ${menu[3]} (${menu[4]}円)
+        </div>
+        <div style="font-size: 11px; color: var(--md-sys-color-on-surface-variant);">
+          提供: ${menu[1]} / ${menu[2]} / ${menu[5] || '-'} kcal
+        </div>
+      `;
     }
   </script>
 
