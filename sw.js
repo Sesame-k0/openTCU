@@ -1,4 +1,4 @@
-const CACHE_NAME = 'opentcu-cache-v1';
+const CACHE_NAME = 'opentcu-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -32,13 +32,36 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// フェッチ要求に対するキャッシュファースト（Stale-While-Revalidate）戦略
+// フェッチ要求に対するキャッシュ制御
 self.addEventListener('fetch', (event) => {
   // アプリ内部のAPIや外部GASのフェッチは対象外に（LocalStorageでキャッシュするため）
   if (event.request.url.includes('menu.json') || event.request.url.includes('script.google.com')) {
     return;
   }
 
+  // HTML文章（ナビゲーション要求やインデックスHTML）はNetwork-First戦略にすることで最新の更新を即時反映
+  const isHtml = event.request.mode === 'navigate' || 
+                 event.request.url.endsWith('index.html') || 
+                 event.request.url === self.location.origin + '/';
+
+  if (isHtml) {
+    event.respondWith(
+      fetch(event.request).then((networkResponse) => {
+        if (networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
+        }
+        return networkResponse;
+      }).catch(() => {
+        return caches.match(event.request);
+      })
+    );
+    return;
+  }
+
+  // その他のアセットはキャッシュファースト（Stale-While-Revalidate）
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.match(event.request).then((cachedResponse) => {

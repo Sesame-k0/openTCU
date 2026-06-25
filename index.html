@@ -1759,6 +1759,13 @@
       border-color: var(--md-sys-color-primary);
     }
 
+    .link-card-mini:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-color: var(--md-sys-color-primary) !important;
+      background-color: var(--md-sys-color-surface-container-highest) !important;
+    }
+
     .link-card-content {
       display: flex;
       flex-direction: column;
@@ -2223,9 +2230,19 @@
 
     <!-- ホーム画面 -->
     <section id="view-home" class="view-section active">
-      <div class="home-welcome-card">
-        <h3 id="homeWelcomeMessage">こんにちは、都市大生！</h3>
-        <p id="homeCurrentDateDisplay">日付を読み込み中...</p>
+      <div class="home-welcome-card" style="position: relative;">
+        <!-- 表示/非表示トグルボタン -->
+        <button id="btnToggleProfileMask" onclick="toggleProfileMask(event)" style="position: absolute; top: 16px; left: 16px; background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.8; padding: 4px;" title="プロフィールの表示/非表示">
+          <span class="material-symbols-outlined" id="profileMaskIcon" style="font-size: 20px;">visibility</span>
+        </button>
+        <div style="margin-left: 28px;">
+          <h3 id="homeWelcomeMessage" style="margin: 0; font-size: 20px;">こんにちは、都市大生！</h3>
+          <div id="homeProfileDetails" style="margin-top: 6px; font-size: 13px; opacity: 0.85; line-height: 1.5;">
+            <div id="homeUserFacultyGrade">学部学科 読み込み中...</div>
+            <div id="homeUserStudentIdEmail">学籍番号 / メールアドレス</div>
+          </div>
+          <p id="homeCurrentDateDisplay" style="margin: 8px 0 0 0; font-size: 12px; opacity: 0.7;">日付を読み込み中...</p>
+        </div>
       </div>
 
       <div class="home-grid">
@@ -2235,6 +2252,16 @@
             <span class="material-symbols-outlined">schedule</span>次の授業トラッカー
           </div>
           <div class="tracker-content" id="nextClassTrackerContent">
+            <p style="color: var(--md-sys-color-outline); margin: 0;">読み込み中...</p>
+          </div>
+        </div>
+
+        <!-- 中央カラム: お気に入りリンクコーナー -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-title">
+            <span class="material-symbols-outlined">star</span>お気に入りリンク
+          </div>
+          <div class="tracker-content" id="homeFavoritesContent" style="gap: 12px;">
             <p style="color: var(--md-sys-color-outline); margin: 0;">読み込み中...</p>
           </div>
         </div>
@@ -2710,6 +2737,12 @@
           <option value="PUBLIC">学外アクセス可能</option>
           <option value="CAMPUS">学内専用のみ</option>
         </select>
+        <!-- マイリンクを追加ボタン -->
+        <button onclick="openMyLinkModal()"
+          style="background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 10px 18px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: inherit; height: 42px;">
+          <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+          マイリンクを追加
+        </button>
       </div>
 
       <!-- お気に入りセクション -->
@@ -2774,6 +2807,16 @@
               <option value="M2">修士2年</option>
               <option value="other">その他</option>
             </select>
+          </div>
+
+          <div class="settings-row">
+            <label for="settings-student-id">学籍番号</label>
+            <input type="text" id="settings-student-id" class="form-input" placeholder="例: G23xxxxx" />
+          </div>
+
+          <div class="settings-row">
+            <label for="settings-email">メールアドレス</label>
+            <input type="email" id="settings-email" class="form-input" placeholder="例: g23xxxxx@tcu.ac.jp" />
           </div>
         </div>
 
@@ -2876,7 +2919,10 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <h3 class="modal-title" id="linkModalTitle">外部リンク詳細</h3>
-        <button class="icon-button" onclick="closeLinkModal()">
+        <button class="icon-button" id="btnEditMyLink" style="display: none; margin-left: auto; color: var(--md-sys-color-primary);" title="マイリンクを編集">
+          <span class="material-symbols-outlined">edit</span>
+        </button>
+        <button class="icon-button" onclick="closeLinkModal()" style="margin-left: 0;">
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
@@ -2885,6 +2931,66 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeLinkModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ホーム画面授業詳細モーダル -->
+  <div class="modal-overlay" id="homeClassModalOverlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="homeClassModalTitle">授業詳細</h3>
+        <button class="icon-button" onclick="closeHomeClassModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" id="homeClassModalBody">
+        <!-- 動的コンテンツ -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeHomeClassModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- マイリンク追加・編集モーダル -->
+  <div class="modal-overlay" id="myLinkModalOverlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="myLinkModalTitle">マイリンクを追加</h3>
+        <button class="icon-button" onclick="closeMyLinkModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="modal-mylink-index" value="" />
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="modal-mylink-name" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">タイトル</label>
+          <input type="text" id="modal-mylink-name" class="form-input" placeholder="例: 個人ブログ" />
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="modal-mylink-url" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">URL</label>
+          <input type="url" id="modal-mylink-url" class="form-input" placeholder="例: https://example.com" />
+        </div>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="modal-mylink-desc" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">概要説明</label>
+          <input type="text" id="modal-mylink-desc" class="form-input" placeholder="例: 個人の活動記録ブログです。" />
+        </div>
+        <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 12px;">
+          <div class="form-group" style="flex: 1;">
+            <label for="modal-mylink-sns-platform" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">SNS名 (任意)</label>
+            <input type="text" id="modal-mylink-sns-platform" class="form-input" placeholder="例: Twitter / X" />
+          </div>
+          <div class="form-group" style="flex: 2;">
+            <label for="modal-mylink-sns-url" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">SNS URL (任意)</label>
+            <input type="url" id="modal-mylink-sns-url" class="form-input" placeholder="例: https://x.com/..." />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; gap: 8px;">
+        <button class="btn btn-primary" onclick="saveMyLink()">保存する</button>
+        <button class="btn btn-outline" id="btnDeleteMyLink" onclick="deleteMyLinkFromModal()" style="display: none; background-color: var(--md-sys-color-error); color: var(--md-sys-color-on-error); border-color: var(--md-sys-color-error);">削除する</button>
+        <button class="btn btn-outline" onclick="closeMyLinkModal()" style="margin-left: auto;">キャンセル</button>
       </div>
     </div>
   </div>
@@ -4443,7 +4549,66 @@
     
     let externalCategories = [];
     let externalLinksData = [];
-    let favorites = JSON.parse(localStorage.getItem('favoriteLinks') || '[]');
+    let rawCategories = [];
+    let rawExternalLinksData = [];
+
+    // Initialize favorites with default values if not present
+    let favorites = localStorage.getItem('favoriteLinks');
+    if (favorites === null) {
+      favorites = ["WebClass", "学内ポータル・Webシラバス", "出席確認システム"];
+      localStorage.setItem('favoriteLinks', JSON.stringify(favorites));
+    } else {
+      try {
+        favorites = JSON.parse(favorites);
+        if (!Array.isArray(favorites)) favorites = ["WebClass", "学内ポータル・Webシラバス", "出席確認システム"];
+      } catch(e) {
+        favorites = ["WebClass", "学内ポータル・Webシラバス", "出席確認システム"];
+      }
+    }
+
+    function getMyLinks() {
+      try {
+        return JSON.parse(localStorage.getItem('opentcu_myLinks') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function reloadLinksData() {
+      externalCategories = [...rawCategories];
+      const myLinks = getMyLinks();
+
+      if (myLinks.length > 0) {
+        if (!externalCategories.find(c => c.id === 'マイリンク')) {
+          externalCategories.push({
+            id: 'マイリンク',
+            name: 'マイリンク',
+            bgLight: '#FFE4E6',
+            textLight: '#E11D48',
+            bgDark: '#9F1239',
+            textDark: '#FECDD3'
+          });
+        }
+        externalLinksData = [...rawExternalLinksData, ...myLinks];
+      } else {
+        externalLinksData = [...rawExternalLinksData];
+      }
+
+      // 1. カテゴリ色の動的注入
+      injectCategoryStyles(externalCategories);
+
+      // 2. カテゴリフィルター選択肢の動的生成
+      populateCategoryFilter(externalCategories);
+
+      // 3. アンカーナビゲーションの動的生成
+      populateAnchorNav(externalCategories);
+
+      // 4. 初期表示のレンダリングとお気に入り・警告文初期化
+      filterLinks();
+      renderFavorites();
+      updateHomeView();
+      initWarningBanner();
+    }
 
     async function loadExternalLinks() {
       try {
@@ -4451,22 +4616,10 @@
         if (!response.ok) throw new Error('Failed to fetch links.json');
         const data = await response.json();
 
-        externalCategories = data.categories || [];
-        externalLinksData = data.links || [];
+        rawCategories = data.categories || [];
+        rawExternalLinksData = data.links || [];
 
-        // 1. カテゴリ色の動的注入
-        injectCategoryStyles(externalCategories);
-
-        // 2. カテゴリフィルター選択肢の動的生成
-        populateCategoryFilter(externalCategories);
-
-        // 3. アンカーナビゲーションの動的生成
-        populateAnchorNav(externalCategories);
-
-        // 4. 初期表示のレンダリングとお気に入り・警告文初期化
-        renderLinksLayout(externalLinksData, false);
-        renderFavorites();
-        initWarningBanner();
+        reloadLinksData();
       } catch (e) {
         console.error("Failed to fetch links.json.", e);
         const container = document.getElementById('linksContainer');
@@ -4660,6 +4813,14 @@
 
         return `
           <div class="link-card" onclick="handleLinkCardClick(${originalIndex})" style="${cardStyle}">
+            <div class="link-card-reorder" style="display: flex; flex-direction: column; justify-content: center; gap: 4px; padding-right: 8px; border-right: 1px solid var(--md-sys-color-outline-variant); margin-right: 4px; flex-shrink: 0;" onclick="event.stopPropagation();">
+              <button onclick="moveFavoriteUp(event, '${link.name}')" style="background: none; border: none; padding: 2px; cursor: pointer; color: var(--md-sys-color-outline); display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; transition: all 0.2s;" title="上に移動" ${idx === 0 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
+                <span class="material-symbols-outlined" style="font-size: 18px;">keyboard_arrow_up</span>
+              </button>
+              <button onclick="moveFavoriteDown(event, '${link.name}')" style="background: none; border: none; padding: 2px; cursor: pointer; color: var(--md-sys-color-outline); display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; transition: all 0.2s;" title="下に移動" ${idx === favLinks.length - 1 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
+                <span class="material-symbols-outlined" style="font-size: 18px;">keyboard_arrow_down</span>
+              </button>
+            </div>
             <div class="link-card-content">
               <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; width: 100%;">
                 <span class="link-card-category ${catClass}">${link.category || 'その他'}</span>
@@ -4674,14 +4835,6 @@
               <button class="favorite-btn is-active" onclick="toggleFavorite(event, '${link.name}')" title="お気に入り解除">
                 <span class="material-symbols-outlined" style="font-size: 20px;">star</span>
               </button>
-              <div class="link-card-reorder" style="display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 4px; border-left: 1px solid var(--md-sys-color-outline-variant); height: 28px;">
-                <button onclick="moveFavoriteUp(event, '${link.name}')" style="background: none; border: none; padding: 2px; cursor: pointer; color: var(--md-sys-color-outline); display: inline-flex; align-items: center;" title="上に移動" ${idx === 0 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
-                  <span class="material-symbols-outlined" style="font-size: 16px;">keyboard_arrow_up</span>
-                </button>
-                <button onclick="moveFavoriteDown(event, '${link.name}')" style="background: none; border: none; padding: 2px; cursor: pointer; color: var(--md-sys-color-outline); display: inline-flex; align-items: center;" title="下に移動" ${idx === favLinks.length - 1 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
-                  <span class="material-symbols-outlined" style="font-size: 16px;">keyboard_arrow_down</span>
-                </button>
-              </div>
               <div class="link-card-arrow" style="padding-left: 6px; border-left: 1px solid var(--md-sys-color-outline-variant);">
                 <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
               </div>
@@ -4912,6 +5065,22 @@
 
       if (titleEl) titleEl.textContent = linkData.name;
 
+      // Handle Edit button for custom My Links
+      const btnEdit = document.getElementById('btnEditMyLink');
+      if (linkData.category === 'マイリンク') {
+        if (btnEdit) {
+          btnEdit.style.display = 'inline-flex';
+          const myLinks = getMyLinks();
+          const myLinkIdx = myLinks.findIndex(l => l.name === linkData.name && l.website === linkData.website);
+          btnEdit.onclick = function() {
+            closeLinkModal();
+            openMyLinkModal(myLinkIdx);
+          };
+        }
+      } else {
+        if (btnEdit) btnEdit.style.display = 'none';
+      }
+
       let snsHtml = '';
       if (linkData.sns && linkData.sns.length > 0) {
         snsHtml = `
@@ -5009,14 +5178,195 @@
     }
 
     // ==========================================
+    // マイリンク 追加・編集・削除 機能ロジック
+    // ==========================================
+    function openMyLinkModal(myLinkIdx = null) {
+      const modalTitle = document.getElementById('myLinkModalTitle');
+      const inputIndex = document.getElementById('modal-mylink-index');
+      const inputName = document.getElementById('modal-mylink-name');
+      const inputUrl = document.getElementById('modal-mylink-url');
+      const inputDesc = document.getElementById('modal-mylink-desc');
+      const inputSnsPlatform = document.getElementById('modal-mylink-sns-platform');
+      const inputSnsUrl = document.getElementById('modal-mylink-sns-url');
+      const btnDelete = document.getElementById('btnDeleteMyLink');
+
+      // Clear all fields
+      if (inputIndex) inputIndex.value = '';
+      if (inputName) inputName.value = '';
+      if (inputUrl) inputUrl.value = '';
+      if (inputDesc) inputDesc.value = '';
+      if (inputSnsPlatform) inputSnsPlatform.value = '';
+      if (inputSnsUrl) inputSnsUrl.value = '';
+      if (btnDelete) btnDelete.style.display = 'none';
+
+      if (myLinkIdx !== null && myLinkIdx !== undefined && myLinkIdx !== '') {
+        // Edit mode
+        if (modalTitle) modalTitle.textContent = 'マイリンクを編集';
+        if (inputIndex) inputIndex.value = myLinkIdx;
+        
+        const myLinks = getMyLinks();
+        const link = myLinks[myLinkIdx];
+        if (link) {
+          if (inputName) inputName.value = link.name || '';
+          if (inputUrl) inputUrl.value = link.website || '';
+          if (inputDesc) inputDesc.value = link.description || '';
+          if (link.sns && link.sns.length > 0) {
+            if (inputSnsPlatform) inputSnsPlatform.value = link.sns[0].platform || '';
+            if (inputSnsUrl) inputSnsUrl.value = link.sns[0].url || '';
+          }
+        }
+        if (btnDelete) btnDelete.style.display = 'inline-flex';
+      } else {
+        // Add mode
+        if (modalTitle) modalTitle.textContent = 'マイリンクを追加';
+      }
+
+      const overlay = document.getElementById('myLinkModalOverlay');
+      if (overlay) overlay.classList.add('show');
+    }
+
+    function closeMyLinkModal() {
+      const overlay = document.getElementById('myLinkModalOverlay');
+      if (overlay) overlay.classList.remove('show');
+    }
+
+    function saveMyLink() {
+      const name = document.getElementById('modal-mylink-name').value.trim();
+      const url = document.getElementById('modal-mylink-url').value.trim();
+      const desc = document.getElementById('modal-mylink-desc').value.trim();
+      const snsPlatform = document.getElementById('modal-mylink-sns-platform').value.trim();
+      const snsUrl = document.getElementById('modal-mylink-sns-url').value.trim();
+      const editIndexStr = document.getElementById('modal-mylink-index').value;
+
+      if (!name || !url) {
+        alert('タイトルとURLは必須です。');
+        return;
+      }
+
+      // Quick simple URL validation
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        alert('URLは http:// または https:// から始めてください。');
+        return;
+      }
+
+      const myLinks = getMyLinks();
+      const linkObj = {
+        name: name,
+        category: 'マイリンク',
+        description: desc || 'ユーザーが追加したリンクです。',
+        website: url,
+        keywords: [name, 'マイリンク', 'カスタム'],
+        onCampusOnly: false,
+        sns: [],
+        tags: ['マイリンク'],
+        sortOrder: 1000
+      };
+
+      if (snsPlatform && snsUrl) {
+        if (!snsUrl.startsWith('http://') && !snsUrl.startsWith('https://')) {
+          alert('SNS URLは http:// または https:// から始めてください。');
+          return;
+        }
+        linkObj.sns.push({ platform: snsPlatform, url: snsUrl });
+      }
+
+      if (editIndexStr !== null && editIndexStr !== undefined && editIndexStr !== '') {
+        // Edit existing
+        const idx = parseInt(editIndexStr, 10);
+        myLinks[idx] = linkObj;
+      } else {
+        // Add new
+        myLinks.push(linkObj);
+      }
+
+      try {
+        localStorage.setItem('opentcu_myLinks', JSON.stringify(myLinks));
+        closeMyLinkModal();
+        reloadLinksData();
+      } catch (e) {
+        alert('マイリンクの保存に失敗しました。');
+      }
+    }
+
+    function deleteMyLinkFromModal() {
+      const editIndexStr = document.getElementById('modal-mylink-index').value;
+      if (editIndexStr === null || editIndexStr === undefined || editIndexStr === '') return;
+
+      if (confirm('このマイリンクを削除しますか？')) {
+        const idx = parseInt(editIndexStr, 10);
+        const myLinks = getMyLinks();
+        myLinks.splice(idx, 1);
+        try {
+          localStorage.setItem('opentcu_myLinks', JSON.stringify(myLinks));
+          closeMyLinkModal();
+          reloadLinksData();
+        } catch (e) {
+          alert('マイリンクの削除に失敗しました。');
+        }
+      }
+    }
+
+    // ==========================================
     // ホーム画面 & 設定画面 制御ロジック
     // ==========================================
+    let isProfileMasked = false;
+
     function getUserProfile() {
       try {
         const profile = localStorage.getItem('opentcu_userProfile');
-        if (profile) return JSON.parse(profile);
+        if (profile) {
+          const parsed = JSON.parse(profile);
+          return {
+            username: parsed.username || '都市大生',
+            campus: parsed.campus || 'S',
+            faculty: parsed.faculty || '理工学部',
+            grade: parsed.grade || '1',
+            studentId: parsed.studentId || '',
+            email: parsed.email || ''
+          };
+        }
       } catch (e) {}
-      return { username: '都市大生', campus: 'S', faculty: '理工学部', grade: '1' };
+      return { username: '都市大生', campus: 'S', faculty: '理工学部', grade: '1', studentId: '', email: '' };
+    }
+
+    function toggleProfileMask(event) {
+      if (event) event.preventDefault();
+      isProfileMasked = !isProfileMasked;
+      updateProfileDisplay();
+    }
+
+    function maskString(str) {
+      if (!str) return '';
+      return str.split('').map(char => {
+        if (char === ' ' || char === '/') return char;
+        return '•';
+      }).join('');
+    }
+
+    function updateProfileDisplay() {
+      const profile = getUserProfile();
+      const maskIcon = document.getElementById('profileMaskIcon');
+      if (maskIcon) {
+        maskIcon.textContent = isProfileMasked ? 'visibility_off' : 'visibility';
+      }
+
+      const facultyEl = document.getElementById('homeUserFacultyGrade');
+      const studentIdEmailEl = document.getElementById('homeUserStudentIdEmail');
+
+      const facultyText = profile.faculty ? `${profile.faculty}` : '未設定';
+      const gradeText = profile.grade ? (isNaN(profile.grade) ? profile.grade : `${profile.grade}年`) : '未設定';
+      const fullFacultyGrade = `${facultyText} ${gradeText}`;
+
+      const studentId = profile.studentId || '未設定';
+      const email = profile.email || '未設定';
+      const fullStudentIdEmail = `${studentId} / ${email}`;
+
+      if (facultyEl) {
+        facultyEl.textContent = isProfileMasked ? maskString(fullFacultyGrade) : fullFacultyGrade;
+      }
+      if (studentIdEmailEl) {
+        studentIdEmailEl.textContent = isProfileMasked ? maskString(fullStudentIdEmail) : fullStudentIdEmail;
+      }
     }
 
     function loadSettingsIntoForm() {
@@ -5025,12 +5375,16 @@
       const campusSelect = document.getElementById('settings-campus');
       const facultyInput = document.getElementById('settings-faculty');
       const gradeSelect = document.getElementById('settings-grade');
+      const studentIdInput = document.getElementById('settings-student-id');
+      const emailInput = document.getElementById('settings-email');
       const themeSelect = document.getElementById('settings-theme');
 
       if (nameInput) nameInput.value = profile.username;
       if (campusSelect) campusSelect.value = profile.campus;
       if (facultyInput) facultyInput.value = profile.faculty || '';
       if (gradeSelect) gradeSelect.value = profile.grade || '1';
+      if (studentIdInput) studentIdInput.value = profile.studentId || '';
+      if (emailInput) emailInput.value = profile.email || '';
 
       if (themeSelect) {
         const theme = document.documentElement.getAttribute('data-theme') || 'light';
@@ -5043,13 +5397,17 @@
       const campusSelect = document.getElementById('settings-campus');
       const facultyInput = document.getElementById('settings-faculty');
       const gradeSelect = document.getElementById('settings-grade');
+      const studentIdInput = document.getElementById('settings-student-id');
+      const emailInput = document.getElementById('settings-email');
 
       const username = nameInput ? nameInput.value.trim() || '都市大生' : '都市大生';
       const campus = campusSelect ? campusSelect.value : 'S';
       const faculty = facultyInput ? facultyInput.value.trim() : '';
       const grade = gradeSelect ? gradeSelect.value : '1';
+      const studentId = studentIdInput ? studentIdInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
 
-      const profile = { username, campus, faculty, grade };
+      const profile = { username, campus, faculty, grade, studentId, email };
       try {
         localStorage.setItem('opentcu_userProfile', JSON.stringify(profile));
         alert('設定を保存しました。');
@@ -5096,11 +5454,11 @@
       // 1. 歓迎メッセージ
       const welcomeEl = document.getElementById('homeWelcomeMessage');
       if (welcomeEl) {
-        const facultyText = profile.faculty ? `${profile.faculty} ` : '';
-        const gradeText = profile.grade ? (isNaN(profile.grade) ? profile.grade : `${profile.grade}年生`) : '';
-        const suffix = (facultyText || gradeText) ? ` (${facultyText}${gradeText})` : '';
-        welcomeEl.textContent = `こんにちは、${profile.username}さん！${suffix}`;
+        welcomeEl.textContent = `こんにちは、${profile.username}さん！`;
       }
+
+      // Profile mask details updating
+      updateProfileDisplay();
 
       // 2. 現在の日付と曜日
       const dateEl = document.getElementById('homeCurrentDateDisplay');
@@ -5114,6 +5472,12 @@
       const trackerContainer = document.getElementById('nextClassTrackerContent');
       if (trackerContainer) {
         trackerContainer.innerHTML = getNextClassTrackerHtml(profile.campus);
+      }
+
+      // 3b. お気に入りリンク
+      const favoritesContainer = document.getElementById('homeFavoritesContent');
+      if (favoritesContainer) {
+        favoritesContainer.innerHTML = getHomeFavoritesHtml();
       }
 
       // 4. 次のシャトルバス便
@@ -5137,6 +5501,132 @@
       }
     }
 
+    function openHomeClassModal(key) {
+      const classObj = timetableData && timetableData[key];
+      if (!classObj) return;
+
+      const titleEl = document.getElementById('homeClassModalTitle');
+      const bodyEl = document.getElementById('homeClassModalBody');
+
+      if (titleEl) titleEl.textContent = "授業詳細";
+      if (bodyEl) {
+        const parts = key.split('-');
+        const dayJp = { mon: '月曜', tue: '火曜', wed: '水曜', thu: '木曜', fri: '金曜', sat: '土曜' }[parts[0]] || parts[0];
+        const periodText = `${parts[1]}限 (${dayJp})`;
+
+        bodyEl.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div>
+              <label style="font-size: 11px; color: var(--md-sys-color-outline); font-weight: 600; display: block; margin-bottom: 2px;">授業名</label>
+              <div style="font-size: 15px; font-weight: 700; color: var(--md-sys-color-on-surface);">${classObj.subject}</div>
+            </div>
+            <div style="display: flex; gap: 16px;">
+              <div style="flex: 1;">
+                <label style="font-size: 11px; color: var(--md-sys-color-outline); font-weight: 600; display: block; margin-bottom: 2px;">教室</label>
+                <div style="font-size: 13px; font-weight: 600; color: var(--md-sys-color-on-surface);">${classObj.room || '（未登録）'}</div>
+              </div>
+              <div style="flex: 1;">
+                <label style="font-size: 11px; color: var(--md-sys-color-outline); font-weight: 600; display: block; margin-bottom: 2px;">教員名</label>
+                <div style="font-size: 13px; font-weight: 600; color: var(--md-sys-color-on-surface);">${classObj.teacher || '（未登録）'}</div>
+              </div>
+            </div>
+            <div>
+              <label style="font-size: 11px; color: var(--md-sys-color-outline); font-weight: 600; display: block; margin-bottom: 2px;">時限</label>
+              <div style="font-size: 13px; font-weight: 500; color: var(--md-sys-color-on-surface);">${periodText}</div>
+            </div>
+            <div style="border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 8px; margin-top: 4px;">
+              <label style="font-size: 11px; color: var(--md-sys-color-outline); font-weight: 600; display: block; margin-bottom: 4px;">メモ</label>
+              <div style="font-size: 13px; color: var(--md-sys-color-on-surface); white-space: pre-wrap; background-color: var(--md-sys-color-surface-container-low); padding: 10px; border-radius: 8px; border: 1px solid var(--md-sys-color-outline-variant); min-height: 48px; line-height: 1.4;">${classObj.notes || '（メモはありません）'}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      const overlay = document.getElementById('homeClassModalOverlay');
+      if (overlay) overlay.classList.add('show');
+    }
+
+    function closeHomeClassModal() {
+      const overlay = document.getElementById('homeClassModalOverlay');
+      if (overlay) overlay.classList.remove('show');
+    }
+
+    function getHomeFavoritesHtml() {
+      const fixedNames = ["WebClass", "学内ポータル・Webシラバス", "出席確認システム"];
+      
+      let fixedCardsHtml = '';
+      fixedNames.forEach(name => {
+        const originalIdx = externalLinksData.findIndex(item => item.name === name);
+        if (originalIdx !== -1) {
+          const link = externalLinksData[originalIdx];
+          fixedCardsHtml += renderHomeLinkCard(link, originalIdx, true);
+        }
+      });
+
+      let otherCardsHtml = '';
+      favorites.forEach(name => {
+        if (!fixedNames.includes(name)) {
+          const originalIdx = externalLinksData.findIndex(item => item.name === name);
+          if (originalIdx !== -1) {
+            const link = externalLinksData[originalIdx];
+            otherCardsHtml += renderHomeLinkCard(link, originalIdx, false);
+          }
+        }
+      });
+
+      let html = '';
+      if (fixedCardsHtml) {
+        html += `
+          <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-primary); margin-bottom: 2px;">固定リンク</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; width: 100%;">
+              ${fixedCardsHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      if (otherCardsHtml) {
+        if (html) {
+          html += `<div style="margin: 4px 0; width: 100%; border-top: 1px dashed var(--md-sys-color-outline-variant);"></div>`;
+        }
+        html += `
+          <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-secondary); margin-bottom: 2px;">お気に入り</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; width: 100%;">
+              ${otherCardsHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      if (!fixedCardsHtml && !otherCardsHtml) {
+        html = `<p style="color: var(--md-sys-color-outline); margin: 0; font-size: 13px;">お気に入り登録されたリンクがありません。</p>`;
+      }
+
+      return html;
+    }
+
+    function renderHomeLinkCard(link, originalIndex, isFixed) {
+      const catClass = getCategoryClass(link.category);
+      const campusIcon = link.onCampusOnly ? `<span class="material-symbols-outlined" style="font-size: 13px; color: #B45309;" title="学内専用">gpp_maybe</span>` : '';
+      
+      return `
+        <div class="link-card-mini" onclick="handleLinkCardClick(${originalIndex})" style="background: var(--md-sys-color-surface-container-high); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 12px; padding: 10px; cursor: pointer; display: flex; flex-direction: column; gap: 6px; box-sizing: border-box; transition: all 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span class="link-card-category ${catClass}" style="font-size: 8px; padding: 1px 4px; border-radius: 4px; line-height: 1.2; margin: 0;">${link.category || 'その他'}</span>
+            <div style="display: flex; gap: 4px; align-items: center;">
+              ${campusIcon}
+              <span class="material-symbols-outlined" style="font-size: 16px; color: ${isFixed ? 'var(--md-sys-color-primary)' : '#F59E0B'}; font-variation-settings: 'FILL' 1;">${isFixed ? 'push_pin' : 'star'}</span>
+            </div>
+          </div>
+          <div style="font-size: 11px; font-weight: 600; color: var(--md-sys-color-on-surface); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: 2.6em; word-break: break-all;" title="${link.name}">
+            ${link.name}
+          </div>
+        </div>
+      `;
+    }
+
     function getNextClassTrackerHtml(campus) {
       const now = new Date();
       const dayMap = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
@@ -5146,7 +5636,6 @@
         return `<p style="margin: 0; color: var(--md-sys-color-outline);">日曜日は授業がありません。ゆっくり休みましょう！</p>`;
       }
 
-      // 時限設定
       const isEarly = dayStartTimes && dayStartTimes[day];
       const periods = [
         { p: 1, start: isEarly ? "09:00" : "09:20", end: isEarly ? "10:40" : "11:00", sm: isEarly ? 540 : 560, em: isEarly ? 640 : 660 },
@@ -5167,21 +5656,22 @@
         }
       }
 
+      let activeClassHtml = '';
       if (activePeriod) {
         const key = `${day}-${activePeriod.p}`;
         const classObj = timetableData && timetableData[key];
         if (classObj && !classObj.isEmptySlot && classObj.subject) {
           const diff = activePeriod.em - curMin;
-          return `
+          activeClassHtml = `
             <div class="tracker-highlight">
               <div style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-primary); margin-bottom: 2px;">現在授業中</div>
-              <div class="tracker-subject">${classObj.subject}</div>
+              <div class="tracker-subject" style="cursor: pointer; text-decoration: underline;" onclick="openHomeClassModal('${key}')">${classObj.subject}</div>
               <div class="tracker-details">
                 <span style="display: inline-flex; align-items: center; gap: 2px;"><span class="material-symbols-outlined" style="font-size: 14px;">meeting_room</span>${classObj.room || '教室未登録'}</span>
                 <span>${activePeriod.p}限 (${activePeriod.start}-${activePeriod.end})</span>
               </div>
             </div>
-            <div>
+            <div style="margin-bottom: 12px;">
               <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">授業終了まで</span>
               <div class="countdown-timer">${diff}<span class="countdown-unit">分</span></div>
             </div>
@@ -5189,40 +5679,90 @@
         }
       }
 
-      // 次の授業を探す
+      // 次の授業を探す (カウントダウン対象)
       let nextPeriod = null;
+      let nextClassObj = null;
       for (let i = 0; i < periods.length; i++) {
         if (curMin < periods[i].sm) {
           const key = `${day}-${periods[i].p}`;
           const classObj = timetableData && timetableData[key];
           if (classObj && !classObj.isEmptySlot && classObj.subject) {
             nextPeriod = periods[i];
+            nextClassObj = classObj;
             break;
           }
         }
       }
 
-      if (nextPeriod) {
-        const key = `${day}-${nextPeriod.p}`;
-        const classObj = timetableData[key];
+      let countdownHtml = '';
+      if (nextPeriod && !activeClassHtml) {
+        // 現在進行中の授業がないときのみ、次の授業のカウントダウンを表示
         const diff = nextPeriod.sm - curMin;
-        return `
+        const key = `${day}-${nextPeriod.p}`;
+        countdownHtml = `
           <div class="tracker-highlight" style="border-left-color: #4CAF50;">
             <div style="font-size: 11px; font-weight: 700; color: #4CAF50; margin-bottom: 2px;">次の授業</div>
-            <div class="tracker-subject">${classObj.subject}</div>
+            <div class="tracker-subject" style="cursor: pointer; text-decoration: underline;" onclick="openHomeClassModal('${key}')">${nextClassObj.subject}</div>
             <div class="tracker-details">
-              <span style="display: inline-flex; align-items: center; gap: 2px;"><span class="material-symbols-outlined" style="font-size: 14px;">meeting_room</span>${classObj.room || '教室未登録'}</span>
+              <span style="display: inline-flex; align-items: center; gap: 2px;"><span class="material-symbols-outlined" style="font-size: 14px;">meeting_room</span>${nextClassObj.room || '教室未登録'}</span>
               <span>${nextPeriod.p}限 (${nextPeriod.start}-${nextPeriod.end})</span>
             </div>
           </div>
-          <div>
+          <div style="margin-bottom: 12px;">
             <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">授業開始まで</span>
             <div class="countdown-timer">${diff}<span class="countdown-unit">分</span></div>
           </div>
         `;
       }
 
-      // 今日のすべての授業が終わっている、または授業がない場合
+      // 「次のコマ」情報表示 (下部に詳細を表示するためのロジック)
+      let nextSlotToDisplay = null;
+      let nextSlotPeriod = null;
+      if (activePeriod) {
+        // 現在授業中の場合は、それより後の時限で最初の授業を探す
+        for (let p = activePeriod.p + 1; p <= 5; p++) {
+          const key = `${day}-${p}`;
+          const classObj = timetableData && timetableData[key];
+          if (classObj && !classObj.isEmptySlot && classObj.subject) {
+            nextSlotToDisplay = classObj;
+            nextSlotPeriod = periods[p - 1];
+            break;
+          }
+        }
+      } else if (nextPeriod) {
+        // 授業開始前だが次の授業が決まっている場合、次の授業のデータ（教員名を含めて）を下部に表示する
+        nextSlotToDisplay = nextClassObj;
+        nextSlotPeriod = nextPeriod;
+      }
+
+      let nextSlotHtml = '';
+      if (nextSlotToDisplay && nextSlotPeriod) {
+        const key = `${day}-${nextSlotPeriod.p}`;
+        nextSlotHtml = `
+          <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--md-sys-color-outline-variant); width: 100%;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-secondary); margin-bottom: 4px;">次のコマ情報</div>
+            <div style="font-weight: 700; color: var(--md-sys-color-on-surface); font-size: 13px; cursor: pointer; text-decoration: underline; margin-bottom: 2px;" onclick="openHomeClassModal('${key}')">
+              ${nextSlotToDisplay.subject}
+            </div>
+            <div style="font-size: 12px; color: var(--md-sys-color-on-surface-variant); line-height: 1.4;">
+              教員: ${nextSlotToDisplay.teacher || '未設定'} | 教室: ${nextSlotToDisplay.room || '未設定'} (${nextSlotPeriod.p}限)
+            </div>
+          </div>
+        `;
+      }
+
+      // レンダリング結果の組み立て
+      if (activeClassHtml || countdownHtml) {
+        return `
+          <div style="display: flex; flex-direction: column; width: 100%;">
+            ${activeClassHtml}
+            ${countdownHtml}
+            ${nextSlotHtml}
+          </div>
+        `;
+      }
+
+      // 今日のすべての授業が終わっている、または登録授業がない場合
       let hasAnyClassToday = false;
       for (let p = 1; p <= 5; p++) {
         const key = `${day}-${p}`;
@@ -5234,9 +5774,9 @@
       }
 
       if (hasAnyClassToday) {
-        return `<p style="margin: 0; color: var(--md-sys-color-on-surface-variant);">今日の授業はすべて終了しました。お疲れ様でした！</p>`;
+        return `<p style="margin: 0; color: var(--md-sys-color-on-surface-variant); line-height: 1.5;">本日の登録されている授業はこれで以上です。おつかれさまでした</p>`;
       } else {
-        return `<p style="margin: 0; color: var(--md-sys-color-outline);">本日は登録されている授業がありません。</p>`;
+        return `<p style="margin: 0; color: var(--md-sys-color-outline); line-height: 1.5;">本日は登録されている授業がありません。</p>`;
       }
     }
 

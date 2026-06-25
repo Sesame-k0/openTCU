@@ -237,35 +237,6 @@
                       "sortOrder":  999
                   },
                   {
-                      "name":  "東京都市大学新聞",
-                      "category":  "学生運営",
-                      "description":  "1954年創刊の歴史を持ち、学内紙「東京都市大学新聞」の取材、執筆、編集、およびWebメディアでの情報発信を行っている公認団体です。",
-                      "website":  "https://tcuprs.com",
-                      "keywords":  [
-                                       "新聞",
-                                       "広報",
-                                       "メディア",
-                                       "取材",
-                                       "しんぶん",
-                                       "新聞会"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://twitter.com/tcupress"
-                                  },
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/tcuprs"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  190
-                  },
-                  {
                       "name":  "情報基盤センター",
                       "category":  "システム",
                       "description":  "東京都市大学の学内ネットワーク、システム障害情報、セキュリティ情報、ソフトウェアライセンス管理など、ITインフラと各種アカウントサービスを管理・提供する機関です。",
@@ -653,7 +624,7 @@
                       "name":  "学術機関リポジトリ",
                       "category":  "システム",
                       "description":  "東京都市大学の研究成果や紀要論文、学術資料などのメタデータおよび本文を広く公開している学術情報リポジトリです。",
-                      "website":  "https://tcu-ar.repo.nii.ac.jp/?page=1&size=20&sort=-createdate",
+                      "website":  "https://tcu-ar.repo.nii.ac.jp/?page=1\u0026size=20\u0026sort=-createdate",
                       "keywords":  [
                                        "学術機関リポジトリ",
                                        "学内施設",
@@ -2042,50 +2013,6 @@
                       "sortOrder":  120
                   },
                   {
-                      "name":  "学生フォーミュラチーム Mi-Tech Racing",
-                      "category":  "プロジェクト",
-                      "description":  "学生自らがレーシングマシンの設計・製作・走行テストを一貫して行い、学生フォーミュラ日本大会に出場するプロジェクト団体です。",
-                      "website":  "https://mitech-racing.com",
-                      "keywords":  [
-                                       "学生フォーミュラチーム Mi-Tech Racing"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/MiTechRacing"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://instagram.com/mitechracing"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "夢キャンコミュニケーター",
-                      "category":  "学生運営",
-                      "description":  "二子玉川夢キャンパスなどを拠点とし、子ども向けの科学工作教室や地域イベントの企画・運営を学生主体で行う公認ボランティア団体です。",
-                      "website":  "https://grp.tcu.ac.jp/yumecomm/",
-                      "keywords":  [
-                                       "夢キャンコミュニケーター"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/yumecampus_tcu"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  200
-                  },
-                  {
                       "name":  "二子玉川夢キャンパス",
                       "category":  "施設",
                       "description":  "二子玉川に開設されていた地域連携・交流拠点の活動報告アーカイブサイトです（現在は施設としては閉鎖されています）。",
@@ -2101,26 +2028,6 @@
                       "onCampusOnly":  false,
                       "sns":  [
 
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "宇宙開発教育コミュニティ TAC",
-                      "category":  "プロジェクト",
-                      "description":  "ロケットや人工衛星の開発、打ち上げプロジェクトの実現に向けて、工学的アプローチから挑戦を続ける宇宙開発コミュニティです。",
-                      "website":  "https://grp.tcu.ac.jp/tac/",
-                      "keywords":  [
-                                       "宇宙開発教育コミュニティ TAC"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/TAC_toshidai"
-                                  }
                               ],
                       "tags":  [
 
