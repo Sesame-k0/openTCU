@@ -25,6 +25,9 @@
   <script src="./config.js"></script>
   <!-- HTML to Canvas for timetable image export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- QR Code generation and scanning libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2281,6 +2284,12 @@
           title="プロフィールの表示/非表示">
           <span class="material-symbols-outlined" id="profileMaskIcon" style="font-size: 20px;">visibility</span>
         </button>
+        <!-- 自己紹介（共有）ボタン -->
+        <button id="btnOpenSelfIntro" onclick="openSelfIntroModal()"
+          style="position: absolute; top: 16px; right: 16px; background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.8; padding: 4px;"
+          title="自己紹介する / 受け取る">
+          <span class="material-symbols-outlined" style="font-size: 20px;">ios_share</span>
+        </button>
         <div style="margin-left: 28px;">
           <h3 id="homeWelcomeMessage" style="margin: 0; font-size: 20px;">こんにちは、都市大生！</h3>
           <div id="homeProfileDetails" style="margin-top: 6px; font-size: 13px; opacity: 0.85; line-height: 1.5;">
@@ -2821,8 +2830,8 @@
           <div class="settings-group-title">プロフィール設定</div>
 
           <div class="settings-row">
-            <label for="settings-username">ユーザー名（ニックネーム）</label>
-            <input type="text" id="settings-username" class="form-input" placeholder="例: 都市大太郎" />
+            <label for="settings-username">ユーザー名（ニックネーム / 30文字以内）</label>
+            <input type="text" id="settings-username" class="form-input" placeholder="例: 都市大太郎" maxlength="30" />
           </div>
 
           <div class="settings-row">
@@ -2834,8 +2843,8 @@
           </div>
 
           <div class="settings-row">
-            <label for="settings-faculty">学部・学科</label>
-            <input type="text" id="settings-faculty" class="form-input" placeholder="例: デザイン・データ科学部" />
+            <label for="settings-faculty">学部・学科（30文字以内）</label>
+            <input type="text" id="settings-faculty" class="form-input" placeholder="例: デザイン・データ科学部" maxlength="30" />
           </div>
 
           <div class="settings-row">
@@ -2859,6 +2868,11 @@
           <div class="settings-row">
             <label for="settings-email">メールアドレス</label>
             <input type="email" id="settings-email" class="form-input" placeholder="例: g23xxxxx@tcu.ac.jp" />
+          </div>
+
+          <div class="settings-row">
+            <label for="settings-bio">自己紹介（部活・団体名など / 200文字以内）</label>
+            <textarea id="settings-bio" class="form-input" style="height: 80px; resize: vertical; font-family: inherit;" placeholder="例: 世田谷キャンパスの吹奏楽団に所属しています！" maxlength="200"></textarea>
           </div>
         </div>
 
@@ -3088,6 +3102,205 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" onclick="closeContactModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 自己紹介・名刺交換メイン選択モーダル -->
+  <div class="modal-overlay" id="selfIntroMainModalOverlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">自己紹介・名刺交換</h3>
+        <button class="icon-button" onclick="closeSelfIntroMainModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface); margin: 0 0 20px 0;">
+          近くのユーザーと名刺（プロフィール情報）を交換できます。<br>自分の名刺を共有するか、相手のQRコードをスキャンして受け取ってください。
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 8px;">
+          <button class="btn btn-primary" onclick="openSelfIntroShareModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; font-size: 15px;">
+            <span class="material-symbols-outlined">contact_mail</span>
+            名刺を共有する
+          </button>
+          <button class="btn btn-outline" onclick="openSelfIntroScanModal()" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; font-size: 15px; border-color: var(--md-sys-color-primary); color: var(--md-sys-color-primary);">
+            <span class="material-symbols-outlined">qr_code_scanner</span>
+            名刺を受け取る (QRスキャン)
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeSelfIntroMainModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 名刺共有（QR生成・画像ダウンロード）モーダル -->
+  <div class="modal-overlay" id="selfIntroShareModalOverlay">
+    <div class="modal-dialog" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title">自分の名刺を共有</h3>
+        <button class="icon-button" onclick="closeSelfIntroShareModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+        <!-- 名刺のプレビュー領域 (html2canvas対象) -->
+        <div id="myBusinessCardContainer" style="width: 100%; max-width: 360px; padding: 4px; box-sizing: border-box;">
+          <div class="business-card-design" style="width: 100%; height: 220px; background: linear-gradient(135deg, #004d66 0%, #002d3d 100%); color: #ffffff; border-radius: 16px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(0,0,0,0.25); position: relative; overflow: hidden; font-family: 'Outfit', 'Noto Sans JP', sans-serif;">
+            <!-- 装飾用の光彩エフェクト -->
+            <div style="position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; background: radial-gradient(circle, var(--md-sys-color-primary) 0%, transparent 70%); opacity: 0.4; border-radius: 50%; pointer-events: none;"></div>
+            
+            <!-- カードヘッダー -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 8px; z-index: 2;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 20px; color: #66d3ff;">school</span>
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.8);">openTCU Card</span>
+              </div>
+              <span id="myCardCampusBadge" style="font-size: 9px; font-weight: 700; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">世田谷</span>
+            </div>
+
+            <!-- カードメイン（名前と所属） -->
+            <div style="margin: 8px 0; z-index: 2;">
+              <div id="myCardName" style="font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 4px;">都市大 太郎</div>
+              <div id="myCardFaculty" style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 500;">デザイン・データ科学部 3年</div>
+            </div>
+
+            <!-- 自己紹介文 -->
+            <div style="z-index: 2; flex-grow: 1; display: flex; align-items: center; overflow: hidden; margin-bottom: 8px;">
+              <p id="myCardBio" style="font-size: 11px; line-height: 1.4; color: rgba(255,255,255,0.85); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: break-all; white-space: pre-wrap;">自己紹介が未入力です。「設定」から自己紹介文を追加しましょう！</p>
+            </div>
+
+            <!-- カードフッター（連絡先） -->
+            <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: rgba(255,255,255,0.6); z-index: 2;">
+              <span id="myCardStudentId">G23xxxxx</span>
+              <span id="myCardEmail" style="text-align: right; word-break: break-all;">g23xxxxx@tcu.ac.jp</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 名刺ダウンロード & QR表示操作部 -->
+        <div style="display: flex; gap: 10px; width: 100%; max-width: 360px;">
+          <button class="btn btn-outline" onclick="downloadMyBusinessCard()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; padding: 10px;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+            画像保存
+          </button>
+          <button id="btnToggleMyQR" class="btn btn-primary" onclick="toggleMySelfIntroQR()" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; padding: 10px;">
+            <span class="material-symbols-outlined" style="font-size: 18px;">qr_code</span>
+            QRコード表示
+          </button>
+        </div>
+
+        <!-- QRコード描画エリア（アコーディオン） -->
+        <div id="myQRCodeSection" style="display: none; flex-direction: column; align-items: center; gap: 8px; border-top: 1px dashed var(--md-sys-color-outline-variant); padding-top: 16px; width: 100%; max-width: 360px;">
+          <div style="font-size: 12px; font-weight: 600; color: var(--md-sys-color-on-surface-variant); text-align: center; margin-bottom: 4px;">相手のスマホカメラでスキャンしてください</div>
+          <div style="background: white; padding: 12px; border-radius: 12px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+            <canvas id="mySelfIntroQRCanvas" width="180" height="180"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; gap: 8px;">
+        <button class="btn btn-outline" onclick="backToSelfIntroMain()">戻る</button>
+        <button class="btn btn-outline" onclick="closeSelfIntroShareModal()" style="margin-left: auto;">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QRスキャンカメラモーダル -->
+  <div class="modal-overlay" id="selfIntroScanModalOverlay">
+    <style>
+      @keyframes scanPulse {
+        0% { border-color: #00E676; filter: drop-shadow(0 0 2px #00E676); }
+        100% { border-color: #00B0FF; filter: drop-shadow(0 0 8px #00B0FF); }
+      }
+      @keyframes scanLine {
+        0% { top: 0%; }
+        50% { top: 100%; }
+        100% { top: 0%; }
+      }
+    </style>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">名刺コードスキャン</h3>
+        <button class="icon-button" onclick="closeSelfIntroScanModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative;">
+        <div style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); text-align: center; margin-bottom: 4px;">枠内に相手の名刺QRコードをかざしてください</div>
+        
+        <!-- カメラ映像表示領域 -->
+        <div style="width: 100%; max-width: 300px; aspect-ratio: 1; border-radius: 20px; overflow: hidden; background: #000000; position: relative; border: 2px solid var(--md-sys-color-outline-variant);">
+          <video id="selfIntroScanVideo" style="width: 100%; height: 100%; object-fit: cover;" playsinline></video>
+          <!-- 読み取りスキャンエリアのガイド枠 -->
+          <div style="position: absolute; top: 15%; left: 15%; right: 15%; bottom: 15%; border: 3px solid #00E676; border-radius: 12px; box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.5); pointer-events: none; animation: scanPulse 1.5s infinite alternate;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #00E676; animation: scanLine 2s linear infinite;"></div>
+          </div>
+        </div>
+        <canvas id="selfIntroScanHiddenCanvas" style="display: none;"></canvas>
+        <div id="selfIntroScanFeedback" style="font-size: 12px; color: var(--md-sys-color-error); font-weight: 500; height: 1.5em; text-align: center;"></div>
+      </div>
+      <div class="modal-footer" style="display: flex; gap: 8px;">
+        <button class="btn btn-outline" onclick="backToSelfIntroMain()">戻る</button>
+        <button class="btn btn-outline" onclick="closeSelfIntroScanModal()" style="margin-left: auto;">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 相手の名刺表示ダイアログ -->
+  <div class="modal-overlay" id="selfIntroResultModalOverlay">
+    <div class="modal-dialog" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 class="modal-title">相手の名刺情報</h3>
+        <button class="icon-button" onclick="closeSelfIntroResultModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+        <!-- 相手の名刺プレビュー領域 (html2canvas対象) -->
+        <div id="peerBusinessCardContainer" style="width: 100%; max-width: 360px; padding: 4px; box-sizing: border-box;">
+          <div class="business-card-design" style="width: 100%; height: 220px; background: linear-gradient(135deg, #1e1b4b 0%, #311042 100%); color: #ffffff; border-radius: 16px; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(0,0,0,0.25); position: relative; overflow: hidden; font-family: 'Outfit', 'Noto Sans JP', sans-serif;">
+            <!-- 装飾用の光彩エフェクト -->
+            <div style="position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; background: radial-gradient(circle, #cc2366 0%, transparent 70%); opacity: 0.3; border-radius: 50%; pointer-events: none;"></div>
+            
+            <!-- カードヘッダー -->
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 8px; z-index: 2;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span class="material-symbols-outlined" style="font-size: 20px; color: #ffb4ab;">school</span>
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.8);">openTCU Card</span>
+              </div>
+              <span id="peerCardCampusBadge" style="font-size: 9px; font-weight: 700; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">横浜</span>
+            </div>
+
+            <!-- カードメイン（名前と所属） -->
+            <div style="margin: 8px 0; z-index: 2;">
+              <div id="peerCardName" style="font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 4px;">都市大 太郎</div>
+              <div id="peerCardFaculty" style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 500;">デザイン・データ科学部 3年</div>
+            </div>
+
+            <!-- 自己紹介文 -->
+            <div style="z-index: 2; flex-grow: 1; display: flex; align-items: center; overflow: hidden; margin-bottom: 8px;">
+              <p id="peerCardBio" style="font-size: 11px; line-height: 1.4; color: rgba(255,255,255,0.85); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: break-all; white-space: pre-wrap;">(自己紹介は設定されていません)</p>
+            </div>
+
+            <!-- カードフッター（連絡先） -->
+            <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: rgba(255,255,255,0.6); z-index: 2;">
+              <span id="peerCardStudentId">G23xxxxx</span>
+              <span id="peerCardEmail" style="text-align: right; word-break: break-all;">g23xxxxx@tcu.ac.jp</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 名刺ダウンロードボタン -->
+        <button class="btn btn-primary" onclick="downloadPeerBusinessCard()" style="width: 100%; max-width: 360px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; padding: 12px;">
+          <span class="material-symbols-outlined" style="font-size: 20px;">download</span>
+          相手の名刺画像をダウンロード
+        </button>
+      </div>
+      <div class="modal-footer" style="display: flex; gap: 8px;">
+        <button class="btn btn-outline" onclick="backToSelfIntroScan()">もう一度スキャンする</button>
+        <button class="btn btn-outline" onclick="closeSelfIntroResultModal()" style="margin-left: auto;">閉じる</button>
       </div>
     </div>
   </div>
@@ -5442,11 +5655,12 @@
             faculty: parsed.faculty || '理工学部',
             grade: parsed.grade || '1',
             studentId: parsed.studentId || '',
-            email: parsed.email || ''
+            email: parsed.email || '',
+            bio: parsed.bio || ''
           };
         }
       } catch (e) { }
-      return { username: '都市大生', campus: 'S', faculty: '理工学部', grade: '1', studentId: '', email: '' };
+      return { username: '都市大生', campus: 'S', faculty: '理工学部', grade: '1', studentId: '', email: '', bio: '' };
     }
 
     function toggleProfileMask(event) {
@@ -5497,6 +5711,7 @@
       const gradeSelect = document.getElementById('settings-grade');
       const studentIdInput = document.getElementById('settings-student-id');
       const emailInput = document.getElementById('settings-email');
+      const bioInput = document.getElementById('settings-bio');
       const themeSelect = document.getElementById('settings-theme');
 
       if (nameInput) nameInput.value = profile.username;
@@ -5505,6 +5720,7 @@
       if (gradeSelect) gradeSelect.value = profile.grade || '1';
       if (studentIdInput) studentIdInput.value = profile.studentId || '';
       if (emailInput) emailInput.value = profile.email || '';
+      if (bioInput) bioInput.value = profile.bio || '';
 
       if (themeSelect) {
         const theme = document.documentElement.getAttribute('data-theme') || 'light';
@@ -5519,6 +5735,7 @@
       const gradeSelect = document.getElementById('settings-grade');
       const studentIdInput = document.getElementById('settings-student-id');
       const emailInput = document.getElementById('settings-email');
+      const bioInput = document.getElementById('settings-bio');
 
       const username = nameInput ? nameInput.value.trim() || '都市大生' : '都市大生';
       const campus = campusSelect ? campusSelect.value : 'S';
@@ -5526,8 +5743,22 @@
       const grade = gradeSelect ? gradeSelect.value : '1';
       const studentId = studentIdInput ? studentIdInput.value.trim() : '';
       const email = emailInput ? emailInput.value.trim() : '';
+      const bio = bioInput ? bioInput.value.trim() : '';
 
-      const profile = { username, campus, faculty, grade, studentId, email };
+      if (username.length > 30) {
+        alert('ユーザー名は30文字以内で入力してください。');
+        return;
+      }
+      if (faculty.length > 30) {
+        alert('学部・学科は30文字以内で入力してください。');
+        return;
+      }
+      if (bio.length > 200) {
+        alert('自己紹介は200文字以内で入力してください。');
+        return;
+      }
+
+      const profile = { username, campus, faculty, grade, studentId, email, bio };
       try {
         localStorage.setItem('opentcu_userProfile', JSON.stringify(profile));
         alert('設定を保存しました。');
@@ -6004,6 +6235,238 @@
           提供: ${menu[1]} / ${menu[2]} / ${menu[5] || '-'} kcal
         </div>
       `;
+    }
+
+    // ==========================================
+    // 自己紹介・名刺交換 機能ロジック
+    // ==========================================
+    let scanStream = null;
+    let scanAnimationFrameId = null;
+
+    function openSelfIntroModal() {
+      document.getElementById('selfIntroMainModalOverlay').classList.add('show');
+    }
+
+    function closeSelfIntroMainModal() {
+      document.getElementById('selfIntroMainModalOverlay').classList.remove('show');
+    }
+
+    function openSelfIntroShareModal() {
+      const profile = getUserProfile();
+      document.getElementById('myCardName').textContent = profile.username || '都市大生';
+      
+      const gradeText = profile.grade ? (isNaN(profile.grade) ? profile.grade : `${profile.grade}年`) : '未設定';
+      const facultyText = profile.faculty ? `${profile.faculty}` : '未設定';
+      document.getElementById('myCardFaculty').textContent = `${facultyText} ${gradeText}`;
+      
+      document.getElementById('myCardStudentId').textContent = profile.studentId || '学籍番号 未設定';
+      document.getElementById('myCardEmail').textContent = profile.email || 'メールアドレス 未設定';
+      document.getElementById('myCardBio').textContent = profile.bio || '自己紹介が未入力です。「設定」から自己紹介文を追加しましょう！';
+      
+      const campusBadge = document.getElementById('myCardCampusBadge');
+      if (campusBadge) {
+        campusBadge.textContent = profile.campus === 'Y' ? '横浜' : '世田谷';
+      }
+
+      document.getElementById('myQRCodeSection').style.display = 'none';
+      const btn = document.getElementById('btnToggleMyQR');
+      if (btn) {
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 18px;">qr_code</span>QRコード表示';
+      }
+
+      document.getElementById('selfIntroMainModalOverlay').classList.remove('show');
+      document.getElementById('selfIntroShareModalOverlay').classList.add('show');
+    }
+
+    function closeSelfIntroShareModal() {
+      document.getElementById('selfIntroShareModalOverlay').classList.remove('show');
+    }
+
+    function backToSelfIntroMain() {
+      document.getElementById('selfIntroShareModalOverlay').classList.remove('show');
+      stopSelfIntroScan();
+      document.getElementById('selfIntroScanModalOverlay').classList.remove('show');
+      document.getElementById('selfIntroMainModalOverlay').classList.add('show');
+    }
+
+    function toggleMySelfIntroQR() {
+      const section = document.getElementById('myQRCodeSection');
+      const btn = document.getElementById('btnToggleMyQR');
+      if (section.style.display === 'none') {
+        section.style.display = 'flex';
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 18px;">visibility_off</span>QRコード非表示';
+        generateMySelfIntroQR();
+      } else {
+        section.style.display = 'none';
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 18px;">qr_code</span>QRコード表示';
+      }
+    }
+
+    function generateMySelfIntroQR() {
+      const profile = getUserProfile();
+      const dataToShare = {
+        n: profile.username,
+        f: profile.faculty,
+        g: profile.grade,
+        s: profile.studentId,
+        e: profile.email,
+        b: profile.bio,
+        c: profile.campus
+      };
+      
+      const canvas = document.getElementById('mySelfIntroQRCanvas');
+      if (canvas) {
+        new QRious({
+          element: canvas,
+          value: JSON.stringify(dataToShare),
+          size: 180,
+          level: 'M'
+        });
+      }
+    }
+
+    function downloadBusinessCard(containerId, filename) {
+      const element = document.getElementById(containerId);
+      if (!element) return;
+
+      html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: null
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }).catch(err => {
+        console.error("Failed to export card image", err);
+        alert("名刺画像の保存に失敗しました。");
+      });
+    }
+
+    function downloadMyBusinessCard() {
+      const profile = getUserProfile();
+      const name = profile.username || 'user';
+      downloadBusinessCard('myBusinessCardContainer', `openTCU_card_${name}.png`);
+    }
+
+    function downloadPeerBusinessCard() {
+      const nameEl = document.getElementById('peerCardName');
+      const name = nameEl ? nameEl.textContent : 'peer';
+      downloadBusinessCard('peerBusinessCardContainer', `openTCU_card_${name}.png`);
+    }
+
+    function openSelfIntroScanModal() {
+      document.getElementById('selfIntroMainModalOverlay').classList.remove('show');
+      document.getElementById('selfIntroScanModalOverlay').classList.add('show');
+      startSelfIntroScan();
+    }
+
+    function closeSelfIntroScanModal() {
+      stopSelfIntroScan();
+      document.getElementById('selfIntroScanModalOverlay').classList.remove('show');
+    }
+
+    function startSelfIntroScan() {
+      const video = document.getElementById('selfIntroScanVideo');
+      const feedback = document.getElementById('selfIntroScanFeedback');
+      if (feedback) feedback.textContent = 'カメラ起動中...';
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(stream => {
+          scanStream = stream;
+          if (video) {
+            video.srcObject = stream;
+            video.setAttribute("playsinline", true);
+            video.play();
+          }
+          if (feedback) feedback.textContent = '';
+          scanAnimationFrameId = requestAnimationFrame(scanTick);
+        })
+        .catch(err => {
+          console.error("Camera access error", err);
+          if (feedback) feedback.textContent = 'カメラの起動に失敗しました。カメラの利用許可をご確認ください。';
+        });
+    }
+
+    function scanTick() {
+      const video = document.getElementById('selfIntroScanVideo');
+      const hiddenCanvas = document.getElementById('selfIntroScanHiddenCanvas');
+      const feedback = document.getElementById('selfIntroScanFeedback');
+
+      if (!scanStream) return;
+
+      if (video && video.readyState === video.HAVE_ENOUGH_DATA) {
+        const ctx = hiddenCanvas.getContext('2d');
+        hiddenCanvas.height = video.videoHeight;
+        hiddenCanvas.width = video.videoWidth;
+        ctx.drawImage(video, 0, 0, hiddenCanvas.width, hiddenCanvas.height);
+
+        const imageData = ctx.getImageData(0, 0, hiddenCanvas.width, hiddenCanvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: "dontInvert"
+        });
+
+        if (code) {
+          try {
+            const parsed = JSON.parse(code.data);
+            if (parsed && parsed.n) {
+              if (navigator.vibrate) {
+                navigator.vibrate(100);
+              }
+              stopSelfIntroScan();
+              closeSelfIntroScanModal();
+              openSelfIntroResultModal(parsed);
+              return;
+            }
+          } catch (e) {
+            if (feedback) feedback.textContent = '無効なQRコードです。';
+          }
+        }
+      }
+      scanAnimationFrameId = requestAnimationFrame(scanTick);
+    }
+
+    function stopSelfIntroScan() {
+      if (scanStream) {
+        scanStream.getTracks().forEach(track => track.stop());
+        scanStream = null;
+      }
+      if (scanAnimationFrameId) {
+        cancelAnimationFrame(scanAnimationFrameId);
+        scanAnimationFrameId = null;
+      }
+      const video = document.getElementById('selfIntroScanVideo');
+      if (video) video.srcObject = null;
+    }
+
+    function openSelfIntroResultModal(parsedData) {
+      document.getElementById('peerCardName').textContent = parsedData.n || '都市大生';
+      
+      const gradeText = parsedData.g ? (isNaN(parsedData.g) ? parsedData.g : `${parsedData.g}年`) : '未設定';
+      const facultyText = parsedData.f ? `${parsedData.f}` : '未設定';
+      document.getElementById('peerCardFaculty').textContent = `${facultyText} ${gradeText}`;
+      
+      document.getElementById('peerCardStudentId').textContent = parsedData.s || '学籍番号 未設定';
+      document.getElementById('peerCardEmail').textContent = parsedData.e || 'メールアドレス 未設定';
+      document.getElementById('peerCardBio').textContent = parsedData.b || '(自己紹介は設定されていません)';
+      
+      const campusBadge = document.getElementById('peerCardCampusBadge');
+      if (campusBadge) {
+        campusBadge.textContent = parsedData.c === 'Y' ? '横浜' : '世田谷';
+      }
+
+      document.getElementById('selfIntroResultModalOverlay').classList.add('show');
+    }
+
+    function closeSelfIntroResultModal() {
+      document.getElementById('selfIntroResultModalOverlay').classList.remove('show');
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    function backToSelfIntroScan() {
+      closeSelfIntroResultModal();
+      openSelfIntroScanModal();
     }
   </script>
 

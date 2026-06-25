@@ -1,2127 +1,1901 @@
 ﻿{
-    "categories":  [
-                       {
-                           "id":  "大学公式",
-                           "name":  "大学公式",
-                           "bgLight":  "#E0F2FE",
-                           "textLight":  "#0369A1",
-                           "bgDark":  "#0C4A6E",
-                           "textDark":  "#38BDF8"
-                       },
-                       {
-                           "id":  "学内窓口",
-                           "name":  "学内窓口",
-                           "bgLight":  "#F3E8FF",
-                           "textLight":  "#6B21A8",
-                           "bgDark":  "#581C87",
-                           "textDark":  "#E9D5FF"
-                       },
-                       {
-                           "id":  "学部・学科",
-                           "name":  "学部・学科",
-                           "bgLight":  "#FCE7F3",
-                           "textLight":  "#BE185D",
-                           "bgDark":  "#701A75",
-                           "textDark":  "#FBCFE8"
-                       },
-                       {
-                           "id":  "施設",
-                           "name":  "施設",
-                           "bgLight":  "#FEF3C7",
-                           "textLight":  "#D97706",
-                           "bgDark":  "#78350F",
-                           "textDark":  "#FDE68A"
-                       },
-                       {
-                           "id":  "システム",
-                           "name":  "システム",
-                           "bgLight":  "#E0F8E8",
-                           "textLight":  "#047857",
-                           "bgDark":  "#064E3B",
-                           "textDark":  "#A7F3D0"
-                       },
-                       {
-                           "id":  "学生運営",
-                           "name":  "学生運営",
-                           "bgLight":  "#FFEDD5",
-                           "textLight":  "#C2410C",
-                           "bgDark":  "#7C2D12",
-                           "textDark":  "#FED7AA"
-                       },
-                       {
-                           "id":  "プロジェクト",
-                           "name":  "プロジェクト",
-                           "bgLight":  "#EEF2FF",
-                           "textLight":  "#4F46E5",
-                           "bgDark":  "#312E81",
-                           "textDark":  "#A5B4FC"
-                       }
-                   ],
-    "links":  [
-                  {
-                      "name":  "東京都市大学 公式HP",
-                      "category":  "大学公式",
-                      "description":  "東京都市大学の公式ホームページです。大学のニュース、入試情報、各学部の紹介、行事予定などが掲載されています。",
-                      "website":  "https://www.tcu.ac.jp/",
-                      "keywords":  [
-                                       "都市大",
-                                       "公式",
-                                       "tcu",
-                                       "ホームページ",
-                                       "大学",
-                                       "大学公式サイト",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/Tokyo_city_univ"
-                                  },
-                                  {
-                                      "platform":  "YouTube",
-                                      "url":  "https://www.youtube.com/@東京都市大学-p1r"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  100
-                  },
-                  {
-                      "name":  "五島育英会公式",
-                      "category":  "大学公式",
-                      "description":  "学校法人五島育英会の公式ホームページです。東京都市大学グループの情報などが掲載されています。",
-                      "website":  "https://www.goto-ikuei.ac.jp/",
-                      "keywords":  [
-                                       "公式",
-                                       "学校法人",
-                                       "五島",
-                                       "都市大",
-                                       "附属",
-                                       "五島育英会公式",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/toshidaigroup"
-                                  },
-                                  {
-                                      "platform":  "YouTube",
-                                      "url":  "https://www.youtube.com/user/tcu104"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  110
-                  },
-                  {
-                      "name":  "教学課",
-                      "category":  "学内窓口",
-                      "description":  "履修登録、授業スケジュール、試験、成績、各種証明書の発行など、学生生活の学びに関する総合窓口です。",
-                      "website":  "https://www.asc.tcu.ac.jp/",
-                      "keywords":  [
-                                       "教務",
-                                       "履修",
-                                       "成績",
-                                       "授業",
-                                       "時間割",
-                                       "相談",
-                                       "証明書",
-                                       "窓口",
-                                       "教学課",
-                                       "学内窓口",
-                                       "シラバス",
-                                       "講義",
-                                       "単位"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "キャリア支援センター",
-                      "category":  "学内窓口",
-                      "description":  "就職活動の相談、インターンシップ情報、履歴書添削や面接練習など、学生のキャリア形成と進路決定を強力にサポートします。",
-                      "website":  "https://www.tcu.ac.jp/career/",
-                      "keywords":  [
-                                       "就活",
-                                       "キャリア",
-                                       "求人",
-                                       "インターン",
-                                       "面接",
-                                       "履歴書",
-                                       "就職",
-                                       "キャリア支援センター",
-                                       "学内窓口",
-                                       "インターンシップ",
-                                       "進路"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "図書館",
-                      "category":  "施設",
-                      "description":  "学内の図書や学術論文、電子資料などの検索・閲覧が可能です。自習スペースやラーニング・コモンズも完備しています。",
-                      "website":  "https://library.tcu.ac.jp/",
-                      "keywords":  [
-                                       "図書",
-                                       "本",
-                                       "自習",
-                                       "文献",
-                                       "論文",
-                                       "図書検索",
-                                       "ライブラリ",
-                                       "図書館",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "勉強",
-                                       "書籍",
-                                       "読書"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://twitter.com/tcu_library"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "プリンター(PaperCut MF)",
-                      "category":  "システム",
-                      "description":  "学内各所に設置されているプリンターの管理画面です。ここからPDFをインポートし、プリントアウトできます。",
-                      "website":  "https://print.itc.tcu.ac.jp/user",
-                      "keywords":  [
-                                       "PDF",
-                                       "レポート",
-                                       "プリント",
-                                       "プリンター",
-                                       "印刷",
-                                       "プリンター(PaperCut MF)",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "情報基盤センター",
-                      "category":  "システム",
-                      "description":  "東京都市大学の学内ネットワーク、システム障害情報、セキュリティ情報、ソフトウェアライセンス管理など、ITインフラと各種アカウントサービスを管理・提供する機関です。",
-                      "website":  "https://www.itc.tcu.ac.jp/student/",
-                      "keywords":  [
-                                       "情報基盤センター",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "情報基盤センター - セキュリティ対策自己点検・TCUアカウントのパスワード変更",
-                      "category":  "システム",
-                      "description":  "TCUアカウントの継続利用に必要なセキュリティ自己点検の実施や、パスワード変更手続きを行うための学内専用特設サイトです。期限内に完了しない場合はアカウントが一時停止されます。",
-                      "website":  "https://www.itc.tcu.ac.jp/campaign/",
-                      "keywords":  [
-                                       "情報基盤センター - セキュリティ対策自己点検・TCUアカウントのパスワード変更",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "情報基盤センター - 学内Wi-Fi",
-                      "category":  "システム",
-                      "description":  "学内で利用可能なWi-Fiサービスの接続マニュアルや設定情報です。マニュアルの閲覧にはTCUアカウントでのログインが必要です。",
-                      "website":  "https://www.itc.tcu.ac.jp/network-3/tcuwifi/",
-                      "keywords":  [
-                                       "情報基盤センター - 学内Wi-Fi",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "wifi",
-                                       "ワイファイ",
-                                       "インターネット",
-                                       "ネット",
-                                       "無線lan",
-                                       "接続",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "情報基盤センター - ソフトウェア利用",
-                      "category":  "システム",
-                      "description":  "授業や自習で利用できる各種ソフトウェアのライセンス取得方法や、インストールガイドを掲載しています。",
-                      "website":  "https://www.itc.tcu.ac.jp/soft/",
-                      "keywords":  [
-                                       "情報基盤センター - ソフトウェア利用",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "情報基盤センター - 遠隔デスクトップ",
-                      "category":  "システム",
-                      "description":  "自宅など学外から学内のPC環境へリモート接続して作業を行う「遠隔デスクトップ（RDS）」の利用手順とログイン窓口です。",
-                      "website":  "https://www.itc.tcu.ac.jp/ictservice/rdt/",
-                      "keywords":  [
-                                       "情報基盤センター - 遠隔デスクトップ",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "学内ポータル・Webシラバス",
-                      "category":  "システム",
-                      "description":  "大学からの公式なお知らせ、授業連絡、スケジュール管理、Webシラバス（シラバス閲覧システム）などを集約した学内ポータルサイトです。",
-                      "website":  "https://websrv.tcu.ac.jp/tcu_web_v3/top.do",
-                      "keywords":  [
-                                       "学内ポータル・Webシラバス",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "ポータル"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "文書ライブラリ",
-                      "category":  "システム",
-                      "description":  "大学から学生向けに共有される公式文書や各種ガイドライン、申請用テンプレートなどが保管されている学内SharePoint文書ライブラリです。",
-                      "website":  "https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/Forms/AllItems.aspx",
-                      "keywords":  [
-                                       "文書ライブラリ",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "音楽",
-                                       "軽音",
-                                       "バンド",
-                                       "ライブ",
-                                       "楽器",
-                                       "演奏"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "Campus Life",
-                      "category":  "学内窓口",
-                      "description":  "学生支援課が運営する、奨学金の申請情報、サークル活動、学生寮、各種生活サポートに関するお役立ち情報を集約したサイトです。",
-                      "website":  "https://tculife.off.tcu.ac.jp/",
-                      "keywords":  [
-                                       "Campus Life",
-                                       "学内窓口"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ヨコキャリ",
-                      "category":  "学内窓口",
-                      "description":  "横浜キャンパス（環境学部・メディア情報学部・デザイン・データ科学部）の学生に向けた、就職活動支援、インターンシップ、求人票などの情報掲示板です。",
-                      "website":  "https://cgi.yc.tcu.ac.jp/~otani/career/",
-                      "keywords":  [
-                                       "ヨコキャリ",
-                                       "学内窓口",
-                                       "横浜",
-                                       "横浜キャンパス",
-                                       "よこはま",
-                                       "就活",
-                                       "就職",
-                                       "求人",
-                                       "インターン",
-                                       "インターンシップ",
-                                       "キャリア",
-                                       "進路",
-                                       "面接",
-                                       "履歴書"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "掲示板",
-                                   "YC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "WebClass",
-                      "category":  "システム",
-                      "description":  "授業資料の配布、課題の提出、小テストの実施、評価フィードバックなどを行うeラーニング学習管理システム（LMS）です。大学生活で頻繁に利用します。",
-                      "website":  "https://webclass.tcu.ac.jp/webclass/login.php",
-                      "keywords":  [
-                                       "WebClass",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績",
-                                       "課題",
-                                       "宿題",
-                                       "レポート",
-                                       "提出"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "地域連携・生涯学習推進室",
-                      "category":  "学内窓口",
-                      "description":  "地域社会との連携イベントや公開講座、産官学連携プロジェクト、生涯学習プログラムの提供・推進を行う部署の公式ページです。",
-                      "website":  "https://www.chiiki.tcu.ac.jp/",
-                      "keywords":  [
-                                       "地域連携・生涯学習推進室",
-                                       "学内窓口"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Facebook",
-                                      "url":  "https://www.facebook.com/TokyoCityUniv/"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "図書館 施設予約システム",
-                      "category":  "システム",
-                      "description":  "世田谷キャンパス図書館の個人閲覧室、グループ学習室、各種自習スペースをオンラインで予約するための学内専用システムです。",
-                      "website":  "http://reserve.lib.tcu.ac.jp/",
-                      "keywords":  [
-                                       "図書館 施設予約システム",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "世田谷",
-                                       "世田谷キャンパス",
-                                       "せたがや",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー",
-                                       "図書",
-                                       "本",
-                                       "自習",
-                                       "勉強",
-                                       "文献",
-                                       "論文",
-                                       "書籍",
-                                       "読書",
-                                       "図書館"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "研究者情報データベース",
-                      "category":  "学内窓口",
-                      "description":  "東京都市大学に所属する教員・研究者の専門分野、研究業績、外部資金獲得状況などを公開している公式データベースです。",
-                      "website":  "https://www.risys.gl.tcu.ac.jp/",
-                      "keywords":  [
-                                       "研究者情報データベース",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "学術機関リポジトリ",
-                      "category":  "システム",
-                      "description":  "東京都市大学の研究成果や紀要論文、学術資料などのメタデータおよび本文を広く公開している学術情報リポジトリです。",
-                      "website":  "https://tcu-ar.repo.nii.ac.jp/?page=1\u0026size=20\u0026sort=-createdate",
-                      "keywords":  [
-                                       "学術機関リポジトリ",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "文献",
-                                       "論文"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "出席確認システム",
-                      "category":  "システム",
-                      "description":  "授業時に提示される出席キーを入力し、出席登録を行うシステムです。利用にはTCUアカウントでのログインが必要です。",
-                      "website":  "https://call.off.tcu.ac.jp/",
-                      "keywords":  [
-                                       "出席確認システム",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績",
-                                       "出席",
-                                       "出欠",
-                                       "出席登録",
-                                       "call"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "教員の出校状況",
-                      "category":  "システム",
-                      "description":  "各学科・学部の教員が本日出校（出勤）しているかどうかをリアルタイムで確認できる、学内ネットワーク限定の出校状況確認ページです。",
-                      "website":  "https://www.comm.tcu.ac.jp/~soumuka/jinji/lys.html",
-                      "keywords":  [
-                                       "教員の出校状況",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "数学質問箱(BBS)",
-                      "category":  "学内窓口",
-                      "description":  "授業や自習で分からない数学の疑問点を匿名で質問し、教員やチューターからアドバイスをもらえる学内向け質問掲示板です。",
-                      "website":  "https://www.ns.tcu.ac.jp/NS/QandA_BBS/",
-                      "keywords":  [
-                                       "数学質問箱(BBS)",
-                                       "学内窓口",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "掲示板"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "横浜キャンパス-授業改善方策フィードバック",
-                      "category":  "学内窓口",
-                      "description":  "学生アンケートでの意見をもとに、教員がどのように講義改善やフィードバックを行うかの方針・改善策を一覧で公表しているサイトです。",
-                      "website":  "https://user.tcu.ac.jp/~otani/lessonimprove/show.cgi",
-                      "keywords":  [
-                                       "横浜キャンパス-授業改善方策フィードバック",
-                                       "学内窓口",
-                                       "横浜",
-                                       "横浜キャンパス",
-                                       "よこはま",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "YC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "メディア情報学部 情報システム学科 研究室配属システム",
-                      "category":  "システム",
-                      "description":  "メディア情報学部情報システム学科の学生が、研究室配属の希望登録や決定状況の確認を行うための学内専用システムです。",
-                      "website":  "https://user.tcu.ac.jp/~otani/infosys/systems/login.cgi",
-                      "keywords":  [
-                                       "メディア情報学部 情報システム学科 研究室配属システム",
-                                       "メディア情報学 情報システム学科 研究室配属システム",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "メディア情報学部 社会メディア学科 研究室配属システム",
-                      "category":  "システム",
-                      "description":  "メディア情報学部社会メディア学科の学生が、研究室配属の希望申請や結果確認を行うための学内専用システムです。",
-                      "website":  "https://user.tcu.ac.jp/~otani/sociomedia/system/login.cgi",
-                      "keywords":  [
-                                       "メディア情報学部 社会メディア学科 研究室配属システム",
-                                       "メディア情報学 社会メディア学科 研究室配属システム",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "環境学部 研究室配属システム",
-                      "category":  "システム",
-                      "description":  "環境学部の学生が、各研究室の配属登録や希望調整、結果確認を行うための学内専用システムです。",
-                      "website":  "https://cgi.yc.tcu.ac.jp/~otani/environment/system/login.cgi",
-                      "keywords":  [
-                                       "環境学部 研究室配属システム",
-                                       "環境学 研究室配属システム",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "都市生活学部 プロジェクト演習配属申請登録システム",
-                      "category":  "システム",
-                      "description":  "都市生活学部の学生が、各研究室（プロジェクト演習）への希望配属登録や決定結果を確認するための専用システムです。",
-                      "website":  "https://user.tcu.ac.jp/~otani/urbanlife/systems/student.cgi",
-                      "keywords":  [
-                                       "都市生活学部 プロジェクト演習配属申請登録システム",
-                                       "都市生活学 プロジェクト演習配属申請登録システム",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "学生相談室",
-                      "category":  "学内窓口",
-                      "description":  "学生の皆さんが日頃抱える学業、人間関係、将来への不安などの様々な悩みを、専門のカウンセラーに個別で相談できる窓口です。",
-                      "website":  "https://www.tcu.ac.jp/counselingroom/",
-                      "keywords":  [
-                                       "学生相談室",
-                                       "学内窓口"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ハラスメント相談窓口",
-                      "category":  "学内窓口",
-                      "description":  "ハラスメントに関する相談を受け付け、学生が安心して学生生活を送れるようにサポートするための学内専用相談室の案内資料（PDF）です。",
-                      "website":  "https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/%E5%AD%A6%E7%94%9F/%EF%BC%B3441-01%E3%80%80%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E8%AA%B2/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%9B%B8%E8%AB%87%E7%AA%93%E5%8F%A3/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%AA%93%E5%8F%A3.pdf?web=1",
-                      "keywords":  [
-                                       "ハラスメント相談窓口",
-                                       "学内窓口"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "TCU FORCE",
-                      "category":  "システム",
-                      "description":  "修得単位や資格、課外活動の記録などを登録し、自らの学びの軌跡や大学生活を視覚化して将来に役立てるためのポートフォリオシステムです。",
-                      "website":  "https://force.tcu.ac.jp/",
-                      "keywords":  [
-                                       "TCU FORCE",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "キャリア支援サイト",
-                      "category":  "学内窓口",
-                      "description":  "キャリア支援課が提供する就職活動お役立ち情報ポータルです。就活スケジュールや選考対策、体験記などがまとめられています。",
-                      "website":  "https://career-book.jp/contents/AuB07wOd/",
-                      "keywords":  [
-                                       "キャリア支援サイト",
-                                       "学内窓口",
-                                       "就活",
-                                       "就職",
-                                       "求人",
-                                       "インターン",
-                                       "インターンシップ",
-                                       "キャリア",
-                                       "進路",
-                                       "面接",
-                                       "履歴書"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "都市大キャリアNavi",
-                      "category":  "学内窓口",
-                      "description":  "進路に関する個別面談の予約や、就活、インターンシップに役立つ概要の閲覧、進路決定届などを提出できる就職活動総合ポータルです。",
-                      "website":  "https://www2.kyujin-navi.com/sp99/",
-                      "keywords":  [
-                                       "都市大キャリアNavi",
-                                       "学内窓口",
-                                       "就活",
-                                       "就職",
-                                       "求人",
-                                       "インターン",
-                                       "インターンシップ",
-                                       "キャリア",
-                                       "進路",
-                                       "面接",
-                                       "履歴書"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "TCU メール",
-                      "category":  "システム",
-                      "description":  "TCUアカウント（Microsoft 365）で利用できる大学専用のメールサービス（Outlook Web App）です。大学からの重要な連絡が届きます。",
-                      "website":  "https://outlook.office.com/mail/?auth=2",
-                      "keywords":  [
-                                       "TCU メール",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー",
-                                       "メール",
-                                       "outlook",
-                                       "アドレス",
-                                       "メアド"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "OneDrive",
-                      "category":  "システム",
-                      "description":  "TCUアカウントのクラウドストレージサービス（OneDrive for Business）です。授業資料や課題ファイルの保存・共有に利用できます。",
-                      "website":  "https://wtcuac-my.sharepoint.com/",
-                      "keywords":  [
-                                       "OneDrive",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績",
-                                       "課題",
-                                       "宿題",
-                                       "レポート",
-                                       "提出"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "TCU Storage",
-                      "category":  "システム",
-                      "description":  "大学独自のクラウドストレージシステム（Proself）です。※現在利用規模が縮小されており、学生用保存領域は廃止されています。",
-                      "website":  "https://storage.tcu.ac.jp/",
-                      "keywords":  [
-                                       "TCU Storage",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "世田谷キャンパス 物品借用申請",
-                      "category":  "システム",
-                      "description":  "研究室や公認の学生団体が世田谷キャンパスの備品・物品を借用する際に申請を行う、学内専用のオンライン申請フォームです。",
-                      "website":  "https://www.itc.tcu.ac.jp/~soumuka/bihin/index.html",
-                      "keywords":  [
-                                       "世田谷キャンパス 物品借用申請",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "世田谷",
-                                       "世田谷キャンパス",
-                                       "せたがや"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "横浜キャンパス YCよやく君",
-                      "category":  "システム",
-                      "description":  "横浜キャンパス内の教室、プレゼンルーム、ミーティングエリアなどの施設・スペースをオンライン予約するための学内専用システムです。",
-                      "website":  "https://supply3.itc.tcu.ac.jp/reserve/pub/index_.php",
-                      "keywords":  [
-                                       "横浜キャンパス YCよやく君",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "横浜",
-                                       "横浜キャンパス",
-                                       "よこはま",
-                                       "パソコン",
-                                       "pc",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  true,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "YC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "東京都市大学 原子力研究所",
-                      "category":  "施設",
-                      "description":  "王禅寺キャンパスに所在する東京都市大学原子力研究所の公式サイトです。規制検査の実施状況や各種測定データが公開されています。",
-                      "website":  "https://atomsun2.atom.tcu.ac.jp/",
-                      "keywords":  [
-                                       "東京都市大学 原子力研究所",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "王禅寺",
-                                       "王禅寺キャンパス",
-                                       "おうぜんじ"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "東京都市大学 総合研究所",
-                      "category":  "施設",
-                      "description":  "複数の分野を融合した先進的・横断的課題への取り組みと技術革新を推進する、東京都市大学総合研究所（ARL）の公式ホームページです。",
-                      "website":  "https://www.arl.tcu.ac.jp/",
-                      "keywords":  [
-                                       "東京都市大学 総合研究所",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "課題",
-                                       "宿題",
-                                       "レポート",
-                                       "提出"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "東京都市大学 オーストラリアプログラム",
-                      "category":  "プロジェクト",
-                      "description":  "独自の語学研修と約100日間のオーストラリア留学を組み合わせた、本学を代表する留学プログラム（TAP）の公式情報サイトです。",
-                      "website":  "https://tap.tcu.ac.jp/",
-                      "keywords":  [
-                                       "東京都市大学 オーストラリアプログラム",
-                                       "オーストラリアプログラム",
-                                       "TAP",
-                                       "タップ",
-                                       "留学",
-                                       "海外",
-                                       "英語"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "Shibuya PXU",
-                      "category":  "施設",
-                      "description":  "渋谷の「五島育英会ビル」に所在し、社会人向け講座や各種地域交流プログラムを展開するサテライトキャンパス（シブヤ・パクス）の公式サイトです。",
-                      "website":  "https://shibuya-pxu.tcu.ac.jp/",
-                      "keywords":  [
-                                       "Shibuya PXU",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "CSAC 産官学交流センター",
-                      "category":  "施設",
-                      "description":  "本学の研究成果をもとに産業界、国・自治体、他大学などとの外部連携をコーディネートする産官学交流センターの公式ホームページです。",
-                      "website":  "https://www.toshidai-csac.tokyo/index.html",
-                      "keywords":  [
-                                       "CSAC 産官学交流センター",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ものつくりセンター",
-                      "category":  "施設",
-                      "description":  "ものづくりに関わる実習講義の運営や、研究用装置・部材の製作、各種プロジェクトや課外活動でのものづくりを技術・設備面から支援する施設です。",
-                      "website":  "https://monotsukuri.tcu.ac.jp/",
-                      "keywords":  [
-                                       "ものつくりセンター",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "授業",
-                                       "シラバス",
-                                       "履修",
-                                       "時間割",
-                                       "講義",
-                                       "単位",
-                                       "成績"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "YouTube",
-                                      "url":  "https://www.youtube.com/@東京都市大学ものつくり支"
-                                  }
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "学生工房",
-                      "category":  "施設",
-                      "description":  "学生が自由に創作活動を行うことができる工作・創作スペースです。利用登録をすれば旋盤や3Dプリンターなどの設備を使用できます。",
-                      "website":  "https://fab.tcu.ac.jp/",
-                      "keywords":  [
-                                       "学生工房",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/TCU_StudentFab"
-                                  }
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ダイバーシティ推進室",
-                      "category":  "学内窓口",
-                      "description":  "性別、国籍、障害の有無に関わらず、全ての構成員が活躍できるキャンパス環境を目指すダイバーシティ推進室の公式ホームページです。",
-                      "website":  "https://www.diversity.tcu.ac.jp/",
-                      "keywords":  [
-                                       "ダイバーシティ推進室",
-                                       "学内窓口"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ラーニングコモンズSC",
-                      "category":  "施設",
-                      "description":  "世田谷キャンパス図書館地下1階にあり、グループディスカッション、共同作業、プレゼン練習など能動的な学習を行えるコモンズスペースです。",
-                      "website":  "https://www.comm.tcu.ac.jp/~sclcweb/",
-                      "keywords":  [
-                                       "ラーニングコモンズSC",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "世田谷",
-                                       "世田谷キャンパス",
-                                       "せたがや",
-                                       "自習",
-                                       "勉強"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ぴっぴ",
-                      "category":  "施設",
-                      "description":  "人間科学科が運営する、地域貢献と実践的研修の場を兼ねた子育て支援センターです。親子が集うフリースペースを提供しています。",
-                      "website":  "https://www.tcu.ac.jp/facilities/facility1/pippi/",
-                      "keywords":  [
-                                       "ぴっぴ",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/pippi.tokyotoshidai/"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ラウンジオーク",
-                      "category":  "施設",
-                      "description":  "世田谷キャンパス1号館4階にある、落ち着いた雰囲気のレストランです。通常の学食よりワンランク上のハイクオリティな定食などを楽しめます。",
-                      "website":  "https://www.itc.tcu.ac.jp/~soumuka/lounge/",
-                      "keywords":  [
-                                       "ラウンジオーク",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "世田谷",
-                                       "世田谷キャンパス",
-                                       "せたがや",
-                                       "食堂",
-                                       "学食",
-                                       "レストラン",
-                                       "売店",
-                                       "購買",
-                                       "購買部",
-                                       "ショップ",
-                                       "ランチ",
-                                       "ご飯"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "キャンパスショップ",
-                      "category":  "施設",
-                      "description":  "世田谷キャンパスおよび横浜キャンパスの売店（キャンパスショップ）を運営するハヤト商事の公式案内ページです。",
-                      "website":  "http://www.hayato-shoji.co.jp/tcu/",
-                      "keywords":  [
-                                       "キャンパスショップ",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内",
-                                       "世田谷",
-                                       "世田谷キャンパス",
-                                       "せたがや",
-                                       "横浜",
-                                       "横浜キャンパス",
-                                       "よこはま",
-                                       "食堂",
-                                       "学食",
-                                       "レストラン",
-                                       "売店",
-                                       "購買",
-                                       "購買部",
-                                       "ショップ",
-                                       "ランチ",
-                                       "ご飯"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/hayato_shouji"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "後援会",
-                      "category":  "大学公式",
-                      "description":  "学生の保護者などを中心に構成され、大学の教育支援活動や学生サポートを行う東京都市大学後援会の公式ホームページです。",
-                      "website":  "https://www.comm.tcu.ac.jp/kouenkai/",
-                      "keywords":  [
-                                       "後援会",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  130
-                  },
-                  {
-                      "name":  "校友会",
-                      "category":  "大学公式",
-                      "description":  "卒業生、在校生、教職員の親睦と交流を深め、母校の発展を支える同窓会組織「校友会」の公式サイトです。各地域の支部活動情報なども発信しています。",
-                      "website":  "https://tcu-alumni.jp/",
-                      "keywords":  [
-                                       "校友会",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Note",
-                                      "url":  "https://note.tcu-alumni.jp/"
-                                  },
-                                  {
-                                      "platform":  "Facebook",
-                                      "url":  "https://www.facebook.com/TCUalumni/"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/tcu_kouyuukai/"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  140
-                  },
-                  {
-                      "name":  "ひらめき・こと・もの・くらし・ひと づくりプログラム",
-                      "category":  "プロジェクト",
-                      "description":  "専門知識を背景に、異分野融合のアプローチから新たな価値創造と問題解決に貢献できる人材を育成する、本学独自の教育プログラムです。",
-                      "website":  "https://hirameki.tcu.ac.jp/",
-                      "keywords":  [
-                                       "ひらめき・こと・もの・くらし・ひと づくりプログラム",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "ヒトモノリサーチ 東京都市大学×AERA",
-                      "category":  "プロジェクト",
-                      "description":  "東京都市大学の教授陣や教員へのインタビューを通じ、専門の研究活動や人生観について語ってもらう特別対談連載企画です。",
-                      "website":  "https://dot.asahi.com/ad/21113001/",
-                      "keywords":  [
-                                       "ヒトモノリサーチ 東京都市大学×AERA",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "男女共同参画室",
-                      "category":  "学内窓口",
-                      "description":  "本学における女性教員・研究者の比率向上や、男女共同参画社会の実現を推進・サポートするための窓口となる組織です。",
-                      "website":  "http://www.sankaku.tcu.ac.jp/",
-                      "keywords":  [
-                                       "男女共同参画室",
-                                       "学内窓口"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "女性研究者支援室 SOFERS",
-                      "category":  "学内窓口",
-                      "description":  "女性研究者の活躍支援や次世代の育成、研究と家庭生活の両立支援などを多角的にサポートする「SOFERS」の公式ホームページです。",
-                      "website":  "http://www.sofers.tcu.ac.jp/",
-                      "keywords":  [
-                                       "女性研究者支援室 SOFERS",
-                                       "学内窓口"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "理工学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 理工学部の公式ホームページです。各学科の研究活動やカリキュラム等を紹介しています。",
-                      "website":  "https://www.se.tcu.ac.jp/",
-                      "keywords":  [
-                                       "理工学部",
-                                       "理工学",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  100
-                  },
-                  {
-                      "name":  "建築都市デザイン学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 建築都市デザイン学部の公式ホームページです。建築・都市分野の最新プログラムを紹介しています。",
-                      "website":  "https://www.acu.tcu.ac.jp/",
-                      "keywords":  [
-                                       "建築都市デザイン学部",
-                                       "建築都市デザイン学",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  110
-                  },
-                  {
-                      "name":  "情報工学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 情報工学部の公式ホームページです。先進IT、データサイエンス分野の研究教育情報を発信しています。",
-                      "website":  "https://it.tcu.ac.jp/",
-                      "keywords":  [
-                                       "情報工学部",
-                                       "情報工学",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  120
-                  },
-                  {
-                      "name":  "環境学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 環境学部の公式ホームページです。地球環境、生態系、環境政策などに関わる研究と教育の情報を掲載しています。",
-                      "website":  "https://fes.tcu.ac.jp/",
-                      "keywords":  [
-                                       "環境学部",
-                                       "環境学",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "YC"
-                               ],
-                      "sortOrder":  130
-                  },
-                  {
-                      "name":  "メディア情報学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 メディア情報学部の公式ホームページです。社会メディア、情報システム等の教育研究内容を紹介しています。",
-                      "website":  "https://informatics.tcu.ac.jp/",
-                      "keywords":  [
-                                       "メディア情報学部",
-                                       "メディア情報学",
-                                       "大学公式",
-                                       "パソコン",
-                                       "pc",
-                                       "システム",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Facebook",
-                                      "url":  "https://www.facebook.com/TCUinformatics/"
-                                  },
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://twitter.com/TCUinformatics"
-                                  },
-                                  {
-                                      "platform":  "YouTube",
-                                      "url":  "https://www.youtube.com/user/TCUInformatics/"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/facultyofinformaticstcu/"
-                                  }
-                              ],
-                      "tags":  [
-                                   "YC"
-                               ],
-                      "sortOrder":  140
-                  },
-                  {
-                      "name":  "デザイン・データ科学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 デザイン・データ科学部の公式ホームページです。データ活用とデザイン思考を融合したカリキュラムを紹介しています。",
-                      "website":  "https://toshiseikatsu-gakubu.jp/",
-                      "keywords":  [
-                                       "デザイン・データ科学部",
-                                       "デザイン・データ科学",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "YC"
-                               ],
-                      "sortOrder":  150
-                  },
-                  {
-                      "name":  "都市生活学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 都市生活学部の公式ホームページです。都市生活学科の研究分野やプロジェクト演習について紹介しています。",
-                      "website":  "https://www.tcu.ac.jp/academics/urbanlife/",
-                      "keywords":  [
-                                       "都市生活学部",
-                                       "都市生活学",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  160
-                  },
-                  {
-                      "name":  "人間科学部",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学 人間科学部の公式ホームページです。児童保育、人間発達、心理学などの教育研究活動を掲載しています。",
-                      "website":  "https://www.tcu.ac.jp/academics/humanlife/",
-                      "keywords":  [
-                                       "人間科学部",
-                                       "人間科学",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  170
-                  },
-                  {
-                      "name":  "大学院 総合理工学研究科",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学大学院 総合理工学研究科の公式ホームページです。高度な専門研究と産学連携プロジェクトの情報を発信しています。",
-                      "website":  "https://www.tcu.ac.jp/academics/graduate/scienceandengineering",
-                      "keywords":  [
-                                       "大学院 総合理工学研究科",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  180
-                  },
-                  {
-                      "name":  "大学院 環境情報学研究科",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学大学院 環境情報学研究科の公式ホームページです。持続可能な環境と高度情報化に関わる研究内容を紹介しています。",
-                      "website":  "https://www.comm.tcu.ac.jp/gseis/",
-                      "keywords":  [
-                                       "大学院 環境情報学研究科",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "YC"
-                               ],
-                      "sortOrder":  190
-                  },
-                  {
-                      "name":  "大学院 情報データ科学研究科",
-                      "category":  "学部・学科",
-                      "description":  "東京都市大学大学院 情報データ科学研究科の公式ホームページです。最先端の情報通信技術やデータサイエンス研究を推進しています。",
-                      "website":  "https://www.tcu.ac.jp/academics/graduate/info_ds/",
-                      "keywords":  [
-                                       "大学院 情報データ科学研究科",
-                                       "大学公式"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "SC"
-                               ],
-                      "sortOrder":  200
-                  },
-                  {
-                      "name":  "世田谷祭公式サイト",
-                      "category":  "学生運営",
-                      "description":  "世田谷キャンパスで開催される学園祭「世田谷祭」の公式情報・イベントスケジュールを掲載している公式サイトです。",
-                      "website":  "https://setagayafes.org/",
-                      "keywords":  [
-                                       "世田谷祭",
-                                       "学園祭",
-                                       "公式サイト",
-                                       "イベント",
-                                       "世田谷祭公式サイト",
-                                       "世田谷",
-                                       "世田谷キャンパス",
-                                       "せたがや"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/setagayafes_tcu"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/setagayafes_sfa"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  130
-                  },
-                  {
-                      "name":  "横浜祭公式サイト",
-                      "category":  "学生運営",
-                      "description":  "横浜キャンパスで開催される学園祭「横浜祭」の公式スケジュールや企画内容を紹介する公式サイトです。",
-                      "website":  "https://yokohama-fest.net/",
-                      "keywords":  [
-                                       "横浜祭",
-                                       "学園祭",
-                                       "公式サイト",
-                                       "イベント",
-                                       "横浜祭公式サイト",
-                                       "横浜",
-                                       "横浜キャンパス",
-                                       "よこはま"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/Yokohamasai"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/yokohamafestival"
-                                  },
-                                  {
-                                      "platform":  "YouTube",
-                                      "url":  "https://www.youtube.com/@Yokohamafest"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  140
-                  },
-                  {
-                      "name":  "等々力祭",
-                      "category":  "学生運営",
-                      "description":  "等々力キャンパスで開催されていた学園祭の公式サイト。現在は等々力キャンパス廃止に伴い開催は行われていない。",
-                      "website":  "https://todorokifes.setagayafes.org/",
-                      "keywords":  [
-                                       "等々力祭",
-                                       "等々力",
-                                       "等々力キャンパス",
-                                       "とどろき"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-                                   "廃止済"
-                               ],
-                      "sortOrder":  180
-                  },
-                  {
-                      "name":  "学生団体連合会 本部",
-                      "category":  "学生運営",
-                      "description":  "全学的な学生課外活動の支援、予算管理、各種行事の運営サポートを行う生徒会のような組織です。世田谷キャンパス9号館3階に会室があります。",
-                      "website":  "http://www.sto.tcu.ac.jp/",
-                      "keywords":  [
-                                       "学生団体連合会 本部",
-                                       "学生団体連合会 本",
-                                       "世田谷",
-                                       "世田谷キャンパス",
-                                       "せたがや"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://twitter.com/sto_sc"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/sto_sc/"
-                                  },
-                                  {
-                                      "platform":  "Peing",
-                                      "url":  "https://peing.net/ja/sto_sc/"
-                                  },
-                                  {
-                                      "platform":  "Note",
-                                      "url":  "https://note.com/sto_sc/"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  100
-                  },
-                  {
-                      "name":  "学生団体連合会 横浜分室",
-                      "category":  "学生運営",
-                      "description":  "横浜キャンパスにおける学生課外活動・サークルを支援し、定例活動を行っている学生団体連合会の横浜支部です。4号館1階にあります。",
-                      "website":  "https://ycbunsitu.wixsite.com/tcu-ac-jp",
-                      "keywords":  [
-                                       "学生団体連合会 横浜分室",
-                                       "横浜",
-                                       "横浜キャンパス",
-                                       "よこはま"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://twitter.com/sto_yc"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://www.instagram.com/sto_yc/"
-                                  },
-                                  {
-                                      "platform":  "Peing",
-                                      "url":  "https://peing.net/ja/ycbunsitsu/"
-                                  },
-                                  {
-                                      "platform":  "YouTube",
-                                      "url":  "https://www.youtube.com/channel/UC1XmFKKDnEIMDsmXbG-AHaQ/"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  110
-                  },
-                  {
-                      "name":  "学生団体連合会 等々力分室(Twitter)",
-                      "category":  "学生運営",
-                      "description":  "等々力キャンパスにおける学生会活動の支援を行っていた分室の公式Twitterアカウントです（現在は活動休止中）。",
-                      "website":  "https://twitter.com/todobun_2nd",
-                      "keywords":  [
-                                       "学生団体連合会 等々力分室(Twitter)",
-                                       "等々力",
-                                       "等々力キャンパス",
-                                       "とどろき",
-                                       "パソコン",
-                                       "pc",
-                                       "システム",
-                                       "アカウント",
-                                       "パスワード",
-                                       "ログイン",
-                                       "認証",
-                                       "サーバー"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://twitter.com/todobun_2nd"
-                                  }
-                              ],
-                      "tags":  [
-                                   "廃止済"
-                               ],
-                      "sortOrder":  120
-                  },
-                  {
-                      "name":  "二子玉川夢キャンパス",
-                      "category":  "施設",
-                      "description":  "二子玉川に開設されていた地域連携・交流拠点の活動報告アーカイブサイトです（現在は施設としては閉鎖されています）。",
-                      "website":  "https://www.chiiki.tcu.ac.jp/yumecampus_archive/",
-                      "keywords":  [
-                                       "二子玉川夢キャンパス",
-                                       "学内施設",
-                                       "施設",
-                                       "設備",
-                                       "システム",
-                                       "学内"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  999
-                  },
-                  {
-                      "name":  "学科研究会連合本部",
-                      "category":  "学生運営",
-                      "description":  "各学科の学びに関連した課外活動や学術・研究会プロジェクトを統括・サポートする、学科研究会連合の運営本部です。",
-                      "website":  "https://x.com/tcu_dra",
-                      "keywords":  [
-                                       "学科研究会連合本部",
-                                       "学科研究会連合本"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/tcu_dra"
-                                  },
-                                  {
-                                      "platform":  "Instagram",
-                                      "url":  "https://instagram.com/tcu_dra"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  170
-                  },
-                  {
-                      "name":  "同好会連合本部",
-                      "category":  "学生運営",
-                      "description":  "文化系・体育系など多様な愛好会・同好会サークルの統括、予算管理、行事サポート、公認化手続きなどを行う組織です。",
-                      "website":  "https://comm.tcu.ac.jp/tcu-acc/",
-                      "keywords":  [
-                                       "同好会連合本部",
-                                       "同好会連合本",
-                                       "連合本部"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/tcu_acc"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  160
-                  },
-                  {
-                      "name":  "体育会本部",
-                      "category":  "学生運営",
-                      "description":  "体育会に所属する全20以上の運動系部活動を束ね、体育祭やTCUラリーなどのスポーツイベントの企画・運営を行う本部組織です。",
-                      "website":  "https://taiikukaihonbu0.wixsite.com/tcu-taiikukai",
-                      "keywords":  [
-                                       "体育会本部",
-                                       "体育会本"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-                                  {
-                                      "platform":  "Twitter / X",
-                                      "url":  "https://x.com/tcu_taiikukai0"
-                                  }
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  150
-                  },
-                  {
-                      "name":  "東急グループ公式ホームページ",
-                      "category":  "大学公式",
-                      "description":  "五島育英会が属する、東急グループの公式ホームページです。グループの事業紹介やニュースなどが掲載されています。",
-                      "website":  "https://tokyugroup.jp/",
-                      "keywords":  [
-                                       "東急グループ",
-                                       "東急",
-                                       "tokyu",
-                                       "公式",
-                                       "東急グループ公式ホームページ"
-                                   ],
-                      "onCampusOnly":  false,
-                      "sns":  [
-
-                              ],
-                      "tags":  [
-
-                               ],
-                      "sortOrder":  120
-                  }
-              ]
+    "categories": [
+        {
+            "id": "大学公式",
+            "name": "大学公式",
+            "bgLight": "#E0F2FE",
+            "textLight": "#0369A1",
+            "bgDark": "#0C4A6E",
+            "textDark": "#38BDF8"
+        },
+        {
+            "id": "学内窓口",
+            "name": "学内窓口",
+            "bgLight": "#F3E8FF",
+            "textLight": "#6B21A8",
+            "bgDark": "#581C87",
+            "textDark": "#E9D5FF"
+        },
+        {
+            "id": "学部・学科",
+            "name": "学部・学科",
+            "bgLight": "#FCE7F3",
+            "textLight": "#BE185D",
+            "bgDark": "#701A75",
+            "textDark": "#FBCFE8"
+        },
+        {
+            "id": "施設",
+            "name": "施設",
+            "bgLight": "#FEF3C7",
+            "textLight": "#D97706",
+            "bgDark": "#78350F",
+            "textDark": "#FDE68A"
+        },
+        {
+            "id": "システム",
+            "name": "システム",
+            "bgLight": "#E0F8E8",
+            "textLight": "#047857",
+            "bgDark": "#064E3B",
+            "textDark": "#A7F3D0"
+        },
+        {
+            "id": "学生運営",
+            "name": "学生運営",
+            "bgLight": "#FFEDD5",
+            "textLight": "#C2410C",
+            "bgDark": "#7C2D12",
+            "textDark": "#FED7AA"
+        },
+        {
+            "id": "プロジェクト",
+            "name": "プロジェクト",
+            "bgLight": "#EEF2FF",
+            "textLight": "#4F46E5",
+            "bgDark": "#312E81",
+            "textDark": "#A5B4FC"
+        }
+    ],
+    "links": [
+        {
+            "name": "東京都市大学 公式HP",
+            "category": "大学公式",
+            "description": "東京都市大学の公式ホームページです。大学のニュース、入試情報、各学部の紹介、行事予定などが掲載されています。",
+            "website": "https://www.tcu.ac.jp/",
+            "keywords": [
+                "都市大",
+                "公式",
+                "tcu",
+                "ホームページ",
+                "大学",
+                "大学公式サイト",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/Tokyo_city_univ"
+                },
+                {
+                    "platform": "YouTube",
+                    "url": "https://www.youtube.com/@東京都市大学-p1r"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 100
+        },
+        {
+            "name": "五島育英会公式",
+            "category": "大学公式",
+            "description": "学校法人五島育英会の公式ホームページです。東京都市大学グループの情報などが掲載されています。",
+            "website": "https://www.goto-ikuei.ac.jp/",
+            "keywords": [
+                "公式",
+                "学校法人",
+                "五島",
+                "都市大",
+                "附属",
+                "五島育英会公式",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/toshidaigroup"
+                },
+                {
+                    "platform": "YouTube",
+                    "url": "https://www.youtube.com/user/tcu104"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 110
+        },
+        {
+            "name": "教学課",
+            "category": "学内窓口",
+            "description": "履修登録、授業スケジュール、試験、成績、各種証明書の発行など、学生生活の学びに関する総合窓口です。",
+            "website": "https://www.asc.tcu.ac.jp/",
+            "keywords": [
+                "教務",
+                "履修",
+                "成績",
+                "授業",
+                "時間割",
+                "相談",
+                "証明書",
+                "窓口",
+                "教学課",
+                "学内窓口",
+                "シラバス",
+                "講義",
+                "単位"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "キャリア支援センター",
+            "category": "学内窓口",
+            "description": "就職活動の相談、インターンシップ情報、履歴書添削や面接練習など、学生のキャリア形成と進路決定を強力にサポートします。",
+            "website": "https://www.tcu.ac.jp/career/",
+            "keywords": [
+                "就活",
+                "キャリア",
+                "求人",
+                "インターン",
+                "面接",
+                "履歴書",
+                "就職",
+                "キャリア支援センター",
+                "学内窓口",
+                "インターンシップ",
+                "進路"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "図書館",
+            "category": "施設",
+            "description": "学内の図書や学術論文、電子資料などの検索・閲覧が可能です。自習スペースやラーニング・コモンズも完備しています。",
+            "website": "https://library.tcu.ac.jp/",
+            "keywords": [
+                "図書",
+                "本",
+                "自習",
+                "文献",
+                "論文",
+                "図書検索",
+                "ライブラリ",
+                "図書館",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "勉強",
+                "書籍",
+                "読書"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://twitter.com/tcu_library"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "プリンター(PaperCut MF)",
+            "category": "システム",
+            "description": "学内各所に設置されているプリンターの管理画面です。ここからPDFをインポートし、プリントアウトできます。",
+            "website": "https://print.itc.tcu.ac.jp/user",
+            "keywords": [
+                "PDF",
+                "レポート",
+                "プリント",
+                "プリンター",
+                "印刷",
+                "プリンター(PaperCut MF)",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "情報基盤センター",
+            "category": "システム",
+            "description": "東京都市大学の学内ネットワーク、システム障害情報、セキュリティ情報、ソフトウェアライセンス管理など、ITインフラと各種アカウントサービスを管理・提供する機関です。",
+            "website": "https://www.itc.tcu.ac.jp/student/",
+            "keywords": [
+                "情報基盤センター",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "情報基盤センター - セキュリティ対策自己点検・TCUアカウントのパスワード変更",
+            "category": "システム",
+            "description": "TCUアカウントの継続利用に必要なセキュリティ自己点検の実施や、パスワード変更手続きを行うための学内専用特設サイトです。期限内に完了しない場合はアカウントが一時停止されます。",
+            "website": "https://www.itc.tcu.ac.jp/campaign/",
+            "keywords": [
+                "情報基盤センター - セキュリティ対策自己点検・TCUアカウントのパスワード変更",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "情報基盤センター - 学内Wi-Fi",
+            "category": "システム",
+            "description": "学内で利用可能なWi-Fiサービスの接続マニュアルや設定情報です。マニュアルの閲覧にはTCUアカウントでのログインが必要です。",
+            "website": "https://www.itc.tcu.ac.jp/network-3/tcuwifi/",
+            "keywords": [
+                "情報基盤センター - 学内Wi-Fi",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "wifi",
+                "ワイファイ",
+                "インターネット",
+                "ネット",
+                "無線lan",
+                "接続",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "情報基盤センター - ソフトウェア利用",
+            "category": "システム",
+            "description": "授業や自習で利用できる各種ソフトウェアのライセンス取得方法や、インストールガイドを掲載しています。",
+            "website": "https://www.itc.tcu.ac.jp/soft/",
+            "keywords": [
+                "情報基盤センター - ソフトウェア利用",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "情報基盤センター - 遠隔デスクトップ",
+            "category": "システム",
+            "description": "自宅など学外から学内のPC環境へリモート接続して作業を行う「遠隔デスクトップ（RDS）」の利用手順とログイン窓口です。",
+            "website": "https://www.itc.tcu.ac.jp/ictservice/rdt/",
+            "keywords": [
+                "情報基盤センター - 遠隔デスクトップ",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "学内ポータル・Webシラバス",
+            "category": "システム",
+            "description": "大学からの公式なお知らせ、授業連絡、スケジュール管理、Webシラバス（シラバス閲覧システム）などを集約した学内ポータルサイトです。",
+            "website": "https://websrv.tcu.ac.jp/tcu_web_v3/top.do",
+            "keywords": [
+                "学内ポータル・Webシラバス",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "ポータル"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "文書ライブラリ",
+            "category": "システム",
+            "description": "大学から学生向けに共有される公式文書や各種ガイドライン、申請用テンプレートなどが保管されている学内SharePoint文書ライブラリです。",
+            "website": "https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/Forms/AllItems.aspx",
+            "keywords": [
+                "文書ライブラリ",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "音楽",
+                "軽音",
+                "バンド",
+                "ライブ",
+                "楽器",
+                "演奏"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "Campus Life",
+            "category": "学内窓口",
+            "description": "学生支援課が運営する、奨学金の申請情報、サークル活動、学生寮、各種生活サポートに関するお役立ち情報を集約したサイトです。",
+            "website": "https://tculife.off.tcu.ac.jp/",
+            "keywords": [
+                "Campus Life",
+                "学内窓口"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "ヨコキャリ",
+            "category": "学内窓口",
+            "description": "横浜キャンパス（環境学部・メディア情報学部・デザイン・データ科学部）の学生に向けた、就職活動支援、インターンシップ、求人票などの情報掲示板です。",
+            "website": "https://cgi.yc.tcu.ac.jp/~otani/career/",
+            "keywords": [
+                "ヨコキャリ",
+                "学内窓口",
+                "横浜",
+                "横浜キャンパス",
+                "よこはま",
+                "就活",
+                "就職",
+                "求人",
+                "インターン",
+                "インターンシップ",
+                "キャリア",
+                "進路",
+                "面接",
+                "履歴書"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "掲示板",
+                "YC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "WebClass",
+            "category": "システム",
+            "description": "授業資料の配布、課題の提出、小テストの実施、評価フィードバックなどを行うeラーニング学習管理システム（LMS）です。大学生活で頻繁に利用します。",
+            "website": "https://webclass.tcu.ac.jp/webclass/login.php",
+            "keywords": [
+                "WebClass",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績",
+                "課題",
+                "宿題",
+                "レポート",
+                "提出"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "地域連携・生涯学習推進室",
+            "category": "学内窓口",
+            "description": "地域社会との連携イベントや公開講座、産官学連携プロジェクト、生涯学習プログラムの提供・推進を行う部署の公式ページです。",
+            "website": "https://www.chiiki.tcu.ac.jp/",
+            "keywords": [
+                "地域連携・生涯学習推進室",
+                "学内窓口"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Facebook",
+                    "url": "https://www.facebook.com/TokyoCityUniv/"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "図書館 施設予約システム",
+            "category": "システム",
+            "description": "世田谷キャンパス図書館の個人閲覧室、グループ学習室、各種自習スペースをオンラインで予約するための学内専用システムです。",
+            "website": "http://reserve.lib.tcu.ac.jp/",
+            "keywords": [
+                "図書館 施設予約システム",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "世田谷",
+                "世田谷キャンパス",
+                "せたがや",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー",
+                "図書",
+                "本",
+                "自習",
+                "勉強",
+                "文献",
+                "論文",
+                "書籍",
+                "読書",
+                "図書館"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "研究者情報データベース",
+            "category": "学内窓口",
+            "description": "東京都市大学に所属する教員・研究者の専門分野、研究業績、外部資金獲得状況などを公開している公式データベースです。",
+            "website": "https://www.risys.gl.tcu.ac.jp/",
+            "keywords": [
+                "研究者情報データベース",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "学術機関リポジトリ",
+            "category": "システム",
+            "description": "東京都市大学の研究成果や紀要論文、学術資料などのメタデータおよび本文を広く公開している学術情報リポジトリです。",
+            "website": "https://tcu-ar.repo.nii.ac.jp/?page=1\u0026size=20\u0026sort=-createdate",
+            "keywords": [
+                "学術機関リポジトリ",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "文献",
+                "論文"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "出席確認システム",
+            "category": "システム",
+            "description": "授業時に提示される出席キーを入力し、出席登録を行うシステムです。利用にはTCUアカウントでのログインが必要です。",
+            "website": "https://call.off.tcu.ac.jp/",
+            "keywords": [
+                "出席確認システム",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績",
+                "出席",
+                "出欠",
+                "出席登録",
+                "call"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "教員の出校状況",
+            "category": "システム",
+            "description": "各学科・学部の教員が本日出校（出勤）しているかどうかをリアルタイムで確認できる、学内ネットワーク限定の出校状況確認ページです。",
+            "website": "https://www.comm.tcu.ac.jp/~soumuka/jinji/lys.html",
+            "keywords": [
+                "教員の出校状況",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "数学質問箱(BBS)",
+            "category": "学内窓口",
+            "description": "授業や自習で分からない数学の疑問点を匿名で質問し、教員やチューターからアドバイスをもらえる学内向け質問掲示板です。",
+            "website": "https://www.ns.tcu.ac.jp/NS/QandA_BBS/",
+            "keywords": [
+                "数学質問箱(BBS)",
+                "学内窓口",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "掲示板"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "横浜キャンパス-授業改善方策フィードバック",
+            "category": "学内窓口",
+            "description": "学生アンケートでの意見をもとに、教員がどのように講義改善やフィードバックを行うかの方針・改善策を一覧で公表しているサイトです。",
+            "website": "https://user.tcu.ac.jp/~otani/lessonimprove/show.cgi",
+            "keywords": [
+                "横浜キャンパス-授業改善方策フィードバック",
+                "学内窓口",
+                "横浜",
+                "横浜キャンパス",
+                "よこはま",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "YC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "メディア情報学部 情報システム学科 研究室配属システム",
+            "category": "システム",
+            "description": "メディア情報学部情報システム学科の学生が、研究室配属の希望登録や決定状況の確認を行うための学内専用システムです。",
+            "website": "https://user.tcu.ac.jp/~otani/infosys/systems/login.cgi",
+            "keywords": [
+                "メディア情報学部 情報システム学科 研究室配属システム",
+                "メディア情報学 情報システム学科 研究室配属システム",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "メディア情報学部 社会メディア学科 研究室配属システム",
+            "category": "システム",
+            "description": "メディア情報学部社会メディア学科の学生が、研究室配属の希望申請や結果確認を行うための学内専用システムです。",
+            "website": "https://user.tcu.ac.jp/~otani/sociomedia/system/login.cgi",
+            "keywords": [
+                "メディア情報学部 社会メディア学科 研究室配属システム",
+                "メディア情報学 社会メディア学科 研究室配属システム",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "環境学部 研究室配属システム",
+            "category": "システム",
+            "description": "環境学部の学生が、各研究室の配属登録や希望調整、結果確認を行うための学内専用システムです。",
+            "website": "https://cgi.yc.tcu.ac.jp/~otani/environment/system/login.cgi",
+            "keywords": [
+                "環境学部 研究室配属システム",
+                "環境学 研究室配属システム",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "都市生活学部 プロジェクト演習配属申請登録システム",
+            "category": "システム",
+            "description": "都市生活学部の学生が、各研究室（プロジェクト演習）への希望配属登録や決定結果を確認するための専用システムです。",
+            "website": "https://user.tcu.ac.jp/~otani/urbanlife/systems/student.cgi",
+            "keywords": [
+                "都市生活学部 プロジェクト演習配属申請登録システム",
+                "都市生活学 プロジェクト演習配属申請登録システム",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "学生相談室",
+            "category": "学内窓口",
+            "description": "学生の皆さんが日頃抱える学業、人間関係、将来への不安などの様々な悩みを、専門のカウンセラーに個別で相談できる窓口です。",
+            "website": "https://www.tcu.ac.jp/counselingroom/",
+            "keywords": [
+                "学生相談室",
+                "学内窓口"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "ハラスメント相談窓口",
+            "category": "学内窓口",
+            "description": "ハラスメントに関する相談を受け付け、学生が安心して学生生活を送れるようにサポートするための学内専用相談室の案内資料（PDF）です。",
+            "website": "https://wtcuac.sharepoint.com/sites/cabinet/Shared%20Documents/%E5%AD%A6%E7%94%9F/%EF%BC%B3441-01%E3%80%80%E5%AD%A6%E7%94%9F%E6%94%AF%E6%8F%B4%E8%AA%B2/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%9B%B8%E8%AB%87%E7%AA%93%E5%8F%A3/%E3%83%8F%E3%83%A9%E3%82%B9%E3%83%A1%E3%83%B3%E3%83%88%E7%AA%93%E5%8F%A3.pdf?web=1",
+            "keywords": [
+                "ハラスメント相談窓口",
+                "学内窓口"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "TCU FORCE",
+            "category": "システム",
+            "description": "修得単位や資格、課外活動の記録などを登録し、自らの学びの軌跡や大学生活を視覚化して将来に役立てるためのポートフォリオシステムです。",
+            "website": "https://force.tcu.ac.jp/",
+            "keywords": [
+                "TCU FORCE",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "キャリア支援サイト",
+            "category": "学内窓口",
+            "description": "キャリア支援課が提供する就職活動お役立ち情報ポータルです。就活スケジュールや選考対策、体験記などがまとめられています。",
+            "website": "https://career-book.jp/contents/AuB07wOd/",
+            "keywords": [
+                "キャリア支援サイト",
+                "学内窓口",
+                "就活",
+                "就職",
+                "求人",
+                "インターン",
+                "インターンシップ",
+                "キャリア",
+                "進路",
+                "面接",
+                "履歴書"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "都市大キャリアNavi",
+            "category": "学内窓口",
+            "description": "進路に関する個別面談の予約や、就活、インターンシップに役立つ概要の閲覧、進路決定届などを提出できる就職活動総合ポータルです。",
+            "website": "https://www2.kyujin-navi.com/sp99/",
+            "keywords": [
+                "都市大キャリアNavi",
+                "学内窓口",
+                "就活",
+                "就職",
+                "求人",
+                "インターン",
+                "インターンシップ",
+                "キャリア",
+                "進路",
+                "面接",
+                "履歴書"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "TCU メール",
+            "category": "システム",
+            "description": "TCUアカウント（Microsoft 365）で利用できる大学専用のメールサービス（Outlook Web App）です。大学からの重要な連絡が届きます。",
+            "website": "https://outlook.office.com/mail/?auth=2",
+            "keywords": [
+                "TCU メール",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー",
+                "メール",
+                "outlook",
+                "アドレス",
+                "メアド"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "OneDrive",
+            "category": "システム",
+            "description": "TCUアカウントのクラウドストレージサービス（OneDrive for Business）です。授業資料や課題ファイルの保存・共有に利用できます。",
+            "website": "https://wtcuac-my.sharepoint.com/",
+            "keywords": [
+                "OneDrive",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績",
+                "課題",
+                "宿題",
+                "レポート",
+                "提出"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "TCU Storage",
+            "category": "システム",
+            "description": "大学独自のクラウドストレージシステム（Proself）です。※現在利用規模が縮小されており、学生用保存領域は廃止されています。",
+            "website": "https://storage.tcu.ac.jp/",
+            "keywords": [
+                "TCU Storage",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "世田谷キャンパス 物品借用申請",
+            "category": "システム",
+            "description": "研究室や公認の学生団体が世田谷キャンパスの備品・物品を借用する際に申請を行う、学内専用のオンライン申請フォームです。",
+            "website": "https://www.itc.tcu.ac.jp/~soumuka/bihin/index.html",
+            "keywords": [
+                "世田谷キャンパス 物品借用申請",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "世田谷",
+                "世田谷キャンパス",
+                "せたがや"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "横浜キャンパス YCよやく君",
+            "category": "システム",
+            "description": "横浜キャンパス内の教室、プレゼンルーム、ミーティングエリアなどの施設・スペースをオンライン予約するための学内専用システムです。",
+            "website": "https://supply3.itc.tcu.ac.jp/reserve/pub/index_.php",
+            "keywords": [
+                "横浜キャンパス YCよやく君",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "横浜",
+                "横浜キャンパス",
+                "よこはま",
+                "パソコン",
+                "pc",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": true,
+            "sns": [],
+            "tags": [
+                "YC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "東京都市大学 原子力研究所",
+            "category": "施設",
+            "description": "王禅寺キャンパスに所在する東京都市大学原子力研究所の公式サイトです。規制検査の実施状況や各種測定データが公開されています。",
+            "website": "https://atomsun2.atom.tcu.ac.jp/",
+            "keywords": [
+                "東京都市大学 原子力研究所",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "王禅寺",
+                "王禅寺キャンパス",
+                "おうぜんじ"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "東京都市大学 総合研究所",
+            "category": "施設",
+            "description": "複数の分野を融合した先進的・横断的課題への取り組みと技術革新を推進する、東京都市大学総合研究所（ARL）の公式ホームページです。",
+            "website": "https://www.arl.tcu.ac.jp/",
+            "keywords": [
+                "東京都市大学 総合研究所",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "課題",
+                "宿題",
+                "レポート",
+                "提出"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "東京都市大学 オーストラリアプログラム",
+            "category": "プロジェクト",
+            "description": "独自の語学研修と約100日間のオーストラリア留学を組み合わせた、本学を代表する留学プログラム（TAP）の公式情報サイトです。",
+            "website": "https://tap.tcu.ac.jp/",
+            "keywords": [
+                "東京都市大学 オーストラリアプログラム",
+                "オーストラリアプログラム",
+                "TAP",
+                "タップ",
+                "留学",
+                "海外",
+                "英語"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "Shibuya PXU",
+            "category": "施設",
+            "description": "渋谷の「五島育英会ビル」に所在し、社会人向け講座や各種地域交流プログラムを展開するサテライトキャンパス（シブヤ・パクス）の公式サイトです。",
+            "website": "https://shibuya-pxu.tcu.ac.jp/",
+            "keywords": [
+                "Shibuya PXU",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "CSAC 産官学交流センター",
+            "category": "施設",
+            "description": "本学の研究成果をもとに産業界、国・自治体、他大学などとの外部連携をコーディネートする産官学交流センターの公式ホームページです。",
+            "website": "https://www.toshidai-csac.tokyo/index.html",
+            "keywords": [
+                "CSAC 産官学交流センター",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "ものつくりセンター",
+            "category": "施設",
+            "description": "ものづくりに関わる実習講義の運営や、研究用装置・部材の製作、各種プロジェクトや課外活動でのものづくりを技術・設備面から支援する施設です。",
+            "website": "https://monotsukuri.tcu.ac.jp/",
+            "keywords": [
+                "ものつくりセンター",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "授業",
+                "シラバス",
+                "履修",
+                "時間割",
+                "講義",
+                "単位",
+                "成績"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "YouTube",
+                    "url": "https://www.youtube.com/@東京都市大学ものつくり支"
+                }
+            ],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "学生工房",
+            "category": "施設",
+            "description": "学生が自由に創作活動を行うことができる工作・創作スペースです。利用登録をすれば旋盤や3Dプリンターなどの設備を使用できます。",
+            "website": "https://fab.tcu.ac.jp/",
+            "keywords": [
+                "学生工房",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/TCU_StudentFab"
+                }
+            ],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "ダイバーシティ推進室",
+            "category": "学内窓口",
+            "description": "性別、国籍、障害の有無に関わらず、全ての構成員が活躍できるキャンパス環境を目指すダイバーシティ推進室の公式ホームページです。",
+            "website": "https://www.diversity.tcu.ac.jp/",
+            "keywords": [
+                "ダイバーシティ推進室",
+                "学内窓口"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "ラーニングコモンズSC",
+            "category": "施設",
+            "description": "世田谷キャンパス図書館地下1階にあり、グループディスカッション、共同作業、プレゼン練習など能動的な学習を行えるコモンズスペースです。",
+            "website": "https://www.comm.tcu.ac.jp/~sclcweb/",
+            "keywords": [
+                "ラーニングコモンズSC",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "世田谷",
+                "世田谷キャンパス",
+                "せたがや",
+                "自習",
+                "勉強"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "ぴっぴ",
+            "category": "施設",
+            "description": "人間科学科が運営する、地域貢献と実践的研修の場を兼ねた子育て支援センターです。親子が集うフリースペースを提供しています。",
+            "website": "https://www.tcu.ac.jp/facilities/facility1/pippi/",
+            "keywords": [
+                "ぴっぴ",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Instagram",
+                    "url": "https://www.instagram.com/pippi.tokyotoshidai/"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "ラウンジオーク",
+            "category": "施設",
+            "description": "世田谷キャンパス1号館4階にある、落ち着いた雰囲気のレストランです。通常の学食よりワンランク上のハイクオリティな定食などを楽しめます。",
+            "website": "https://www.itc.tcu.ac.jp/~soumuka/lounge/",
+            "keywords": [
+                "ラウンジオーク",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "世田谷",
+                "世田谷キャンパス",
+                "せたがや",
+                "食堂",
+                "学食",
+                "レストラン",
+                "売店",
+                "購買",
+                "購買部",
+                "ショップ",
+                "ランチ",
+                "ご飯"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 999
+        },
+        {
+            "name": "キャンパスショップ",
+            "category": "施設",
+            "description": "世田谷キャンパスおよび横浜キャンパスの売店（キャンパスショップ）を運営するハヤト商事の公式案内ページです。",
+            "website": "http://www.hayato-shoji.co.jp/tcu/",
+            "keywords": [
+                "キャンパスショップ",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内",
+                "世田谷",
+                "世田谷キャンパス",
+                "せたがや",
+                "横浜",
+                "横浜キャンパス",
+                "よこはま",
+                "食堂",
+                "学食",
+                "レストラン",
+                "売店",
+                "購買",
+                "購買部",
+                "ショップ",
+                "ランチ",
+                "ご飯"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/hayato_shouji"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "後援会",
+            "category": "大学公式",
+            "description": "学生の保護者などを中心に構成され、大学の教育支援活動や学生サポートを行う東京都市大学後援会の公式ホームページです。",
+            "website": "https://www.comm.tcu.ac.jp/kouenkai/",
+            "keywords": [
+                "後援会",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 130
+        },
+        {
+            "name": "校友会",
+            "category": "大学公式",
+            "description": "卒業生、在校生、教職員の親睦と交流を深め、母校の発展を支える同窓会組織「校友会」の公式サイトです。各地域の支部活動情報なども発信しています。",
+            "website": "https://tcu-alumni.jp/",
+            "keywords": [
+                "校友会",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Note",
+                    "url": "https://note.tcu-alumni.jp/"
+                },
+                {
+                    "platform": "Facebook",
+                    "url": "https://www.facebook.com/TCUalumni/"
+                },
+                {
+                    "platform": "Instagram",
+                    "url": "https://www.instagram.com/tcu_kouyuukai/"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 140
+        },
+        {
+            "name": "ひらめき・こと・もの・くらし・ひと づくりプログラム",
+            "category": "プロジェクト",
+            "description": "専門知識を背景に、異分野融合のアプローチから新たな価値創造と問題解決に貢献できる人材を育成する、本学独自の教育プログラムです。",
+            "website": "https://hirameki.tcu.ac.jp/",
+            "keywords": [
+                "ひらめき・こと・もの・くらし・ひと づくりプログラム",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "ヒトモノリサーチ 東京都市大学×AERA",
+            "category": "プロジェクト",
+            "description": "東京都市大学の教授陣や教員へのインタビューを通じ、専門の研究活動や人生観について語ってもらう特別対談連載企画です。",
+            "website": "https://dot.asahi.com/ad/21113001/",
+            "keywords": [
+                "ヒトモノリサーチ 東京都市大学×AERA",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "男女共同参画室",
+            "category": "学内窓口",
+            "description": "本学における女性教員・研究者の比率向上や、男女共同参画社会の実現を推進・サポートするための窓口となる組織です。",
+            "website": "http://www.sankaku.tcu.ac.jp/",
+            "keywords": [
+                "男女共同参画室",
+                "学内窓口"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "女性研究者支援室 SOFERS",
+            "category": "学内窓口",
+            "description": "女性研究者の活躍支援や次世代の育成、研究と家庭生活の両立支援などを多角的にサポートする「SOFERS」の公式ホームページです。",
+            "website": "http://www.sofers.tcu.ac.jp/",
+            "keywords": [
+                "女性研究者支援室 SOFERS",
+                "学内窓口"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "理工学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 理工学部の公式ホームページです。各学科の研究活動やカリキュラム等を紹介しています。",
+            "website": "https://www.se.tcu.ac.jp/",
+            "keywords": [
+                "理工学部",
+                "理工学",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 100
+        },
+        {
+            "name": "建築都市デザイン学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 建築都市デザイン学部の公式ホームページです。建築・都市分野の最新プログラムを紹介しています。",
+            "website": "https://www.acu.tcu.ac.jp/",
+            "keywords": [
+                "建築都市デザイン学部",
+                "建築都市デザイン学",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 110
+        },
+        {
+            "name": "情報工学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 情報工学部の公式ホームページです。先進IT、データサイエンス分野の研究教育情報を発信しています。",
+            "website": "https://it.tcu.ac.jp/",
+            "keywords": [
+                "情報工学部",
+                "情報工学",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 120
+        },
+        {
+            "name": "環境学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 環境学部の公式ホームページです。地球環境、生態系、環境政策などに関わる研究と教育の情報を掲載しています。",
+            "website": "https://fes.tcu.ac.jp/",
+            "keywords": [
+                "環境学部",
+                "環境学",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "YC"
+            ],
+            "sortOrder": 130
+        },
+        {
+            "name": "メディア情報学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 メディア情報学部の公式ホームページです。社会メディア、情報システム等の教育研究内容を紹介しています。",
+            "website": "https://informatics.tcu.ac.jp/",
+            "keywords": [
+                "メディア情報学部",
+                "メディア情報学",
+                "大学公式",
+                "パソコン",
+                "pc",
+                "システム",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Facebook",
+                    "url": "https://www.facebook.com/TCUinformatics/"
+                },
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://twitter.com/TCUinformatics"
+                },
+                {
+                    "platform": "YouTube",
+                    "url": "https://www.youtube.com/user/TCUInformatics/"
+                },
+                {
+                    "platform": "Instagram",
+                    "url": "https://www.instagram.com/facultyofinformaticstcu/"
+                }
+            ],
+            "tags": [
+                "YC"
+            ],
+            "sortOrder": 140
+        },
+        {
+            "name": "デザイン・データ科学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 デザイン・データ科学部の公式ホームページです。データ活用とデザイン思考を融合したカリキュラムを紹介しています。",
+            "website": "https://toshiseikatsu-gakubu.jp/",
+            "keywords": [
+                "デザイン・データ科学部",
+                "デザイン・データ科学",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "YC"
+            ],
+            "sortOrder": 150
+        },
+        {
+            "name": "都市生活学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 都市生活学部の公式ホームページです。都市生活学科の研究分野やプロジェクト演習について紹介しています。",
+            "website": "https://www.tcu.ac.jp/academics/urbanlife/",
+            "keywords": [
+                "都市生活学部",
+                "都市生活学",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 160
+        },
+        {
+            "name": "人間科学部",
+            "category": "学部・学科",
+            "description": "東京都市大学 人間科学部の公式ホームページです。児童保育、人間発達、心理学などの教育研究活動を掲載しています。",
+            "website": "https://www.tcu.ac.jp/academics/humanlife/",
+            "keywords": [
+                "人間科学部",
+                "人間科学",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 170
+        },
+        {
+            "name": "大学院 総合理工学研究科",
+            "category": "学部・学科",
+            "description": "東京都市大学大学院 総合理工学研究科の公式ホームページです。高度な専門研究と産学連携プロジェクトの情報を発信しています。",
+            "website": "https://www.tcu.ac.jp/academics/graduate/scienceandengineering",
+            "keywords": [
+                "大学院 総合理工学研究科",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 180
+        },
+        {
+            "name": "大学院 環境情報学研究科",
+            "category": "学部・学科",
+            "description": "東京都市大学大学院 環境情報学研究科の公式ホームページです。持続可能な環境と高度情報化に関わる研究内容を紹介しています。",
+            "website": "https://www.comm.tcu.ac.jp/gseis/",
+            "keywords": [
+                "大学院 環境情報学研究科",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "YC"
+            ],
+            "sortOrder": 190
+        },
+        {
+            "name": "大学院 情報データ科学研究科",
+            "category": "学部・学科",
+            "description": "東京都市大学大学院 情報データ科学研究科の公式ホームページです。最先端の情報通信技術やデータサイエンス研究を推進しています。",
+            "website": "https://www.tcu.ac.jp/academics/graduate/info_ds/",
+            "keywords": [
+                "大学院 情報データ科学研究科",
+                "大学公式"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "SC"
+            ],
+            "sortOrder": 200
+        },
+        {
+            "name": "世田谷祭公式サイト",
+            "category": "学生運営",
+            "description": "世田谷キャンパスで開催される学園祭「世田谷祭」の公式情報・イベントスケジュールを掲載している公式サイトです。",
+            "website": "https://setagayafes.org/",
+            "keywords": [
+                "世田谷祭",
+                "学園祭",
+                "公式サイト",
+                "イベント",
+                "世田谷祭公式サイト",
+                "世田谷",
+                "世田谷キャンパス",
+                "せたがや"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/setagayafes_tcu"
+                },
+                {
+                    "platform": "Instagram",
+                    "url": "https://www.instagram.com/setagayafes_sfa"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 130
+        },
+        {
+            "name": "横浜祭公式サイト",
+            "category": "学生運営",
+            "description": "横浜キャンパスで開催される学園祭「横浜祭」の公式スケジュールや企画内容を紹介する公式サイトです。",
+            "website": "https://yokohama-fest.net/",
+            "keywords": [
+                "横浜祭",
+                "学園祭",
+                "公式サイト",
+                "イベント",
+                "横浜祭公式サイト",
+                "横浜",
+                "横浜キャンパス",
+                "よこはま"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/Yokohamasai"
+                },
+                {
+                    "platform": "Instagram",
+                    "url": "https://www.instagram.com/yokohamafestival"
+                },
+                {
+                    "platform": "YouTube",
+                    "url": "https://www.youtube.com/@Yokohamafest"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 140
+        },
+        {
+            "name": "等々力祭",
+            "category": "学生運営",
+            "description": "等々力キャンパスで開催されていた学園祭の公式サイト。現在は等々力キャンパス廃止に伴い開催は行われていない。",
+            "website": "https://todorokifes.setagayafes.org/",
+            "keywords": [
+                "等々力祭",
+                "等々力",
+                "等々力キャンパス",
+                "とどろき"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [
+                "廃止済"
+            ],
+            "sortOrder": 180
+        },
+        {
+            "name": "学生団体連合会 本部",
+            "category": "学生運営",
+            "description": "全学的な学生課外活動の支援、予算管理、各種行事の運営サポートを行う生徒会のような組織です。世田谷キャンパス9号館3階に会室があります。",
+            "website": "http://www.sto.tcu.ac.jp/",
+            "keywords": [
+                "学生団体連合会 本部",
+                "学生団体連合会 本",
+                "世田谷",
+                "世田谷キャンパス",
+                "せたがや"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://twitter.com/sto_sc"
+                },
+                {
+                    "platform": "Instagram",
+                    "url": "https://www.instagram.com/sto_sc/"
+                },
+                {
+                    "platform": "Peing",
+                    "url": "https://peing.net/ja/sto_sc/"
+                },
+                {
+                    "platform": "Note",
+                    "url": "https://note.com/sto_sc/"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 100
+        },
+        {
+            "name": "学生団体連合会 横浜分室",
+            "category": "学生運営",
+            "description": "横浜キャンパスにおける学生課外活動・サークルを支援し、定例活動を行っている学生団体連合会の横浜支部です。4号館1階にあります。",
+            "website": "https://ycbunsitu.wixsite.com/tcu-ac-jp",
+            "keywords": [
+                "学生団体連合会 横浜分室",
+                "横浜",
+                "横浜キャンパス",
+                "よこはま"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://twitter.com/sto_yc"
+                },
+                {
+                    "platform": "Instagram",
+                    "url": "https://www.instagram.com/sto_yc/"
+                },
+                {
+                    "platform": "Peing",
+                    "url": "https://peing.net/ja/ycbunsitsu/"
+                },
+                {
+                    "platform": "YouTube",
+                    "url": "https://www.youtube.com/channel/UC1XmFKKDnEIMDsmXbG-AHaQ/"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 110
+        },
+        {
+            "name": "学生団体連合会 等々力分室(Twitter)",
+            "category": "学生運営",
+            "description": "等々力キャンパスにおける学生会活動の支援を行っていた分室の公式Twitterアカウントです（現在は活動休止中）。",
+            "website": "https://twitter.com/todobun_2nd",
+            "keywords": [
+                "学生団体連合会 等々力分室(Twitter)",
+                "等々力",
+                "等々力キャンパス",
+                "とどろき",
+                "パソコン",
+                "pc",
+                "システム",
+                "アカウント",
+                "パスワード",
+                "ログイン",
+                "認証",
+                "サーバー"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://twitter.com/todobun_2nd"
+                }
+            ],
+            "tags": [
+                "廃止済"
+            ],
+            "sortOrder": 120
+        },
+        {
+            "name": "二子玉川夢キャンパス",
+            "category": "施設",
+            "description": "二子玉川に開設されていた地域連携・交流拠点の活動報告アーカイブサイトです（現在は施設としては閉鎖されています）。",
+            "website": "https://www.chiiki.tcu.ac.jp/yumecampus_archive/",
+            "keywords": [
+                "二子玉川夢キャンパス",
+                "学内施設",
+                "施設",
+                "設備",
+                "システム",
+                "学内"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 999
+        },
+        {
+            "name": "学科研究会連合本部",
+            "category": "学生運営",
+            "description": "各学科の学びに関連した課外活動や学術・研究会プロジェクトを統括・サポートする、学科研究会連合の運営本部です。",
+            "website": "https://x.com/tcu_dra",
+            "keywords": [
+                "学科研究会連合本部",
+                "学科研究会連合本"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/tcu_dra"
+                },
+                {
+                    "platform": "Instagram",
+                    "url": "https://instagram.com/tcu_dra"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 170
+        },
+        {
+            "name": "同好会連合本部",
+            "category": "学生運営",
+            "description": "文化系・体育系など多様な愛好会・同好会サークルの統括、予算管理、行事サポート、公認化手続きなどを行う組織です。",
+            "website": "https://comm.tcu.ac.jp/tcu-acc/",
+            "keywords": [
+                "同好会連合本部",
+                "同好会連合本",
+                "連合本部"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/tcu_acc"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 160
+        },
+        {
+            "name": "体育会本部",
+            "category": "学生運営",
+            "description": "体育会に所属する全20以上の運動系部活動を束ね、体育祭やTCUラリーなどのスポーツイベントの企画・運営を行う本部組織です。",
+            "website": "https://taiikukaihonbu0.wixsite.com/tcu-taiikukai",
+            "keywords": [
+                "体育会本部",
+                "体育会本"
+            ],
+            "onCampusOnly": false,
+            "sns": [
+                {
+                    "platform": "Twitter / X",
+                    "url": "https://x.com/tcu_taiikukai0"
+                }
+            ],
+            "tags": [],
+            "sortOrder": 150
+        },
+        {
+            "name": "東急グループ公式ホームページ",
+            "category": "大学公式",
+            "description": "五島育英会が属する、東急グループの公式ホームページです。グループの事業紹介やニュースなどが掲載されています。",
+            "website": "https://tokyugroup.jp/",
+            "keywords": [
+                "東急グループ",
+                "東急",
+                "tokyu",
+                "公式",
+                "東急グループ公式ホームページ"
+            ],
+            "onCampusOnly": false,
+            "sns": [],
+            "tags": [],
+            "sortOrder": 120
+        }
+    ]
 }
