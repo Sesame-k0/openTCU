@@ -1742,8 +1742,7 @@
       cursor: pointer;
       display: flex;
       flex-direction: row;
-      /* 横長表示にするため横並びへ */
-      align-items: center;
+      align-items: stretch;
       justify-content: space-between;
       gap: 12px;
       transition: transform var(--md-transition-duration) var(--md-transition-easing),
@@ -1785,9 +1784,9 @@
       color: var(--md-sys-color-on-surface);
       margin: 0;
       line-height: 1.4;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
       width: 100%;
     }
 
@@ -1810,12 +1809,25 @@
       font-size: 11px;
     }
 
+    .link-card-actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-self: flex-start;
+      gap: 6px;
+      flex-shrink: 0;
+      margin-top: -2px;
+      margin-right: -4px;
+    }
+
     .link-card-arrow {
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--md-sys-color-outline);
       flex-shrink: 0;
+      width: 24px;
+      height: 24px;
       transition: color var(--md-transition-duration) var(--md-transition-easing),
         transform var(--md-transition-duration) var(--md-transition-easing);
     }
@@ -1899,6 +1911,22 @@
     html[data-theme="dark"] .tag-廃止済 {
       background-color: #334155;
       color: #94A3B8;
+    }
+    .tag-SC {
+      background-color: #E0F2FE;
+      color: #0369A1;
+    }
+    html[data-theme="dark"] .tag-SC {
+      background-color: #0C4A6E;
+      color: #38BDF8;
+    }
+    .tag-YC {
+      background-color: #FEF3C7;
+      color: #D97706;
+    }
+    html[data-theme="dark"] .tag-YC {
+      background-color: #78350F;
+      color: #FDE68A;
     }
 
     .favorite-btn {
@@ -4312,32 +4340,30 @@
 
         return `
           <div class="link-card" onclick="handleLinkCardClick(${originalIndex})" style="${cardStyle}">
-            <div class="link-card-content" style="flex-grow: 1;">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+            <div class="link-card-content">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; width: 100%;">
                 <span class="link-card-category ${catClass}">${link.category || 'その他'}</span>
                 <div style="display: flex; gap: 4px; align-items: center;">
                   ${tagsHtml}
                 </div>
               </div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-                <h3 class="link-card-name" title="${link.name}" style="margin: 0;">${link.name}</h3>
-                <button class="favorite-btn is-active" onclick="toggleFavorite(event, '${link.name}')" style="background: none; border: none; padding: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: color 0.2s;" title="お気に入り解除">
-                  <span class="material-symbols-outlined" style="font-size: 20px;">star</span>
-                </button>
-              </div>
+              <h3 class="link-card-name" title="${link.name}" style="margin: 4px 0 0 0;">${link.name}</h3>
               ${campusBadge}
             </div>
-            <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
-              <div class="link-card-reorder" style="display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 4px; border-left: 1px solid var(--md-sys-color-outline-variant); height: 80%;">
+            <div class="link-card-actions">
+              <button class="favorite-btn is-active" onclick="toggleFavorite(event, '${link.name}')" title="お気に入り解除">
+                <span class="material-symbols-outlined" style="font-size: 20px;">star</span>
+              </button>
+              <div class="link-card-reorder" style="display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 4px; border-left: 1px solid var(--md-sys-color-outline-variant); height: 28px;">
                 <button onclick="moveFavoriteUp(event, '${link.name}')" style="background: none; border: none; padding: 2px; cursor: pointer; color: var(--md-sys-color-outline); display: inline-flex; align-items: center;" title="上に移動" ${idx === 0 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
-                  <span class="material-symbols-outlined" style="font-size: 18px;">keyboard_arrow_up</span>
+                  <span class="material-symbols-outlined" style="font-size: 16px;">keyboard_arrow_up</span>
                 </button>
                 <button onclick="moveFavoriteDown(event, '${link.name}')" style="background: none; border: none; padding: 2px; cursor: pointer; color: var(--md-sys-color-outline); display: inline-flex; align-items: center;" title="下に移動" ${idx === favLinks.length - 1 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''}>
-                  <span class="material-symbols-outlined" style="font-size: 18px;">keyboard_arrow_down</span>
+                  <span class="material-symbols-outlined" style="font-size: 16px;">keyboard_arrow_down</span>
                 </button>
               </div>
-              <div class="link-card-arrow" style="padding-left: 8px; border-left: 1px solid var(--md-sys-color-outline-variant); display: flex; align-items: center;">
-                <span class="material-symbols-outlined">arrow_forward</span>
+              <div class="link-card-arrow" style="padding-left: 6px; border-left: 1px solid var(--md-sys-color-outline-variant);">
+                <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
               </div>
             </div>
           </div>
@@ -4363,7 +4389,12 @@
         const bIdx = bCatIdx !== -1 ? bCatIdx : 999;
         if (aIdx !== bIdx) return aIdx - bIdx;
 
-        // 3. 同じカテゴリ内でのソート
+        // 3. 表示順位 (sortOrder) がある場合はその順にソート (昇順)
+        const aOrder = a.sortOrder !== undefined ? a.sortOrder : 999;
+        const bOrder = b.sortOrder !== undefined ? b.sortOrder : 999;
+        if (aOrder !== bOrder) return aOrder - bOrder;
+
+        // 4. 同じカテゴリ・順位内でのソート
         if (a.category === 'システム') {
           const getSystemPriority = (name) => {
             if (name.includes('学内ポータル')) return 0;
@@ -4376,7 +4407,7 @@
           if (aPri !== bPri) return aPri - bPri;
         }
 
-        // 4. その他は五十音順（日本語基準）
+        // 5. その他は五十音順（日本語基準）
         return a.name.localeCompare(b.name, 'ja');
       });
     }
@@ -4423,23 +4454,23 @@
 
           return `
             <div class="link-card" onclick="handleLinkCardClick(${originalIndex})" style="${cardStyle}">
-              <div class="link-card-content" style="flex-grow: 1;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+              <div class="link-card-content">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; width: 100%;">
                   <span class="link-card-category ${catClass}">${link.category || 'その他'}</span>
                   <div style="display: flex; gap: 4px; align-items: center;">
                     ${tagsHtml}
                   </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-                  <h3 class="link-card-name" title="${link.name}" style="margin: 0;">${link.name}</h3>
-                  <button class="favorite-btn ${favClass}" onclick="toggleFavorite(event, '${link.name}')" style="background: none; border: none; padding: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: color 0.2s;" title="お気に入り登録/解除">
-                    <span class="material-symbols-outlined" style="font-size: 20px;">star</span>
-                  </button>
-                </div>
+                <h3 class="link-card-name" title="${link.name}" style="margin: 4px 0 0 0;">${link.name}</h3>
                 ${campusBadge}
               </div>
-              <div class="link-card-arrow" style="display: flex; align-items: center;">
-                <span class="material-symbols-outlined">arrow_forward</span>
+              <div class="link-card-actions">
+                <button class="favorite-btn ${favClass}" onclick="toggleFavorite(event, '${link.name}')" title="お気に入り登録/解除">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">star</span>
+                </button>
+                <div class="link-card-arrow" style="padding-left: 6px; border-left: 1px solid var(--md-sys-color-outline-variant);">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+                </div>
               </div>
             </div>
           `;
@@ -4475,23 +4506,23 @@
 
             return `
               <div class="link-card" onclick="handleLinkCardClick(${originalIndex})" style="${cardStyle}">
-                <div class="link-card-content" style="flex-grow: 1;">
-                  <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+                <div class="link-card-content">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; width: 100%;">
                     <span class="link-card-category ${catClass}">${link.category || 'その他'}</span>
                     <div style="display: flex; gap: 4px; align-items: center;">
                       ${tagsHtml}
                     </div>
                   </div>
-                  <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-                    <h3 class="link-card-name" title="${link.name}" style="margin: 0;">${link.name}</h3>
-                    <button class="favorite-btn ${favClass}" onclick="toggleFavorite(event, '${link.name}')" style="background: none; border: none; padding: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: color 0.2s;" title="お気に入り登録/解除">
-                      <span class="material-symbols-outlined" style="font-size: 20px;">star</span>
-                    </button>
-                  </div>
+                  <h3 class="link-card-name" title="${link.name}" style="margin: 4px 0 0 0;">${link.name}</h3>
                   ${campusBadge}
                 </div>
-                <div class="link-card-arrow" style="display: flex; align-items: center;">
-                  <span class="material-symbols-outlined">arrow_forward</span>
+                <div class="link-card-actions">
+                  <button class="favorite-btn ${favClass}" onclick="toggleFavorite(event, '${link.name}')" title="お気に入り登録/解除">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">star</span>
+                  </button>
+                  <div class="link-card-arrow" style="padding-left: 6px; border-left: 1px solid var(--md-sys-color-outline-variant);">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+                  </div>
                 </div>
               </div>
             `;
