@@ -1793,8 +1793,8 @@
       margin: 0;
       line-height: 1.4;
       white-space: normal;
-      overflow-wrap: anywhere;
-      word-break: break-word;
+      overflow-wrap: break-word;
+      word-break: normal;
       width: 100%;
     }
 
@@ -1904,34 +1904,42 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     .tag-ポータル {
       background-color: var(--md-sys-color-primary-container);
       color: var(--md-sys-color-on-primary-container);
     }
+
     .tag-掲示板 {
       background-color: var(--md-sys-color-tertiary-container);
       color: var(--md-sys-color-on-tertiary-container);
     }
+
     .tag-廃止済 {
       background-color: #E2E8F0;
       color: #475569;
     }
+
     html[data-theme="dark"] .tag-廃止済 {
       background-color: #334155;
       color: #94A3B8;
     }
+
     .tag-SC {
       background-color: #E0F2FE;
       color: #0369A1;
     }
+
     html[data-theme="dark"] .tag-SC {
       background-color: #0C4A6E;
       color: #38BDF8;
     }
+
     .tag-YC {
       background-color: #FEF3C7;
       color: #D97706;
     }
+
     html[data-theme="dark"] .tag-YC {
       background-color: #78350F;
       color: #FDE68A;
@@ -1949,17 +1957,21 @@
       border-radius: 50%;
       transition: all 0.2s ease;
     }
+
     .favorite-btn:hover {
       background-color: rgba(245, 158, 11, 0.1);
       color: #F59E0B;
     }
+
     .favorite-btn.is-active {
       color: #F59E0B;
     }
+
     .favorite-btn span {
       font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
       transition: font-variation-settings 0.2s ease;
     }
+
     .favorite-btn.is-active span {
       font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
     }
@@ -1976,6 +1988,7 @@
       border-radius: 4px;
       transition: all 0.2s;
     }
+
     .link-card-reorder button:hover:not(:disabled) {
       background-color: var(--md-sys-color-surface-container-high);
       color: var(--md-sys-color-primary);
@@ -2007,6 +2020,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .home-welcome-card::before {
       content: '';
       position: absolute;
@@ -2017,23 +2031,27 @@
       top: -30px;
       right: -30px;
     }
+
     .home-welcome-card h3 {
       margin: 0;
       font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.5px;
     }
+
     .home-welcome-card p {
       margin: 8px 0 0 0;
       font-size: 14px;
       opacity: 0.85;
     }
+
     .home-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
       margin-bottom: 24px;
     }
+
     .dashboard-card {
       background-color: var(--md-sys-color-surface-container);
       border: 1px solid var(--md-sys-color-outline-variant);
@@ -2044,6 +2062,7 @@
       gap: 16px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
+
     .dashboard-card-title {
       font-size: 15px;
       font-weight: 700;
@@ -2052,25 +2071,30 @@
       align-items: center;
       gap: 8px;
     }
+
     .dashboard-card-title .material-symbols-outlined {
       color: var(--md-sys-color-primary);
     }
+
     .tracker-content {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
+
     .tracker-highlight {
       background-color: var(--md-sys-color-surface-container-high);
       border-left: 4px solid var(--md-sys-color-primary);
       padding: 12px 16px;
       border-radius: 0 12px 12px 0;
     }
+
     .tracker-subject {
       font-size: 16px;
       font-weight: 700;
       margin-bottom: 4px;
     }
+
     .tracker-details {
       font-size: 12px;
       color: var(--md-sys-color-on-surface-variant);
@@ -2078,6 +2102,7 @@
       align-items: center;
       gap: 12px;
     }
+
     .countdown-timer {
       font-size: 28px;
       font-weight: 800;
@@ -2085,11 +2110,13 @@
       color: var(--md-sys-color-primary);
       margin-top: 8px;
     }
+
     .countdown-unit {
       font-size: 14px;
       font-weight: 500;
       margin-left: 4px;
     }
+
     .trivia-box {
       background-color: var(--md-sys-color-surface-container-low);
       border: 1px dashed var(--md-sys-color-outline);
@@ -2102,6 +2129,7 @@
       align-items: flex-start;
       gap: 10px;
     }
+
     .settings-panel {
       background-color: var(--md-sys-color-surface-container);
       border: 1px solid var(--md-sys-color-outline-variant);
@@ -2112,6 +2140,7 @@
       gap: 20px;
       max-width: 600px;
     }
+
     .settings-group-title {
       font-size: 14px;
       font-weight: 700;
@@ -2120,18 +2149,22 @@
       padding-bottom: 8px;
       margin-bottom: 12px;
     }
+
     .settings-row {
       display: flex;
       flex-direction: column;
       gap: 8px;
       margin-bottom: 16px;
     }
+
     .settings-row label {
       font-size: 13px;
       font-weight: 600;
       color: var(--md-sys-color-on-surface);
     }
-    .form-input, .form-select {
+
+    .form-input,
+    .form-select {
       width: 100%;
       background-color: var(--md-sys-color-surface-container-high);
       border: 1px solid var(--md-sys-color-outline-variant);
@@ -2144,10 +2177,13 @@
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-    .form-input:focus, .form-select:focus {
+
+    .form-input:focus,
+    .form-select:focus {
       border-color: var(--md-sys-color-primary);
       box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
     }
+
     .btn-action {
       background-color: var(--md-sys-color-primary);
       color: var(--md-sys-color-on-primary);
@@ -2162,13 +2198,16 @@
       gap: 8px;
       transition: background-color 0.2s;
     }
+
     .btn-action:hover {
       background-color: #00508f;
     }
+
     .btn-danger {
       background-color: var(--md-sys-color-error);
       color: var(--md-sys-color-on-error);
     }
+
     .btn-danger:hover {
       background-color: #900a0a;
     }
@@ -2185,8 +2224,11 @@
       <span class="material-symbols-outlined" style="font-size: 28px; color: var(--md-sys-color-primary);">school</span>
       openTCU
     </div>
-    <button class="icon-button theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme"
+    <button class="icon-button" onclick="openContactModal()" aria-label="Contact"
       style="margin-left: auto;">
+      <span class="material-symbols-outlined">mail</span>
+    </button>
+    <button class="icon-button theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
       <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
     </button>
   </header>
@@ -2203,7 +2245,9 @@
       <li class="nav-item active" id="nav-home" onclick="switchView('home', this)">
         <span class="material-symbols-outlined">home</span>ホーム
       </li>
-      <li class="nav-divider" style="height: 1px; background-color: var(--md-sys-color-outline-variant); margin: 8px 16px; flex-shrink: 0;"></li>
+      <li class="nav-divider"
+        style="height: 1px; background-color: var(--md-sys-color-outline-variant); margin: 8px 16px; flex-shrink: 0;">
+      </li>
       <li class="nav-item" id="nav-timetable" onclick="switchView('timetable', this)">
         <span class="material-symbols-outlined">calendar_today</span>簡易時間割
       </li>
@@ -2232,7 +2276,9 @@
     <section id="view-home" class="view-section active">
       <div class="home-welcome-card" style="position: relative;">
         <!-- 表示/非表示トグルボタン -->
-        <button id="btnToggleProfileMask" onclick="toggleProfileMask(event)" style="position: absolute; top: 16px; left: 16px; background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.8; padding: 4px;" title="プロフィールの表示/非表示">
+        <button id="btnToggleProfileMask" onclick="toggleProfileMask(event)"
+          style="position: absolute; top: 16px; left: 16px; background: none; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.8; padding: 4px;"
+          title="プロフィールの表示/非表示">
           <span class="material-symbols-outlined" id="profileMaskIcon" style="font-size: 20px;">visibility</span>
         </button>
         <div style="margin-left: 28px;">
@@ -2256,16 +2302,6 @@
           </div>
         </div>
 
-        <!-- 中央カラム: お気に入りリンクコーナー -->
-        <div class="dashboard-card">
-          <div class="dashboard-card-title">
-            <span class="material-symbols-outlined">star</span>お気に入りリンク
-          </div>
-          <div class="tracker-content" id="homeFavoritesContent" style="gap: 12px;">
-            <p style="color: var(--md-sys-color-outline); margin: 0;">読み込み中...</p>
-          </div>
-        </div>
-
         <!-- 右カラム: クイックインフォ -->
         <div class="dashboard-card">
           <div class="dashboard-card-title">
@@ -2273,18 +2309,22 @@
           </div>
           <div class="tracker-content" style="gap: 16px;">
             <div>
-              <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; color: var(--md-sys-color-on-surface);">
+              <h4
+                style="font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; color: var(--md-sys-color-on-surface);">
                 <span class="material-symbols-outlined" style="font-size: 18px;">directions_bus</span>次のシャトルバス便
               </h4>
-              <div id="homeNextBusContent" class="tracker-highlight" style="background-color: var(--md-sys-color-surface-container-high); border-left-color: var(--md-sys-color-secondary);">
+              <div id="homeNextBusContent" class="tracker-highlight"
+                style="background-color: var(--md-sys-color-surface-container-high); border-left-color: var(--md-sys-color-secondary);">
                 <p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">バス時刻データを読み込み中...</p>
               </div>
             </div>
             <div>
-              <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; color: var(--md-sys-color-on-surface);">
+              <h4
+                style="font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; color: var(--md-sys-color-on-surface);">
                 <span class="material-symbols-outlined" style="font-size: 18px;">restaurant</span>本日のおすすめ学食メニュー
               </h4>
-              <div id="homeMenuContent" class="tracker-highlight" style="background-color: var(--md-sys-color-surface-container-high); border-left-color: var(--md-sys-color-tertiary);">
+              <div id="homeMenuContent" class="tracker-highlight"
+                style="background-color: var(--md-sys-color-surface-container-high); border-left-color: var(--md-sys-color-tertiary);">
                 <p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">学食メニューを読み込み中...</p>
               </div>
             </div>
@@ -2292,9 +2332,21 @@
         </div>
       </div>
 
+      <!-- 下部横長: お気に入りリンクコーナー -->
+      <div class="dashboard-card" style="margin-bottom: 24px;">
+        <div class="dashboard-card-title">
+          <span class="material-symbols-outlined">star</span>お気に入りリンク
+        </div>
+        <div class="tracker-content" id="homeFavoritesContent" style="gap: 12px;">
+          <p style="color: var(--md-sys-color-outline); margin: 0;">読み込み中...</p>
+        </div>
+      </div>
+
+
       <!-- 下部: 都市大トリビア -->
       <div class="trivia-box">
-        <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary); font-size: 24px;">lightbulb</span>
+        <span class="material-symbols-outlined"
+          style="color: var(--md-sys-color-primary); font-size: 24px;">lightbulb</span>
         <div>
           <strong style="display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">都市大トリビア</strong>
           <span id="homeTriviaContent">読み込み中...</span>
@@ -2705,18 +2757,7 @@
       <!-- 警告文バナー用プレースホルダー（上部） -->
       <div id="topWarningPlaceholder"></div>
 
-      <!-- 申請・訂正案内文とボタン -->
-      <div
-        style="background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-        <span style="font-size: 13px; font-weight: 500;">
-          すべての施設・課外活動を網羅しているわけではありません。追加してほしい場合、もしくは訂正、削除してほしい場合はご連絡ください。
-        </span>
-        <button onclick="event.preventDefault(); alert('申請窓口は現在準備中です。');"
-          style="background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: inherit;">
-          <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
-          申請・訂正はこちら
-        </button>
-      </div>
+
 
       <!-- フィルター・検索バー -->
       <div class="filter-bar" style="margin-bottom: 12px;">
@@ -2747,7 +2788,8 @@
 
       <!-- お気に入りセクション -->
       <div id="favoritesSection" style="margin-bottom: 24px; display: none;">
-        <h3 class="link-group-header" style="color: #F59E0B; display: flex; align-items: center; gap: 8px; margin-top: 0;">
+        <h3 class="link-group-header"
+          style="color: #F59E0B; display: flex; align-items: center; gap: 8px; margin-top: 0;">
           <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>お気に入り
         </h3>
         <div class="links-grid" id="favoritesGrid"></div>
@@ -2777,7 +2819,7 @@
       <div class="settings-panel">
         <div>
           <div class="settings-group-title">プロフィール設定</div>
-          
+
           <div class="settings-row">
             <label for="settings-username">ユーザー名（ニックネーム）</label>
             <input type="text" id="settings-username" class="form-input" placeholder="例: 都市大太郎" />
@@ -2799,10 +2841,10 @@
           <div class="settings-row">
             <label for="settings-grade">学年</label>
             <select id="settings-grade" class="form-select">
-              <option value="1">1年</option>
-              <option value="2">2年</option>
-              <option value="3">3年</option>
-              <option value="4">4年</option>
+              <option value="1">学部1年</option>
+              <option value="2">学部2年</option>
+              <option value="3">学部3年</option>
+              <option value="4">学部4年</option>
               <option value="M1">修士1年</option>
               <option value="M2">修士2年</option>
               <option value="other">その他</option>
@@ -2919,7 +2961,8 @@
     <div class="modal-dialog">
       <div class="modal-header">
         <h3 class="modal-title" id="linkModalTitle">外部リンク詳細</h3>
-        <button class="icon-button" id="btnEditMyLink" style="display: none; margin-left: auto; color: var(--md-sys-color-primary);" title="マイリンクを編集">
+        <button class="icon-button" id="btnEditMyLink"
+          style="display: none; margin-left: auto; color: var(--md-sys-color-primary);" title="マイリンクを編集">
           <span class="material-symbols-outlined">edit</span>
         </button>
         <button class="icon-button" onclick="closeLinkModal()" style="margin-left: 0;">
@@ -2965,32 +3008,86 @@
       <div class="modal-body">
         <input type="hidden" id="modal-mylink-index" value="" />
         <div class="form-group" style="margin-bottom: 12px;">
-          <label for="modal-mylink-name" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">タイトル</label>
+          <label for="modal-mylink-name"
+            style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">タイトル</label>
           <input type="text" id="modal-mylink-name" class="form-input" placeholder="例: 個人ブログ" />
         </div>
         <div class="form-group" style="margin-bottom: 12px;">
-          <label for="modal-mylink-url" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">URL</label>
+          <label for="modal-mylink-url"
+            style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">URL</label>
           <input type="url" id="modal-mylink-url" class="form-input" placeholder="例: https://example.com" />
         </div>
         <div class="form-group" style="margin-bottom: 12px;">
-          <label for="modal-mylink-desc" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">概要説明</label>
+          <label for="modal-mylink-desc"
+            style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">概要説明</label>
           <input type="text" id="modal-mylink-desc" class="form-input" placeholder="例: 個人の活動記録ブログです。" />
         </div>
-        <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 12px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--md-sys-color-primary); margin: 16px 0 8px 0; border-bottom: 1px solid var(--md-sys-color-outline-variant); padding-bottom: 4px;">SNSリンク (最大3つ)</div>
+        
+        <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 8px;">
           <div class="form-group" style="flex: 1;">
-            <label for="modal-mylink-sns-platform" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">SNS名 (任意)</label>
-            <input type="text" id="modal-mylink-sns-platform" class="form-input" placeholder="例: Twitter / X" />
+            <label for="modal-mylink-sns-platform-1" style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface-variant);">SNS 1 サービス名</label>
+            <input type="text" id="modal-mylink-sns-platform-1" class="form-input" placeholder="例: Twitter / X" />
           </div>
           <div class="form-group" style="flex: 2;">
-            <label for="modal-mylink-sns-url" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface);">SNS URL (任意)</label>
-            <input type="url" id="modal-mylink-sns-url" class="form-input" placeholder="例: https://x.com/..." />
+            <label for="modal-mylink-sns-url-1" style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface-variant);">SNS 1 URL</label>
+            <input type="url" id="modal-mylink-sns-url-1" class="form-input" placeholder="例: https://x.com/..." />
+          </div>
+        </div>
+
+        <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 8px;">
+          <div class="form-group" style="flex: 1;">
+            <label for="modal-mylink-sns-platform-2" style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface-variant);">SNS 2 サービス名</label>
+            <input type="text" id="modal-mylink-sns-platform-2" class="form-input" placeholder="例: Instagram" />
+          </div>
+          <div class="form-group" style="flex: 2;">
+            <label for="modal-mylink-sns-url-2" style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface-variant);">SNS 2 URL</label>
+            <input type="url" id="modal-mylink-sns-url-2" class="form-input" placeholder="例: https://instagram.com/..." />
+          </div>
+        </div>
+
+        <div class="form-row" style="display: flex; gap: 12px; margin-bottom: 12px;">
+          <div class="form-group" style="flex: 1;">
+            <label for="modal-mylink-sns-platform-3" style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface-variant);">SNS 3 サービス名</label>
+            <input type="text" id="modal-mylink-sns-platform-3" class="form-input" placeholder="例: YouTube" />
+          </div>
+          <div class="form-group" style="flex: 2;">
+            <label for="modal-mylink-sns-url-3" style="font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; color: var(--md-sys-color-on-surface-variant);">SNS 3 URL</label>
+            <input type="url" id="modal-mylink-sns-url-3" class="form-input" placeholder="例: https://youtube.com/..." />
           </div>
         </div>
       </div>
       <div class="modal-footer" style="display: flex; gap: 8px;">
         <button class="btn btn-primary" onclick="saveMyLink()">保存する</button>
-        <button class="btn btn-outline" id="btnDeleteMyLink" onclick="deleteMyLinkFromModal()" style="display: none; background-color: var(--md-sys-color-error); color: var(--md-sys-color-on-error); border-color: var(--md-sys-color-error);">削除する</button>
+        <button class="btn btn-outline" id="btnDeleteMyLink" onclick="deleteMyLinkFromModal()"
+          style="display: none; background-color: var(--md-sys-color-error); color: var(--md-sys-color-on-error); border-color: var(--md-sys-color-error);">削除する</button>
         <button class="btn btn-outline" onclick="closeMyLinkModal()" style="margin-left: auto;">キャンセル</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- お問い合わせモーダル -->
+  <div class="modal-overlay" id="contactModalOverlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">お問い合わせ・ご要望</h3>
+        <button class="icon-button" onclick="closeContactModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface); margin: 0 0 16px 0;">
+          openTCUへのご意見・ご要望、掲載情報の追加や訂正、削除依頼などのご連絡は、下記のGoogleフォームよりお願いいたします。
+        </p>
+        <div style="text-align: center; margin-top: 16px; margin-bottom: 8px;">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+            <span class="material-symbols-outlined" style="font-size: 20px;">description</span>
+            Googleフォームを開く
+          </a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeContactModal()">閉じる</button>
       </div>
     </div>
   </div>
@@ -3938,37 +4035,37 @@
     const SHOP_OVERVIEWS = {
       "SC 学生食堂": {
         // ここからSC 学生食堂の宣伝文
-        description: "世田谷キャンパスの中心にあるメイン食堂です。リーズナブルでボリューム満点な定番メニューや日替わりメニュー、そして100円朝食を提供しており、多くの学生に親しまれています。",
+        description: "世田谷キャンパスの9号館(SAKURA CENTER)にある、1000席以上を誇るメイン食堂です。実は、「CANTEEN RARA」という名前があります。リーズナブルでボリューム満点な定番メニューや日替わりメニュー、そして100円朝食を提供しており、多くの学生に親しまれています。",
         // ここまでSC 学生食堂の宣伝文
         image: "images/sc_shokudo.png"
       },
       "ラウンジオーク": {
         // ここからラウンジオークの宣伝文
-        description: "落ち着いた雰囲気の中で食事ができるラウンジスタイルの食堂です。パスタや定食などこだわりのメニューが揃っており、優雅なランチタイムを過ごすことができます。",
+        description: "1号館4階にある、落ち着いた雰囲気の中で食事ができるラウンジスタイルの食堂です。こだわりのメニューが揃っており、優雅なランチタイムを過ごすことができます。",
         // ここまでラウンジオークの宣伝文
         image: "images/lounge_oak.png"
       },
       "nana cafe": {
         // ここからnana cafeの宣伝文
-        description: "焼きたてのパンや本格的なドリップコーヒー、スイーツなどを提供するおしゃれなカフェです。テイクアウトも充実しており、授業の合間のリフレッシュに最適です。",
+        description: "コーヒーや軽食などを提供する、世田谷キャンパス7号館にあるカフェです。昼時にはカレーなどを提供。授業の合間のリフレッシュに最適です。",
         // ここまでnana cafeの宣伝文
         image: "images/nana_cafe.png"
       },
       "cafe sora": {
         // ここからcafe soraの宣伝文
-        description: "開放的な窓から光が差し込む、明るい雰囲気のカフェ空間です。丼ものや軽食、各種ドリンクを提供しており、友人との歓談や自習の場所としても人気があります。",
+        description: "開放的な窓から光が差し込む、明るい雰囲気のカフェ空間です。学生に大人気の焼きたてパンは、1個130円から。軽食にぴったりなパスタやカレーも提供しています。",
         // ここまでcafe soraの宣伝文
         image: "images/cafe_sora.png"
       },
       "YC 学生食堂": {
         // ここからYC 学生食堂の宣伝文
-        description: "横浜キャンパスの学生を支える広々とした学生食堂です。バラエティ豊かな麺類や丼もの、カレーなどを提供しており、日替わりのスペシャルメニューも人気を博しています。",
+        description: "横浜キャンパスの学生を支える広々とした学生食堂です。バラエティ豊かな麺類や丼もの、カレーなどを提供しており、日替わりの定食メニューも人気を博しています。100円朝食も人気です！",
         // ここまでYC 学生食堂の宣伝文
         image: "images/yc_shokudo.png"
       },
       "YC 7号館カフェ": {
         // ここからYC 7号館カフェの宣伝文
-        description: "横浜キャンパス7号館に併設されたモダンなカフェです。淹れたてのコーヒーやサンドイッチなどの軽食を提供しており、落ち着いた空間で休憩することができます。",
+        description: "2026年度から供用を開始した、横浜キャンパス7号館に併設されているモダンなカフェです。淹れたてのコーヒーやパンなどの軽食を提供。開放的で明るい雰囲気の空間で、授業の合間などに気軽に立ち寄ることができます。",
         // ここまでYC 7号館カフェの宣伝文
         image: "images/yc_7cafe.png"
       }
@@ -4546,7 +4643,7 @@
     // ==========================================
     // 外部リンク集の動的読み込みと制御ロジック
     // ==========================================
-    
+
     let externalCategories = [];
     let externalLinksData = [];
     let rawCategories = [];
@@ -4561,7 +4658,7 @@
       try {
         favorites = JSON.parse(favorites);
         if (!Array.isArray(favorites)) favorites = ["WebClass", "学内ポータル・Webシラバス", "出席確認システム"];
-      } catch(e) {
+      } catch (e) {
         favorites = ["WebClass", "学内ポータル・Webシラバス", "出席確認システム"];
       }
     }
@@ -4805,7 +4902,7 @@
 
         let tagsHtml = '';
         if (link.tags && Array.isArray(link.tags)) {
-          tagsHtml = link.tags.map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
+          tagsHtml = link.tags.filter(t => t !== link.category).map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
         }
 
         const isDeprecated = link.tags && link.tags.includes('廃止済');
@@ -4916,7 +5013,7 @@
 
           let tagsHtml = '';
           if (link.tags && Array.isArray(link.tags)) {
-            tagsHtml = link.tags.map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
+            tagsHtml = link.tags.filter(t => t !== link.category).map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
           }
 
           const isFav = favorites.indexOf(link.name) !== -1;
@@ -4968,7 +5065,7 @@
 
             let tagsHtml = '';
             if (link.tags && Array.isArray(link.tags)) {
-              tagsHtml = link.tags.map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
+              tagsHtml = link.tags.filter(t => t !== link.category).map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
             }
 
             const isFav = favorites.indexOf(link.name) !== -1;
@@ -5072,7 +5169,7 @@
           btnEdit.style.display = 'inline-flex';
           const myLinks = getMyLinks();
           const myLinkIdx = myLinks.findIndex(l => l.name === linkData.name && l.website === linkData.website);
-          btnEdit.onclick = function() {
+          btnEdit.onclick = function () {
             closeLinkModal();
             openMyLinkModal(myLinkIdx);
           };
@@ -5129,7 +5226,7 @@
           <div style="background-color: #FEF3C7; border: 1px solid #FCD34D; border-radius: 12px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px;">
             <span class="material-symbols-outlined" style="color: #B45309; font-size: 20px; flex-shrink: 0; margin-top: 1px;">gpp_maybe</span>
             <div style="color: #78350f; font-size: 12px; font-weight: 600; line-height: 1.5;">
-              ※ このリンクは学内回線（学内LAN、学内Wi-Fi等）からのみ閲覧可能です。外部回線からはアクセスできません。
+              ※ このリンクは学内回線（学内LAN、学内Wi-Fi等）からのみ閲覧可能です。外部回線からはVPNの接続が必要となります。接続方法については[接続方法ガイド](https://www.itc.tcu.ac.jp/network-3/vpn/)をご確認ください。
             </div>
           </div>
         `
@@ -5139,7 +5236,7 @@
 
       let tagsHtml = '';
       if (linkData.tags && Array.isArray(linkData.tags)) {
-        tagsHtml = linkData.tags.map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
+        tagsHtml = linkData.tags.filter(t => t !== linkData.category).map(t => `<span class="link-tag tag-${t}">${t}</span>`).join('');
       }
 
       if (bodyEl) {
@@ -5186,8 +5283,6 @@
       const inputName = document.getElementById('modal-mylink-name');
       const inputUrl = document.getElementById('modal-mylink-url');
       const inputDesc = document.getElementById('modal-mylink-desc');
-      const inputSnsPlatform = document.getElementById('modal-mylink-sns-platform');
-      const inputSnsUrl = document.getElementById('modal-mylink-sns-url');
       const btnDelete = document.getElementById('btnDeleteMyLink');
 
       // Clear all fields
@@ -5195,24 +5290,34 @@
       if (inputName) inputName.value = '';
       if (inputUrl) inputUrl.value = '';
       if (inputDesc) inputDesc.value = '';
-      if (inputSnsPlatform) inputSnsPlatform.value = '';
-      if (inputSnsUrl) inputSnsUrl.value = '';
+      for (let i = 1; i <= 3; i++) {
+        const inputPlat = document.getElementById(`modal-mylink-sns-platform-${i}`);
+        const inputSnsUrl = document.getElementById(`modal-mylink-sns-url-${i}`);
+        if (inputPlat) inputPlat.value = '';
+        if (inputSnsUrl) inputSnsUrl.value = '';
+      }
       if (btnDelete) btnDelete.style.display = 'none';
 
       if (myLinkIdx !== null && myLinkIdx !== undefined && myLinkIdx !== '') {
         // Edit mode
         if (modalTitle) modalTitle.textContent = 'マイリンクを編集';
         if (inputIndex) inputIndex.value = myLinkIdx;
-        
+
         const myLinks = getMyLinks();
         const link = myLinks[myLinkIdx];
         if (link) {
           if (inputName) inputName.value = link.name || '';
           if (inputUrl) inputUrl.value = link.website || '';
           if (inputDesc) inputDesc.value = link.description || '';
-          if (link.sns && link.sns.length > 0) {
-            if (inputSnsPlatform) inputSnsPlatform.value = link.sns[0].platform || '';
-            if (inputSnsUrl) inputSnsUrl.value = link.sns[0].url || '';
+          if (link.sns && Array.isArray(link.sns)) {
+            link.sns.forEach((item, idx) => {
+              if (idx < 3) {
+                const inputPlat = document.getElementById(`modal-mylink-sns-platform-${idx + 1}`);
+                const inputSnsUrl = document.getElementById(`modal-mylink-sns-url-${idx + 1}`);
+                if (inputPlat) inputPlat.value = item.platform || '';
+                if (inputSnsUrl) inputSnsUrl.value = item.url || '';
+              }
+            });
           }
         }
         if (btnDelete) btnDelete.style.display = 'inline-flex';
@@ -5230,12 +5335,20 @@
       if (overlay) overlay.classList.remove('show');
     }
 
+    function openContactModal() {
+      const overlay = document.getElementById('contactModalOverlay');
+      if (overlay) overlay.classList.add('show');
+    }
+
+    function closeContactModal() {
+      const overlay = document.getElementById('contactModalOverlay');
+      if (overlay) overlay.classList.remove('show');
+    }
+
     function saveMyLink() {
       const name = document.getElementById('modal-mylink-name').value.trim();
       const url = document.getElementById('modal-mylink-url').value.trim();
       const desc = document.getElementById('modal-mylink-desc').value.trim();
-      const snsPlatform = document.getElementById('modal-mylink-sns-platform').value.trim();
-      const snsUrl = document.getElementById('modal-mylink-sns-url').value.trim();
       const editIndexStr = document.getElementById('modal-mylink-index').value;
 
       if (!name || !url) {
@@ -5258,16 +5371,23 @@
         keywords: [name, 'マイリンク', 'カスタム'],
         onCampusOnly: false,
         sns: [],
-        tags: ['マイリンク'],
+        tags: [],
         sortOrder: 1000
       };
 
-      if (snsPlatform && snsUrl) {
-        if (!snsUrl.startsWith('http://') && !snsUrl.startsWith('https://')) {
-          alert('SNS URLは http:// または https:// から始めてください。');
+      for (let i = 1; i <= 3; i++) {
+        const snsPlatform = document.getElementById(`modal-mylink-sns-platform-${i}`).value.trim();
+        const snsUrl = document.getElementById(`modal-mylink-sns-url-${i}`).value.trim();
+        if (snsPlatform && snsUrl) {
+          if (!snsUrl.startsWith('http://') && !snsUrl.startsWith('https://')) {
+            alert(`SNS ${i}のURLは http:// または https:// から始めてください。`);
+            return;
+          }
+          linkObj.sns.push({ platform: snsPlatform, url: snsUrl });
+        } else if (snsUrl && !snsPlatform) {
+          alert(`SNS ${i}のサービス名を入力してください。`);
           return;
         }
-        linkObj.sns.push({ platform: snsPlatform, url: snsUrl });
       }
 
       if (editIndexStr !== null && editIndexStr !== undefined && editIndexStr !== '') {
@@ -5325,7 +5445,7 @@
             email: parsed.email || ''
           };
         }
-      } catch (e) {}
+      } catch (e) { }
       return { username: '都市大生', campus: 'S', faculty: '理工学部', grade: '1', studentId: '', email: '' };
     }
 
@@ -5438,19 +5558,31 @@
     }
 
     const triviaList = [
-      "世田谷キャンパスの3号館自習室は、空調も効いていて非常に快適な学習スペースです。",
-      "横浜キャンパスの食堂は、メディア情報学部・環境学部生でいつも賑わっています。",
-      "世田谷キャンパスの図書館は、かつて日本初の民間原子炉が設置されていた原子力研究所の跡地近くに建てられました。",
-      "東京都市大学のシャトルバス（ワンロマ車）は、一般の路線バスにはないロマンスシートを装備した珍しい特別仕様車です。",
-      "二子玉川にある『夢キャンパス』は、地域交流や子供向けのワークショップを行う都市大のサテライト施設です。",
-      "等々力キャンパスは2022年度をもって世田谷キャンパスに統合されましたが、かつての歴史は世田谷の学生に受け継がれています。",
-      "都市大には独自のポータルサイトがあり、WebClassや出席登録システム、ヨコキャリなどが連携しています。",
-      "世田谷キャンパスの1号館地下には、かつて学生に愛された生協食堂がありました。"
+      "東京都市大学は東急グループの大学です。東急グループでは、交通事業だけでなく、不動産事業など、さまざまな事業を展開しています。",
+      "大学群「大東亜帝国」の一角、国際系の学びに強い亜細亜大学。実は、都市大と同じ東急グループの大学なんです。",
+      "都市大のほとんどの建物は大学の教員と東急の設計会社が設計し、東急建設が施工しました。そして、キャンパス内を警備しているのは東急セキュリティです。",
+      "東京都市大学の前身の1つである武蔵工業大学は、その英略称 [M]usashi [I]nstitute of [Tech]nologyから、「MI-Tech（マイテック）」と呼ばれていました。",
+      "武蔵工業大学の公式英略称は「MI-Tech」ですが、「MIT」ととることもできます。名門アメリカの「マサチューセッツ工科大学」と同じ略称だ、とネタにする学生もいたそうです。",
+      "横浜キャンパスの学生ホールは、デザイン・データ科学部、メディア情報学部、環境学部の学生でいつも賑わっています。かつてはカフェも併設されていましたが、新7号館に実質的に移転しました。",
+      "公式キャラクターの水色の鳥、俗称「TCUバード」には、オスが「翼（つばさ）」、メスが「夢（ゆめ）」という名前があります。",
+      "TCUバードは、武蔵工大時代に「ミットバード」と呼ばれており、その後資料が散逸してしまったキャラクターをデザインし直して誕生したものです。",
+      //"こういうところまでソースコードをきちんと見てくれるヒトに、ぜひopenTCUの開発をやってほしいです。Antigravity使ってAIで書いてます。ぜひ知っておいてね。",
+      "王禅寺キャンパスでは、かつてホンモノの原子炉が稼働していました。といっても発電能力はなく、熱出力も実際の原子力発電所の1/2000ほどだったようです。",
+      "東京都市大学のシャトルバスに用いられる「ワンロマ車」は、一般の路線バスにはないリクライニングシート(ロマンスシート)を装備している、日本でも珍しい特別仕様車です。",
+      "都市大のシャトルバスを運行しているのは東急バスの東山田営業所(横浜市都筑区)です。かつて存在した世田谷-等々力間のシャトルバスは、都内にある目黒営業所が運行していました。",
+      "かつて二子玉川に存在した『夢キャンパス』は、地域交流や子供向けのワークショップを行う都市大のサテライト施設でした。",
+      "都市生活学部などがかつて活動していた等々力キャンパスは、2022年度をもって世田谷キャンパスに統合されましたが、その歴史は世田谷の学生に受け継がれています。",
+      "かつての等々力キャンパスの建物は、現在は都市大付属等々力中学高校の施設として使われているようです。また、付近のバス停には今も「都市大等々力キャンパス」の文字が残ります。",
+      "両キャンパス1号館にある証明書発行機で学割証を発行し、JR線の窓口で提示すると、学割が適用されます。距離などに制限がありますので、詳細はJR線のホームページなどでご確認ください。",
+      "openTCUをブラウザの機能からホーム画面に追加・インストールすると、オフラインでも動くアプリのように利用できます！ぜひご利用ください。",
+      "都市大生は、無料でAdobe Creative Cloudを使うことができます。長期休みの間のスキルアップに、Adobeソフトに触れてみるのはいかがでしょうか？",
+      "openTCUには、クラウド同期機能はありません。お使いの端末内にのみデータが保存されますので、お取り扱いにご注意ください。",
+      "動作が重い場合、端末のスペックやキャッシュの蓄積が原因かもしれません。改善されない場合は、キャッシュの削除や端末の再起動をお試しください。"
     ];
 
     function updateHomeView() {
       const profile = getUserProfile();
-      
+
       // 1. 歓迎メッセージ
       const welcomeEl = document.getElementById('homeWelcomeMessage');
       if (welcomeEl) {
@@ -5553,7 +5685,7 @@
 
     function getHomeFavoritesHtml() {
       const fixedNames = ["WebClass", "学内ポータル・Webシラバス", "出席確認システム"];
-      
+
       let fixedCardsHtml = '';
       fixedNames.forEach(name => {
         const originalIdx = externalLinksData.findIndex(item => item.name === name);
@@ -5610,7 +5742,7 @@
     function renderHomeLinkCard(link, originalIndex, isFixed) {
       const catClass = getCategoryClass(link.category);
       const campusIcon = link.onCampusOnly ? `<span class="material-symbols-outlined" style="font-size: 13px; color: #B45309;" title="学内専用">gpp_maybe</span>` : '';
-      
+
       return `
         <div class="link-card-mini" onclick="handleLinkCardClick(${originalIndex})" style="background: var(--md-sys-color-surface-container-high); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 12px; padding: 10px; cursor: pointer; display: flex; flex-direction: column; gap: 6px; box-sizing: border-box; transition: all 0.2s;">
           <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -5620,7 +5752,7 @@
               <span class="material-symbols-outlined" style="font-size: 16px; color: ${isFixed ? 'var(--md-sys-color-primary)' : '#F59E0B'}; font-variation-settings: 'FILL' 1;">${isFixed ? 'push_pin' : 'star'}</span>
             </div>
           </div>
-          <div style="font-size: 11px; font-weight: 600; color: var(--md-sys-color-on-surface); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: 2.6em; word-break: break-all;" title="${link.name}">
+          <div style="font-size: 11px; font-weight: 600; color: var(--md-sys-color-on-surface); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: 2.6em; word-break: normal; overflow-wrap: break-word;" title="${link.name}">
             ${link.name}
           </div>
         </div>
@@ -5631,7 +5763,7 @@
       const now = new Date();
       const dayMap = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
       const day = dayMap[now.getDay()];
-      
+
       if (day === 'sun') {
         return `<p style="margin: 0; color: var(--md-sys-color-outline);">日曜日は授業がありません。ゆっくり休みましょう！</p>`;
       }
@@ -5774,7 +5906,7 @@
       }
 
       if (hasAnyClassToday) {
-        return `<p style="margin: 0; color: var(--md-sys-color-on-surface-variant); line-height: 1.5;">本日の登録されている授業はこれで以上です。おつかれさまでした</p>`;
+        return `<p style="margin: 0; color: var(--md-sys-color-on-surface-variant); line-height: 1.5;">本日の授業は以上です。おつかれさまでした！</p>`;
       } else {
         return `<p style="margin: 0; color: var(--md-sys-color-outline); line-height: 1.5;">本日は登録されている授業がありません。</p>`;
       }
@@ -5791,7 +5923,7 @@
         return `<p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">日曜日はシャトルバスの運行はありません。</p>`;
       }
 
-      const fromStop = campus === 'Y' ? 'Y' : 'S'; 
+      const fromStop = campus === 'Y' ? 'Y' : 'S';
       const destName = fromStop === 'S' ? '横浜キャンパス行' : '世田谷キャンパス行';
       const curMin = now.getHours() * 60 + now.getMinutes();
 
@@ -5833,7 +5965,7 @@
         if (cachedDataStr) {
           menuData = JSON.parse(cachedDataStr);
         }
-      } catch (e) {}
+      } catch (e) { }
 
       if (!menuData || !Array.isArray(menuData)) {
         return `<p style="font-size: 13px; color: var(--md-sys-color-outline); margin: 0;">学食メニューデータがありません。</p>`;
