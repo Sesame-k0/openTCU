@@ -388,9 +388,6 @@
       margin-top: 88px;
       padding: 0 24px;
       max-width: 1200px;
-      width: 100%;
-      min-width: 0;
-      box-sizing: border-box;
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 40px;
@@ -2277,6 +2274,9 @@
       .main-content {
         padding: 0 16px;
         margin-top: 80px;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
       }
 
       .material-card {
@@ -2341,57 +2341,88 @@
         font-size: 15px;
       }
 
-      /* 簡易時間割の縮小設定 */
+      /* iOSなどのフォームズーム対策（スマホで font-size: 16px 以上を強制） */
+      .form-input,
+      .form-select,
+      .form-control,
+      select,
+      textarea {
+        font-size: 16px !important;
+      }
+
+      /* 簡易時間割の縮小設定 (横スクロールを封印し画面に収める) */
       .timetable-container {
-        padding: 8px;
-        border-radius: 16px;
+        padding: 4px;
+        border-radius: 12px;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        overflow-x: hidden; /* 横スクロールを完全に封印 */
       }
 
       .timetable-table {
-        min-width: 580px;
-        border-spacing: 6px;
+        min-width: 0 !important; /* 横スクロール幅の制限を無効化 */
+        width: 100% !important;
+        border-spacing: 2px !important; /* セルの隙間を極限まで縮める */
+      }
+
+      /* 一番左の時限列の横幅をスリム化 */
+      .timetable-table th:first-child {
+        width: 38px !important;
+      }
+
+      /* 各曜日列の横幅を均等配分 */
+      .timetable-table th:not(:first-child) {
+        width: calc((100% - 38px) / 6) !important;
       }
 
       .timetable-table th {
-        height: 36px;
-        font-size: 13px;
-        border-radius: 8px;
+        height: 28px !important;
+        font-size: 11px !important;
+        border-radius: 6px !important;
       }
 
       .timetable-table td {
-        height: 72px;
-        border-radius: 10px;
+        height: 56px !important; /* 縦方向もコンパクトに */
+        border-radius: 8px !important;
       }
 
+      /* 時限列のサブテキスト（曜日別設定、時間など）を非表示にして「1限」だけにする */
       .timetable-time-col {
-        font-size: 11px;
+        font-size: 10px !important;
+        padding: 2px !important;
+        font-weight: 700;
+      }
+
+      .timetable-time-col span:not(:first-child) {
+        display: none !important; /* サブテキストを非表示 */
+      }
+
+      /* 曜日ヘッダー内の時間表示（1限 09:20など）を非表示にする */
+      .first-period-header {
+        display: none !important;
+      }
+
+      /* コマ内の文字サイズを極小化し、パディングを極小に */
+      .timetable-cell-registered {
         padding: 4px !important;
       }
 
-      .timetable-time-col span:last-child {
-        font-size: 8px !important;
-      }
-
-      .first-period-header {
-        font-size: 8px;
-        padding: 1px 4px;
-        margin-top: 2px;
-      }
-
       .timetable-subject {
-        font-size: 11px;
-        margin-bottom: 2px;
+        font-size: 9px !important;
+        margin-bottom: 2px !important;
+        line-height: 1.2 !important;
+        -webkit-line-clamp: 3 !important; /* 3行まで許可 */
       }
 
+      /* 教員名や教室名（サブ情報）はスペース不足のためアイコン含めて非表示 */
       .timetable-info {
-        font-size: 9px;
+        display: none !important;
       }
 
-      .timetable-info .material-symbols-outlined {
-        font-size: 10px;
+      /* 空コマのプラスマークのサイズ調整 */
+      .timetable-cell-empty .material-symbols-outlined {
+        font-size: 14px !important;
       }
 
       /* 簡易時間割ボタンのスマホ用縦並び設定 */
