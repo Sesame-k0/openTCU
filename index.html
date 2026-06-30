@@ -2682,6 +2682,17 @@
               <span>17:00 - 19:20</span>
             </div>
           </div>
+          <!-- 支払い方法と利用方法（特定店舗選択時のみ表示） -->
+          <div id="shopUsagePanel" style="display: none; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--md-sys-color-outline-variant);">
+            <div style="margin-bottom: 10px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-primary); display: block; margin-bottom: 2px;">使用可能な支払い方法</span>
+              <div id="shopPaymentText" style="font-size: 13px; font-weight: 600; color: var(--md-sys-color-on-surface);"></div>
+            </div>
+            <div>
+              <span style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-primary); display: block; margin-bottom: 2px;">利用方法</span>
+              <div id="shopUsageText" style="font-size: 12px; line-height: 1.4; color: var(--md-sys-color-on-surface-variant);"></div>
+            </div>
+          </div>
         </div>
         <!-- 右半分: 店舗概要情報（特定店舗選択時のみ表示） -->
         <div class="status-right-panel" id="shopOverviewPanel" style="display: none;">
@@ -4744,6 +4755,45 @@
       event.target.value = "";
     }
 
+    const SHOP_OVERVIEWS = {
+      "SC 学生食堂": {
+        description: "世田谷キャンパスの9号館(SAKURA CENTER)にある、1000席以上を誇るメイン食堂です。「CANTEEN RARA」という名前があります。リーズナブルでボリューム満点な定番メニューや日替わりメニュー、そして100円朝食を提供しており、多くの学生に親しまれています。",
+        image: "images/sc_shokudo.png",
+        payment: "現金、交通系IC、QUICPay、iD",
+        usage: "券売機で食券を購入後、各カウンターで料理を受け取ります。食事後は下膳口のベルトコンベアに食器を置いて流してください。"
+      },
+      "ラウンジオーク": {
+        description: "1号館4階にある、落ち着いた雰囲気の中で食事ができるラウンジスタイルの食堂です。こだわりのメニューが揃っており、優雅なランチタイムを過ごすことができます。",
+        image: "images/lounge_oak.png",
+        payment: "交通系IC、PayPayなどの一部QRコード決済",
+        usage: "カウンターで注文を伝え、スタッフの持つ端末にタッチして支払います。食事後は下膳口のシャワーで食器を軽くゆすぎ、水槽に入れてください。"
+      },
+      "nana cafe": {
+        description: "コーヒーや軽食などを提供する、世田谷キャンパス7号館にあるカフェです。昼時にはカレーなどを提供。授業の合間のリフレッシュに最適です。",
+        image: "images/nana_cafe.png",
+        payment: "現金、交通系IC、一部QRコード決済、クレジットカード",
+        usage: "カウンターで注文・会計後に番号札を受け取ります。モニターに番号が表示されたら料理を受け取り、食後は使い捨て容器をゴミ箱に、トレイは返却場所へ戻してください。"
+      },
+      "cafe sora": {
+        description: "開放的な窓から光が差し込む、明るい雰囲気 of カフェ空間です。学生に大人気の焼きたてパンは、1個130円から。軽食にぴったりなパスタやカレーも提供しています。",
+        image: "images/cafe_sora.png",
+        payment: "現金、交通系IC",
+        usage: "パンはトレイに乗せてレジへ、パスタ類はカウンターで直接注文してその場で会計します。食後の使い捨て容器はゴミ箱へ、トレイは所定の返却場所へ戻してください。"
+      },
+      "YC 学生食堂": {
+        description: "横浜キャンパスの学生を支える広々とした学生食堂です。バラエティ豊かな麺類や丼もの、カレーなどを提供しており、日替わりの定食メニューも人気を博しています。100円朝食も人気です！",
+        image: "images/yc_shokudo.png",
+        payment: "現金、交通系IC、QUICPay、iD",
+        usage: "券売機で食券を購入後、各カウンターで料理を受け取ります。食事後は下膳口のシャワーで食器を軽くゆすぎ、水槽に入れてください。"
+      },
+      "YC 7号館カフェ": {
+        description: "2026年度から供用を開始した、横浜キャンパス7号館に併設されているモダンなカフェです。淹れたてのコーヒーやパンなどの軽食を提供。開放的で明るい雰囲気の空間で、授業の合間などに気軽に立ち寄ることができます。",
+        image: "images/yc_7cafe.png",
+        payment: "現金、交通系IC、一部QRコード決済、クレジットカード",
+        usage: "パンはトレイに乗せてレジへ、軽食メニューは注文・会計後に受け取ります。食後は使い捨て容器をゴミ箱へ、トレイは所定の返記場所へ戻してください。"
+      }
+    };
+
     // ==========================================
     // 曜日の表示パーサー (ISO日付を曜日文字へ変換)
     // formatStyle: 'short' → 曜日のみ (フィルタ用), 'long' → MM月DD日(改行)(曜日) (テーブル表示用)
@@ -4994,48 +5044,6 @@
       return config.checkStatus(day, timeInMinutes);
     }
 
-    // ==========================================
-    // 店舗の概要情報（宣伝文と画像パス）
-    // ==========================================
-    const SHOP_OVERVIEWS = {
-      "SC 学生食堂": {
-        // ここからSC 学生食堂の宣伝文
-        description: "世田谷キャンパスの9号館(SAKURA CENTER)にある、1000席以上を誇るメイン食堂です。「CANTEEN RARA」という名前があります。リーズナブルでボリューム満点な定番メニューや日替わりメニュー、そして100円朝食を提供しており、多くの学生に親しまれています。",
-        // ここまでSC 学生食堂の宣伝文
-        image: "images/sc_shokudo.png"
-      },
-      "ラウンジオーク": {
-        // ここからラウンジオークの宣伝文
-        description: "1号館4階にある、落ち着いた雰囲気の中で食事ができるラウンジスタイルの食堂です。こだわりのメニューが揃っており、優雅なランチタイムを過ごすことができます。",
-        // ここまでラウンジオークの宣伝文
-        image: "images/lounge_oak.png"
-      },
-      "nana cafe": {
-        // ここからnana cafeの宣伝文
-        description: "コーヒーや軽食などを提供する、世田谷キャンパス7号館にあるカフェです。昼時にはカレーなどを提供。授業の合間のリフレッシュに最適です。",
-        // ここまでnana cafeの宣伝文
-        image: "images/nana_cafe.png"
-      },
-      "cafe sora": {
-        // ここからcafe soraの宣伝文
-        description: "開放的な窓から光が差し込む、明るい雰囲気のカフェ空間です。学生に大人気の焼きたてパンは、1個130円から。軽食にぴったりなパスタやカレーも提供しています。",
-        // ここまでcafe soraの宣伝文
-        image: "images/cafe_sora.png"
-      },
-      "YC 学生食堂": {
-        // ここからYC 学生食堂の宣伝文
-        description: "横浜キャンパスの学生を支える広々とした学生食堂です。バラエティ豊かな麺類や丼もの、カレーなどを提供しており、日替わりの定食メニューも人気を博しています。100円朝食も人気です！",
-        // ここまでYC 学生食堂の宣伝文
-        image: "images/yc_shokudo.png"
-      },
-      "YC 7号館カフェ": {
-        // ここからYC 7号館カフェの宣伝文
-        description: "2026年度から供用を開始した、横浜キャンパス7号館に併設されているモダンなカフェです。淹れたてのコーヒーやパンなどの軽食を提供。開放的で明るい雰囲気の空間で、授業の合間などに気軽に立ち寄ることができます。",
-        // ここまでYC 7号館カフェの宣伝文
-        image: "images/yc_7cafe.png"
-      }
-    };
-
     function updateCafeteriaStatusUI() {
       const selectedShop = document.getElementById('shopFilter') ? document.getElementById('shopFilter').value : "ALL";
       const config = SHOP_CONFIG[selectedShop] || SHOP_CONFIG["ALL"];
@@ -5097,6 +5105,10 @@
       const overviewText = document.getElementById('shopOverviewText');
       const overviewImg = document.getElementById('shopOverviewImg');
 
+      const usagePanel = document.getElementById('shopUsagePanel');
+      const paymentText = document.getElementById('shopPaymentText');
+      const usageText = document.getElementById('shopUsageText');
+
       if (overviewPanel && overviewText && overviewImg) {
         if (selectedShop !== "ALL" && SHOP_OVERVIEWS[selectedShop]) {
           const overview = SHOP_OVERVIEWS[selectedShop];
@@ -5104,9 +5116,20 @@
           overviewImg.src = overview.image;
           overviewPanel.style.display = 'flex';
           card.classList.add('has-overview');
+
+          // 支払い方法・利用方法の反映
+          if (usagePanel && paymentText && usageText) {
+            paymentText.textContent = overview.payment || "-";
+            usageText.textContent = overview.usage || "-";
+            usagePanel.style.display = 'block';
+          }
         } else {
           overviewPanel.style.display = 'none';
           card.classList.remove('has-overview');
+
+          if (usagePanel) {
+            usagePanel.style.display = 'none';
+          }
         }
       }
     }
