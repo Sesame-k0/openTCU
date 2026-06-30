@@ -2871,6 +2871,10 @@
           <span class="material-symbols-outlined" style="font-size: 24px;">calendar_today</span>簡易時間割
         </h2>
         <div class="timetable-btn-group">
+          <button class="btn btn-tonal" id="btnToggleExamMode" onclick="toggleExamMode()">
+            <span class="material-symbols-outlined" id="iconToggleExamMode">event_busy</span>
+            <span id="textToggleExamMode">定期試験モード</span>
+          </button>
           <button class="btn btn-tonal" id="btnEditTimetable" onclick="toggleTimetableEditMode()">
             <span class="material-symbols-outlined" id="iconEditTimetable">settings</span>
             <span id="textEditTimetable">編集モード</span>
@@ -2978,7 +2982,7 @@
                   <span>昼休み</span>
                 </div>
               </td>
-              <td colspan="6">LUNCH TIME (12:50 - 13:40)</td>
+              <td colspan="6" id="timetable-lunch-text">LUNCH TIME (12:50 - 13:40)</td>
             </tr>
             <!-- 3限 -->
             <tr id="row-period-3">
@@ -3024,6 +3028,21 @@
               <td class="timetable-cell timetable-cell-empty" id="cell-thu-5" onclick="handleCellClick('thu', 5)"></td>
               <td class="timetable-cell timetable-cell-empty" id="cell-fri-5" onclick="handleCellClick('fri', 5)"></td>
               <td class="timetable-cell timetable-cell-empty" id="cell-sat-5" onclick="handleCellClick('sat', 5)"></td>
+            </tr>
+            <!-- 6限 -->
+            <tr id="row-period-6" style="display: none;">
+              <td>
+                <div class="timetable-time-col">
+                  <span>6限</span>
+                  <span style="font-size: 11px;">16:20 - 17:20</span>
+                </div>
+              </td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-mon-6" onclick="handleCellClick('mon', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-tue-6" onclick="handleCellClick('tue', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-wed-6" onclick="handleCellClick('wed', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-thu-6" onclick="handleCellClick('thu', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-fri-6" onclick="handleCellClick('fri', 6)"></td>
+              <td class="timetable-cell timetable-cell-empty" id="cell-sat-6" onclick="handleCellClick('sat', 6)"></td>
             </tr>
           </tbody>
         </table>
@@ -4034,14 +4053,14 @@
             } catch(e) {}
           }
           timetables = [
-            { id: "sheet-1", name: "時間割 1", data: initialData }
+            { id: "sheet-1", name: "時間割 1", isExamMode: false, data: initialData }
           ];
           activeTimetableId = "sheet-1";
           saveTimetablesToStorage();
         }
       } catch (e) {
         console.error("Failed to load timetables:", e);
-        timetables = [{ id: "sheet-1", name: "時間割 1", data: {} }];
+        timetables = [{ id: "sheet-1", name: "時間割 1", isExamMode: false, data: {} }];
         activeTimetableId = "sheet-1";
       }
 
@@ -4079,6 +4098,18 @@
         const nameSpan = document.createElement('span');
         nameSpan.textContent = sheet.name;
         tab.appendChild(nameSpan);
+
+        // 定期試験アイコンを表示
+        if (sheet.isExamMode) {
+          const examIcon = document.createElement('span');
+          examIcon.className = "material-symbols-outlined";
+          examIcon.style.fontSize = "14px";
+          examIcon.style.marginLeft = "4px";
+          examIcon.style.color = "var(--md-sys-color-primary)";
+          examIcon.textContent = "event_note";
+          examIcon.title = "定期試験モード適用中";
+          tab.appendChild(examIcon);
+        }
 
         const editIcon = document.createElement('span');
         editIcon.className = "material-symbols-outlined timetable-tab-rename-icon";
@@ -4118,6 +4149,16 @@
       timetableData = activeSheet ? activeSheet.data : {};
       
       saveTimetablesToStorage();
+
+      // 定期試験モードUIの更新
+      updateExamModeBtnUI();
+
+      // 曜日別の開始時間表示を再更新
+      const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      days.forEach(day => {
+        applyDayFirstPeriodTimeUI(day);
+      });
+
       renderTimetableTabs();
       renderTimetable();
     }
@@ -4129,6 +4170,7 @@
       const newSheet = {
         id: newSheetId,
         name: newSheetName,
+        isExamMode: false,
         data: {}
       };
       
@@ -4137,6 +4179,15 @@
       timetableData = newSheet.data;
 
       saveTimetablesToStorage();
+
+      // 新規シート作成時は試験モードをOFFにリセット
+      updateExamModeBtnUI();
+
+      const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      days.forEach(day => {
+        applyDayFirstPeriodTimeUI(day);
+      });
+
       renderTimetableTabs();
       renderTimetable();
       
@@ -4188,7 +4239,49 @@
       renderTimetableTabs();
     }
 
-    // パステルカラーのハッシュ選択用
+    // 定期試験モード切り替えトグル
+    function toggleExamMode() {
+      const activeSheet = timetables.find(t => t.id === activeTimetableId);
+      if (!activeSheet) return;
+
+      activeSheet.isExamMode = !activeSheet.isExamMode;
+      
+      updateExamModeBtnUI();
+
+      const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      days.forEach(day => {
+        applyDayFirstPeriodTimeUI(day);
+      });
+
+      saveTimetablesToStorage();
+      renderTimetableTabs();
+      renderTimetable();
+      updateHomeView();
+    }
+
+    function updateExamModeBtnUI() {
+      const activeSheet = timetables.find(t => t.id === activeTimetableId);
+      const isExam = activeSheet && !!activeSheet.isExamMode;
+      
+      const btn = document.getElementById('btnToggleExamMode');
+      const icon = document.getElementById('iconToggleExamMode');
+      const text = document.getElementById('textToggleExamMode');
+      if (!btn) return;
+
+      if (isExam) {
+        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-tonal');
+        icon.textContent = "event_note";
+        text.textContent = "定期試験時間表示中";
+      } else {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-tonal');
+        icon.textContent = "event_busy";
+        text.textContent = "定期試験モード";
+      }
+    }
+
+    // パステルカラー of ハッシュ選択用
     function getTimetableColorClass(subjectName) {
       if (!subjectName) return "timetable-color-0";
       let hash = 0;
@@ -4202,6 +4295,9 @@
     // 初期化処理
     function initTimetable() {
       loadTimetableData();
+
+      // 定期試験モードUIの更新
+      updateExamModeBtnUI();
 
       // 曜日別の開始時間UIをそれぞれ更新
       const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
@@ -4217,7 +4313,12 @@
     function applyDayFirstPeriodTimeUI(day) {
       const modeLabel = document.getElementById(`label-start-${day}`);
       if (modeLabel) {
-        modeLabel.textContent = dayStartTimes[day] ? "09:00" : "09:20";
+        const activeSheet = timetables.find(t => t.id === activeTimetableId);
+        if (activeSheet && activeSheet.isExamMode) {
+          modeLabel.textContent = "09:00";
+        } else {
+          modeLabel.textContent = dayStartTimes[day] ? "09:00" : "09:20";
+        }
       }
     }
 
@@ -4232,8 +4333,61 @@
 
     // 時間割の再描画
     function renderTimetable() {
+      const activeSheet = timetables.find(t => t.id === activeTimetableId);
+      const isExam = activeSheet && !!activeSheet.isExamMode;
+
+      // 6限行の表示切り替え
+      const row6 = document.getElementById('row-period-6');
+      if (row6) {
+        row6.style.display = isExam ? 'table-row' : 'none';
+      }
+
+      // 昼休みテキスト更新
+      const lunchText = document.getElementById('timetable-lunch-text');
+      if (lunchText) {
+        lunchText.textContent = isExam ? "LUNCH TIME (12:40 - 13:40)" : "LUNCH TIME (12:50 - 13:40)";
+      }
+
+      // 各時限の表示時間ラベルの一括更新
+      const normalTimes = {
+        1: "曜日別設定",
+        2: "11:10 - 12:50",
+        3: "13:40 - 15:20",
+        4: "15:30 - 17:10",
+        5: "17:20 - 19:00"
+      };
+      const examTimes = {
+        1: "09:00 - 10:00",
+        2: "10:20 - 11:20",
+        3: "11:40 - 12:40",
+        4: "13:40 - 14:40",
+        5: "15:00 - 16:00",
+        6: "16:20 - 17:20"
+      };
+
+      const periods = isExam ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4, 5];
+
+      periods.forEach(p => {
+        const row = document.getElementById(`row-period-${p}`);
+        if (!row) return;
+        const timeSpan = row.querySelector('.timetable-time-col span:last-child');
+        if (timeSpan) {
+          if (isExam) {
+            timeSpan.textContent = examTimes[p];
+            timeSpan.style.fontSize = "11px";
+          } else {
+            if (p === 1) {
+              timeSpan.textContent = "曜日別設定";
+              timeSpan.style.fontSize = "10px";
+            } else {
+              timeSpan.textContent = normalTimes[p];
+              timeSpan.style.fontSize = "11px";
+            }
+          }
+        }
+      });
+
       const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-      const periods = [1, 2, 3, 4, 5];
 
       days.forEach(day => {
         periods.forEach(period => {
@@ -4349,6 +4503,24 @@
       const roomInput = document.getElementById('modal-room');
       const notesInput = document.getElementById('modal-notes');
       const emptyCheck = document.getElementById('modal-empty-slot');
+
+      // 6限のoption要素を制御（定期試験モードなら6限を追加）
+      let opt6 = periodSelect.querySelector('option[value="6"]');
+      const activeSheet = timetables.find(t => t.id === activeTimetableId);
+      const isExam = activeSheet && !!activeSheet.isExamMode;
+
+      if (isExam) {
+        if (!opt6) {
+          opt6 = document.createElement('option');
+          opt6.value = "6";
+          opt6.textContent = "6限";
+          periodSelect.appendChild(opt6);
+        }
+      } else {
+        if (opt6) {
+          opt6.remove();
+        }
+      }
 
       // リセット
       subjectInput.value = "";
@@ -6613,14 +6785,31 @@
         return `<p style="margin: 0; color: var(--md-sys-color-outline);">日曜日は授業がありません。ゆっくり休みましょう！</p>`;
       }
 
-      const isEarly = dayStartTimes && dayStartTimes[day];
-      const periods = [
-        { p: 1, start: isEarly ? "09:00" : "09:20", end: isEarly ? "10:40" : "11:00", sm: isEarly ? 540 : 560, em: isEarly ? 640 : 660 },
-        { p: 2, start: isEarly ? "10:50" : "11:10", end: isEarly ? "12:30" : "12:50", sm: isEarly ? 650 : 670, em: isEarly ? 750 : 770 },
-        { p: 3, start: isEarly ? "13:30" : "13:50", end: isEarly ? "15:10" : "15:30", sm: isEarly ? 810 : 830, em: isEarly ? 910 : 930 },
-        { p: 4, start: isEarly ? "15:20" : "15:40", end: isEarly ? "17:00" : "17:20", sm: isEarly ? 920 : 940, em: isEarly ? 1020 : 1040 },
-        { p: 5, start: isEarly ? "17:10" : "17:30", end: isEarly ? "18:50" : "19:10", sm: isEarly ? 1030 : 1050, em: isEarly ? 1130 : 1150 }
-      ];
+      const activeSheet = timetables.find(t => t.id === activeTimetableId);
+      const isExam = activeSheet && !!activeSheet.isExamMode;
+
+      let periods = [];
+      if (isExam) {
+        // 定期試験モードの時間枠 (1限〜6限)
+        periods = [
+          { p: 1, start: "09:00", end: "10:00", sm: 540, em: 600 },
+          { p: 2, start: "10:20", end: "11:20", sm: 620, em: 680 },
+          { p: 3, start: "11:40", end: "12:40", sm: 700, em: 760 },
+          { p: 4, start: "13:40", end: "14:40", sm: 820, em: 880 },
+          { p: 5, start: "15:00", end: "16:00", sm: 900, em: 960 },
+          { p: 6, start: "16:20", end: "17:20", sm: 980, em: 1040 }
+        ];
+      } else {
+        // 通常授業モードの時間枠
+        const isEarly = dayStartTimes && dayStartTimes[day];
+        periods = [
+          { p: 1, start: isEarly ? "09:00" : "09:20", end: isEarly ? "10:40" : "11:00", sm: isEarly ? 540 : 560, em: isEarly ? 640 : 660 },
+          { p: 2, start: isEarly ? "10:50" : "11:10", end: isEarly ? "12:30" : "12:50", sm: isEarly ? 650 : 670, em: isEarly ? 750 : 770 },
+          { p: 3, start: isEarly ? "13:30" : "13:50", end: isEarly ? "15:10" : "15:30", sm: isEarly ? 810 : 830, em: isEarly ? 910 : 930 },
+          { p: 4, start: isEarly ? "15:20" : "15:40", end: isEarly ? "17:00" : "17:20", sm: isEarly ? 920 : 940, em: isEarly ? 1020 : 1040 },
+          { p: 5, start: isEarly ? "17:10" : "17:30", end: isEarly ? "18:50" : "19:10", sm: isEarly ? 1030 : 1050, em: isEarly ? 1130 : 1150 }
+        ];
+      }
 
       const curMin = now.getHours() * 60 + now.getMinutes();
 
@@ -6639,9 +6828,11 @@
         const classObj = timetableData && timetableData[key];
         if (classObj && !classObj.isEmptySlot && classObj.subject) {
           const diff = activePeriod.em - curMin;
+          const classLabel = isExam ? "現在試験中" : "現在授業中";
+          const remainLabel = isExam ? "試験終了まで" : "授業終了まで";
           activeClassHtml = `
             <div class="tracker-highlight">
-              <div style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-primary); margin-bottom: 2px;">現在授業中</div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--md-sys-color-primary); margin-bottom: 2px;">${classLabel}</div>
               <div class="tracker-subject" style="cursor: pointer; text-decoration: underline;" onclick="openHomeClassModal('${key}')">${classObj.subject}</div>
               <div class="tracker-details">
                 <span style="display: inline-flex; align-items: center; gap: 2px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor" class="material-symbols-outlined" style="width: 14px; height: 14px; font-size: 14px;"><path d="M120-120v-80h80v-640h400v40h160v600h80v80H680v-600h-80v600H120Zm160-640v560-560Zm188.5 308.5Q480-463 480-480t-11.5-28.5Q457-520 440-520t-28.5 11.5Q400-497 400-480t11.5 28.5Q423-440 440-440t28.5-11.5ZM280-200h240v-560H280v560Z"/></svg>${classObj.room || '教室未登録'}</span>
@@ -6649,7 +6840,7 @@
               </div>
             </div>
             <div style="margin-bottom: 12px;">
-              <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">授業終了まで</span>
+              <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">${remainLabel}</span>
               <div class="countdown-timer">${diff}<span class="countdown-unit">分</span></div>
             </div>
           `;
@@ -6676,9 +6867,11 @@
         // 現在進行中の授業がないときのみ、次の授業のカウントダウンを表示
         const diff = nextPeriod.sm - curMin;
         const key = `${day}-${nextPeriod.p}`;
+        const nextLabel = isExam ? "次の試験" : "次の授業";
+        const startLabel = isExam ? "試験開始まで" : "授業開始まで";
         countdownHtml = `
           <div class="tracker-highlight" style="border-left-color: #4CAF50;">
-            <div style="font-size: 11px; font-weight: 700; color: #4CAF50; margin-bottom: 2px;">次の授業</div>
+            <div style="font-size: 11px; font-weight: 700; color: #4CAF50; margin-bottom: 2px;">${nextLabel}</div>
             <div class="tracker-subject" style="cursor: pointer; text-decoration: underline;" onclick="openHomeClassModal('${key}')">${nextClassObj.subject}</div>
             <div class="tracker-details">
               <span style="display: inline-flex; align-items: center; gap: 2px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="1em" height="1em" fill="currentColor" class="material-symbols-outlined" style="width: 14px; height: 14px; font-size: 14px;"><path d="M120-120v-80h80v-640h400v40h160v600h80v80H680v-600h-80v600H120Zm160-640v560-560Zm188.5 308.5Q480-463 480-480t-11.5-28.5Q457-520 440-520t-28.5 11.5Q400-497 400-480t11.5 28.5Q423-440 440-440t28.5-11.5ZM280-200h240v-560H280v560Z"/></svg>${nextClassObj.room || '教室未登録'}</span>
@@ -6686,7 +6879,7 @@
             </div>
           </div>
           <div style="margin-bottom: 12px;">
-            <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">授業開始まで</span>
+            <span style="font-size: 13px; color: var(--md-sys-color-on-surface-variant);">${startLabel}</span>
             <div class="countdown-timer">${diff}<span class="countdown-unit">分</span></div>
           </div>
         `;
@@ -6697,7 +6890,7 @@
       let nextSlotPeriod = null;
       if (activePeriod) {
         // 現在授業中の場合は、それより後の時限で最初の授業を探す
-        for (let p = activePeriod.p + 1; p <= 5; p++) {
+        for (let p = activePeriod.p + 1; p <= periods.length; p++) {
           const key = `${day}-${p}`;
           const classObj = timetableData && timetableData[key];
           if (classObj && !classObj.isEmptySlot && classObj.subject) {

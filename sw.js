@@ -1,4 +1,4 @@
-const CACHE_NAME = 'opentcu-cache-v10';
+const CACHE_NAME = 'opentcu-cache-v11';
 const ASSETS_TO_CACHE = [
   './index.html',
   './config.js',
