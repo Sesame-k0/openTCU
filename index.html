@@ -2646,6 +2646,9 @@
       <li class="nav-item" id="nav-settings" onclick="switchView('settings', this)">
         <span class="material-symbols-outlined">settings</span>設定
       </li>
+      <li class="nav-item" id="nav-about" onclick="switchView('about', this)">
+        <span class="material-symbols-outlined">info</span>openTCUとは
+      </li>
     </ul>
 
     <!-- ドラッグハンドル -->
@@ -3514,6 +3517,60 @@
       </div>
     </section>
 
+    <!-- openTCUとは（説明書・利用規約） -->
+    <section id="view-about" class="view-section">
+      <h2
+        style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
+        <span class="material-symbols-outlined" style="font-size: 24px;">info</span>openTCUとは
+      </h2>
+
+      <div class="material-card" style="padding: 24px; display: flex; flex-direction: column; gap: 20px; border-radius: 16px; margin-bottom: 24px;">
+        <div>
+          <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 16px; font-weight: 600; color: var(--md-sys-color-primary);">完全オフライン構造</h3>
+          <p style="margin: 0; font-size: 13px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant);">
+            openTCUは、一切のサーバー通信を行わず、データを取得・蓄積しない**完全オフライン構造**です。
+            あなたが登録した時間割やプロフィール、メモ帳などのあらゆる個人データは、すべてあなたの端末のブラウザ（LocalStorage）にのみ安全に保存されます。<br>
+            運営側は、皆さんの入力データ、利用履歴などを一切保持・取得していません。
+          </p>
+        </div>
+
+        <div>
+          <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 16px; font-weight: 600; color: var(--md-sys-color-primary);">データの自己管理のお願い</h3>
+          <p style="margin: 0; font-size: 13px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant);">
+            データがサーバーではなくローカルにしか存在しないため、ブラウザのキャッシュ消去や履歴の初期化を行うと、登録されたデータも同時に消去されます。
+            大切なデータは、定期的に「設定」画面下部から**「すべてのデータを出力 (JSON)」**してご自身でバックアップを取るようお願いいたします。
+          </p>
+        </div>
+
+        <div>
+          <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 16px; font-weight: 600; color: var(--md-sys-color-primary);">情報の正確性について</h3>
+          <p style="margin: 0; font-size: 13px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant);">
+            学食メニューやバスの時刻表、外部リンクなど、openTCUに掲載されている情報はあくまで「参考情報」としてご利用ください。
+            変更されている場合や誤りがある可能性もありますので、重要なスケジュールや公式な手続き等は、必ず大学公式の「Webシステム」や案内掲示板をご確認ください。
+          </p>
+        </div>
+
+        <div>
+          <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 16px; font-weight: 600; color: var(--md-sys-color-primary);">開発と運営体制</h3>
+          <p style="margin: 0; font-size: 13px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant);">
+            このサイトは大学非公認の有志ファンサイトです。使用に伴ういかなる損害・不利益についても、運営は一切の責任を負いかねます。自己責任でご使用ください。<br>
+            なお、本アプリのコードはすべて最先端の**生成AI（Google DeepMind Antigravity）**を用いて自動生成されています。AIが苦手な方や拒絶感のある方はご利用をお控えいただくのが良いかもしれません。
+          </p>
+        </div>
+      </div>
+
+      <div class="material-card" style="padding: 24px; border-radius: 16px;">
+        <h3 style="margin-top: 0; margin-bottom: 12px; font-size: 15px; font-weight: 600; color: var(--md-sys-color-error); display: flex; align-items: center; gap: 6px;">
+          <span class="material-symbols-outlined">gavel</span>簡易利用規約 & プライバシーポリシー
+        </h3>
+        <ul style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; color: var(--md-sys-color-on-surface-variant); display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>違法行為の禁止:</strong> 本サイトの運営を妨げる行為や、不正なスクリプトを用いたサーバーやホスティングへのハッキング（DDOS攻撃等）は行わないでください（※サイトは静的ファイルホスティング上で動作しています）。</li>
+          <li><strong>自己責任の原則:</strong> 本サイトからダウンロードしたJSONや画像等のデータの取り扱い、および本サイト内の機能（外部への時間割ファイル受け渡しなど）は、利用者の自己の責任において行ってください。</li>
+          <li><strong>個人情報の不保持:</strong> 運営は一切の個人情報・履歴情報を取得・収集しません。</li>
+        </ul>
+      </div>
+    </section>
+
   </main>
 
   <!-- 授業コマ追加・編集モーダル -->
@@ -3549,6 +3606,13 @@
             </select>
           </div>
         </div>
+
+        <!-- 対開講スロットコンテナ -->
+        <div id="linkedSlotsContainer" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;"></div>
+        
+        <button type="button" class="btn btn-outline" onclick="addLinkedSlotRow()" style="height: 32px; padding: 4px 12px; font-size: 11px; margin-bottom: 16px; border-radius: 16px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--md-sys-color-outline);">
+          <span class="material-symbols-outlined" style="font-size: 14px;">add</span>対開講（別曜日・時限）を追加
+        </button>
 
         <div class="form-group">
           <label for="modal-subject">授業名</label>
@@ -4419,6 +4483,273 @@
         } else {
           btnDelete.style.opacity = "1";
           btnDelete.style.pointerEvents = "auto";
+        }
+      }
+    }
+
+    // 対開講の入力行を追加
+    function addLinkedSlotRow(dayVal = "", periodVal = "") {
+      const container = document.getElementById('linkedSlotsContainer');
+      if (!container) return;
+
+      const rowDiv = document.createElement('div');
+      rowDiv.className = 'linked-slot-row';
+      rowDiv.style.display = 'flex';
+      rowDiv.style.alignItems = 'center';
+      rowDiv.style.gap = '8px';
+      rowDiv.style.marginTop = '4px';
+
+      // 曜日セレクト
+      const daySel = document.createElement('select');
+      daySel.className = 'form-control linked-day';
+      daySel.style.flex = '1';
+      const days = [
+        { v: 'mon', n: '月曜日' },
+        { v: 'tue', n: '火曜日' },
+        { v: 'wed', n: '水曜日' },
+        { v: 'thu', n: '木曜日' },
+        { v: 'fri', n: '金曜日' },
+        { v: 'sat', n: '土曜日' }
+      ];
+      days.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.v;
+        opt.textContent = d.n;
+        daySel.appendChild(opt);
+      });
+      if (dayVal) daySel.value = dayVal;
+
+      // 時限セレクト
+      const periodSel = document.createElement('select');
+      periodSel.className = 'form-control linked-period';
+      periodSel.style.flex = '1';
+      
+      const activeSheet = timetables.find(t => t.id === activeTimetableId);
+      const isExam = activeSheet && !!activeSheet.isExamMode;
+      const maxPeriod = isExam ? 6 : 5;
+
+      for (let p = 1; p <= maxPeriod; p++) {
+        const opt = document.createElement('option');
+        opt.value = p.toString();
+        opt.textContent = `${p}限`;
+        periodSel.appendChild(opt);
+      }
+      if (periodVal) periodSel.value = periodVal;
+
+      // 削除ボタン
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'icon-button';
+      delBtn.style.color = 'var(--md-sys-color-error)';
+      delBtn.style.padding = '4px';
+      delBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 20px;">delete</span>';
+      delBtn.onclick = () => {
+        rowDiv.remove();
+      };
+
+      rowDiv.appendChild(daySel);
+      rowDiv.appendChild(periodSel);
+      rowDiv.appendChild(delBtn);
+
+      container.appendChild(rowDiv);
+    }
+
+    // モーダルを開く
+    function openTimetableAddModal(day, period) {
+      const modal = document.getElementById('timetableModalOverlay');
+      const title = document.getElementById('timetableModalTitle');
+      const daySelect = document.getElementById('modal-day');
+      const periodSelect = document.getElementById('modal-period');
+
+      const subjectInput = document.getElementById('modal-subject');
+      const teacherInput = document.getElementById('modal-teacher');
+      const roomInput = document.getElementById('modal-room');
+      const notesInput = document.getElementById('modal-notes');
+      const emptyCheck = document.getElementById('modal-empty-slot');
+
+      // 対開講スロットUIをリセット
+      const linkedContainer = document.getElementById('linkedSlotsContainer');
+      if (linkedContainer) linkedContainer.innerHTML = "";
+
+      // 6限のoption要素を制御（定期試験モードなら6限を追加）
+      let opt6 = periodSelect.querySelector('option[value="6"]');
+      const activeSheet = timetables.find(t => t.id === activeTimetableId);
+      const isExam = activeSheet && !!activeSheet.isExamMode;
+
+      if (isExam) {
+        if (!opt6) {
+          opt6 = document.createElement('option');
+          opt6.value = "6";
+          opt6.textContent = "6限";
+          periodSelect.appendChild(opt6);
+        }
+      } else {
+        if (opt6) {
+          opt6.remove();
+        }
+      }
+
+      // リセット
+      subjectInput.value = "";
+      teacherInput.value = "";
+      roomInput.value = "";
+      notesInput.value = "";
+      emptyCheck.checked = false;
+
+      // 曜日・時限のセレクトボックスは常に編集可能にしておく（ユーザー選択可能仕様）
+      daySelect.disabled = false;
+      periodSelect.disabled = false;
+
+      if (day && period) {
+        // 特定コマクリック時
+        daySelect.value = day;
+        periodSelect.value = period;
+
+        const entry = timetableData[`${day}-${period}`];
+        if (entry) {
+          title.textContent = "授業を編集";
+          subjectInput.value = entry.subject || "";
+          teacherInput.value = entry.teacher || "";
+          roomInput.value = entry.room || "";
+          notesInput.value = entry.notes || "";
+          emptyCheck.checked = !!entry.isEmptySlot;
+
+          // linkId があれば対開講スロットを復元
+          if (entry.linkId) {
+            Object.keys(timetableData).forEach(key => {
+              if (key === `${day}-${period}`) return; // 自分自身は除く
+              const item = timetableData[key];
+              if (item && item.linkId === entry.linkId) {
+                const [itemDay, itemPeriod] = key.split('-');
+                addLinkedSlotRow(itemDay, itemPeriod);
+              }
+            });
+          }
+        } else {
+          title.textContent = "授業を追加";
+        }
+      } else {
+        // 右上「授業を追加」ボタンクリック時
+        daySelect.value = "mon";
+        periodSelect.value = "1";
+        title.textContent = "授業を追加";
+      }
+
+      // 空きコマ状態に連動してフィールドの有効・無効化を適用
+      toggleModalFieldsForEmptySlot();
+
+      modal.classList.add('show');
+    }
+
+    // モーダルを閉じる
+    function closeTimetableModal() {
+      const modal = document.getElementById('timetableModalOverlay');
+      modal.classList.remove('show');
+    }
+
+    // 保存する
+    function saveTimetableEntry() {
+      const day = document.getElementById('modal-day').value;
+      const period = parseInt(document.getElementById('modal-period').value, 10);
+
+      const subject = document.getElementById('modal-subject').value.trim();
+      const teacher = document.getElementById('modal-teacher').value.trim();
+      const room = document.getElementById('modal-room').value.trim();
+      const notes = document.getElementById('modal-notes').value.trim();
+      const isEmptySlot = document.getElementById('modal-empty-slot').checked;
+
+      // 対開講の入力値を取得
+      const linkedRows = document.querySelectorAll('.linked-slot-row');
+      const slots = [{ day, period }]; // 自分自身
+
+      linkedRows.forEach(row => {
+        const d = row.querySelector('.linked-day').value;
+        const p = parseInt(row.querySelector('.linked-period').value, 10);
+        // 重複チェック
+        if (!slots.some(s => s.day === d && s.period === p)) {
+          slots.push({ day: d, period: p });
+        }
+      });
+
+      if (!isEmptySlot && !subject) {
+        alert("授業名を入力してください。");
+        return;
+      }
+
+      // linkId の決定
+      let linkId = null;
+      const currentEntry = timetableData[`${day}-${period}`];
+      if (currentEntry && currentEntry.linkId) {
+        linkId = currentEntry.linkId;
+      } else {
+        // 対開講スロットがある場合、または新規にグループを作る
+        if (slots.length > 1) {
+          linkId = "link_" + Math.random().toString(36).substr(2, 9);
+        }
+      }
+
+      // 編集前の古い linkId に紐づいていたコマを一旦すべてクリーンアップ
+      // （※ 対開講リストから削除された曜日・時限のコマを消去するため）
+      if (currentEntry && currentEntry.linkId) {
+        Object.keys(timetableData).forEach(key => {
+          if (timetableData[key] && timetableData[key].linkId === currentEntry.linkId) {
+            delete timetableData[key];
+          }
+        });
+      }
+
+      // 新たに設定されたスロットのすべてにデータを適用
+      slots.forEach(slot => {
+        timetableData[`${slot.day}-${slot.period}`] = {
+          subject: isEmptySlot ? "空きコマ" : subject,
+          teacher: isEmptySlot ? "" : teacher,
+          room: isEmptySlot ? "" : room,
+          notes: isEmptySlot ? "" : notes,
+          isEmptySlot: isEmptySlot,
+          linkId: linkId // 対開講グループID
+        };
+      });
+
+      try {
+        saveTimetablesToStorage();
+      } catch (e) {
+        console.error("Failed to save timetable to localStorage:", e);
+      }
+
+      renderTimetable();
+      closeTimetableModal();
+      updateHomeView();
+    }
+
+    // 削除する
+    function deleteTimetableEntry(day, period) {
+      const key = `${day}-${period}`;
+      const entry = timetableData[key];
+      if (!entry) return;
+
+      const displayName = entry.isEmptySlot ? "空きコマ" : (entry.subject || "この授業");
+
+      if (entry.linkId) {
+        if (confirm(`「${displayName}」は対開講として登録されています。\nすべての曜日の対開講コマを一緒に削除しますか？`)) {
+          Object.keys(timetableData).forEach(k => {
+            if (timetableData[k] && timetableData[k].linkId === entry.linkId) {
+              delete timetableData[k];
+            }
+          });
+          try {
+            saveTimetablesToStorage();
+          } catch (e) { }
+          renderTimetable();
+          updateHomeView();
+        }
+      } else {
+        if (confirm(`「${displayName}」を時間割から削除しますか？`)) {
+          delete timetableData[key];
+          try {
+            saveTimetablesToStorage();
+          } catch (e) { }
+          renderTimetable();
+          updateHomeView();
         }
       }
     }
@@ -5680,107 +6011,43 @@
       if (loadingDiv) loadingDiv.style.display = 'none';
       if (menuTable) menuTable.style.display = 'table';
 
-      // 1. 土曜日の特別表示処理
-      if (isSaturdayState(selectedDay)) {
-        infoCard.style.display = 'block';
-        infoIcon.textContent = 'storefront';
-        infoTitle.textContent = '土曜日のメニューについて';
-        infoText.innerHTML = '土曜日のメニューの情報は、食堂からは提供されておりません。<br>ショーケースでご確認ください。';
+      // 朝食メニュー（100円朝食）のデータ
+      const breakfastData = [
+        ["月", "SC 学生食堂", "朝食カウンター", "100円朝食 (カレー)", "100円", "---", true],
+        ["火", "SC 学生食堂", "朝食カウンター", "100円朝食 (炒め物)", "100円", "---", true],
+        ["水", "SC 学生食堂", "朝食カウンター", "100円朝食 (うどん)", "100円", "---", true],
+        ["木", "SC 学生食堂", "朝食カウンター", "100円朝食 (フライ)", "100円", "---", true],
+        ["金", "SC 学生食堂", "朝食カウンター", "100円朝食 (焼き魚)", "100円", "---", true],
+        ["月", "YC 学生食堂", "朝食カウンター", "100円朝食 (カレー)", "100円", "---", true],
+        ["火", "YC 学生食堂", "朝食カウンター", "100円朝食 (炒め物)", "100円", "---", true],
+        ["水", "YC 学生食堂", "朝食カウンター", "100円朝食 (うどん)", "100円", "---", true],
+        ["木", "YC 学生食堂", "朝食カウンター", "100円朝食 (フライ)", "100円", "---", true],
+        ["金", "YC 学生食堂", "朝食カウンター", "100円朝食 (焼き魚)", "100円", "---", true]
+      ];
 
-        // すべての曜日（ALL）かつ店舗フィルターしたデータをグレーアウトで表示
-        const filteredData = allData.filter(row => {
-          const matchShop = (selectedShop === "ALL" || row[1] === selectedShop);
+      // 1. 朝食メニューのフィルター
+      const filteredBreakfast = breakfastData.filter(row => {
+        const matchDay = (selectedDay === "ALL" || row[0] === selectedDay);
+        const matchShop = (selectedShop === "ALL" || row[1] === selectedShop);
 
-          let matchPrice = true;
-          if (!isNaN(priceLimit) && priceCondition !== "ALL") {
-            const priceVal = parsePrice(row[4]);
-            if (priceCondition === "LE") {
-              matchPrice = (priceVal <= priceLimit);
-            } else if (priceCondition === "GE") {
-              matchPrice = (priceVal >= priceLimit);
-            }
+        let matchPrice = true;
+        if (!isNaN(priceLimit) && priceCondition !== "ALL") {
+          const priceVal = parsePrice(row[4]);
+          if (priceCondition === "LE") {
+            matchPrice = (priceVal <= priceLimit);
+          } else if (priceCondition === "GE") {
+            matchPrice = (priceVal >= priceLimit);
           }
-          return matchShop && matchPrice;
-        });
+        }
+        return matchDay && matchShop && matchPrice;
+      });
 
-        renderTable(filteredData, { forceUnavailable: true, forceReason: "データなし" });
-        return;
-      }
-
-      // 2. 平日夕食の特別表示処理
-      if (currentStatus.mealType === 'dinner') {
-        infoCard.style.display = 'block';
-        infoIcon.textContent = 'dinner_dining';
-        infoTitle.textContent = '夕食のメニューについて';
-        infoText.innerHTML = '夕食のメニューの情報は、食堂からは提供されておりません。<br>ショーケースで直接ご確認ください。';
-
-        // 表示自体はグレーアウト
-        const filteredData = allData.filter(row => {
-          const rowDayFormatted = formatDayCell(row[0]);
-          const matchDay = (selectedDay === "ALL" || rowDayFormatted === selectedDay);
-          const matchShop = (selectedShop === "ALL" || row[1] === selectedShop);
-
-          let matchPrice = true;
-          if (!isNaN(priceLimit) && priceCondition !== "ALL") {
-            const priceVal = parsePrice(row[4]);
-            if (priceCondition === "LE") {
-              matchPrice = (priceVal <= priceLimit);
-            } else if (priceCondition === "GE") {
-              matchPrice = (priceVal >= priceLimit);
-            }
-          }
-          return matchDay && matchShop && matchPrice;
-        });
-
-        renderTable(filteredData, { forceUnavailable: true, forceReason: "提供なし" });
-        return;
-      }
-
-      // 3. 朝食の特別表示処理
-      if (currentStatus.mealType === 'breakfast') {
-        infoCard.style.display = 'block';
-        infoIcon.textContent = 'wb_sunny';
-        infoTitle.textContent = '朝食メニューのご案内';
-        infoText.innerHTML = 'おはようございます。学食メニュー（100円朝食）は以下のとおりです。';
-
-        // 曜日サイクル固定メニュー
-        const breakfastData = [
-          ["月", "SC 学生食堂", "朝食カウンター", "100円朝食 (カレー)", "100円", "540"],
-          ["火", "SC 学生食堂", "朝食カウンター", "100円朝食 (炒め物)", "100円", "510"],
-          ["水", "SC 学生食堂", "朝食カウンター", "100円朝食 (うどん)", "100円", "430"],
-          ["木", "SC 学生食堂", "朝食カウンター", "100円朝食 (フライ)", "100円", "580"],
-          ["金", "SC 学生食堂", "朝食カウンター", "100円朝食 (焼き魚)", "100円", "490"],
-          ["月", "YC 学生食堂", "朝食カウンター", "100円朝食 (カレー)", "100円", "540"],
-          ["火", "YC 学生食堂", "朝食カウンター", "100円朝食 (炒め物)", "100円", "510"],
-          ["水", "YC 学生食堂", "朝食カウンター", "100円朝食 (うどん)", "100円", "430"],
-          ["木", "YC 学生食堂", "朝食カウンター", "100円朝食 (フライ)", "100円", "580"],
-          ["金", "YC 学生食堂", "朝食カウンター", "100円朝食 (焼き魚)", "100円", "490"]
-        ];
-
-        const filteredBreakfast = breakfastData.filter(row => {
-          const matchDay = (selectedDay === "ALL" || row[0] === selectedDay);
-          const matchShop = (selectedShop === "ALL" || row[1] === selectedShop);
-
-          let matchPrice = true;
-          if (!isNaN(priceLimit) && priceCondition !== "ALL") {
-            const priceVal = parsePrice(row[4]);
-            if (priceCondition === "LE") {
-              matchPrice = (priceVal <= priceLimit);
-            } else if (priceCondition === "GE") {
-              matchPrice = (priceVal >= priceLimit);
-            }
-          }
-          return matchDay && matchShop && matchPrice;
-        });
-
-        renderTable(filteredBreakfast, { forceBreakfast: true });
-        return;
-      }
-
-      // 4. 通常表示
-      infoCard.style.display = 'none';
-
-      const filteredData = allData.filter(row => {
+      // 2. 通常メニューのフィルター
+      const filteredNormal = allData.map(row => {
+        const newRow = [...row];
+        newRow[6] = false; // 朝食フラグをfalse
+        return newRow;
+      }).filter(row => {
         const rowDayFormatted = formatDayCell(row[0]);
         const matchDay = (selectedDay === "ALL" || rowDayFormatted === selectedDay);
         const matchShop = (selectedShop === "ALL" || row[1] === selectedShop);
@@ -5794,11 +6061,35 @@
             matchPrice = (priceVal >= priceLimit);
           }
         }
-
         return matchDay && matchShop && matchPrice;
       });
 
-      renderTable(filteredData);
+      // 3. 結合
+      const combinedData = filteredBreakfast.concat(filteredNormal);
+
+      // 4. 土曜日の特別表示処理
+      if (isSaturdayState(selectedDay)) {
+        infoCard.style.display = 'block';
+        infoIcon.textContent = 'storefront';
+        infoTitle.textContent = '土曜日のメニューについて';
+        infoText.innerHTML = '土曜日のメニューの情報は、食堂からは提供されておりません。<br>ショーケースでご確認ください。';
+        renderTable(combinedData, { forceUnavailable: true, forceReason: "データなし" });
+        return;
+      }
+
+      // 5. 平日夕食の特別表示処理
+      if (currentStatus.mealType === 'dinner') {
+        infoCard.style.display = 'block';
+        infoIcon.textContent = 'dinner_dining';
+        infoTitle.textContent = '夕食のメニューについて';
+        infoText.innerHTML = '夕食のメニューの情報は、食堂からは提供されておりません。<br>ショーケースで直接ご確認ください。';
+        renderTable(combinedData, { forceUnavailable: true, forceReason: "提供なし" });
+        return;
+      }
+
+      // 6. 通常＆朝食の表示
+      infoCard.style.display = 'none';
+      renderTable(combinedData);
     }
 
     function renderTable(dataArray, options = {}) {
@@ -5810,6 +6101,7 @@
 
       const now = new Date();
       const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const isBreakfastTime = (status.mealType === 'breakfast');
 
       dataArray.forEach(row => {
         if (!row[0]) return;
@@ -5818,23 +6110,35 @@
         let isUnavailable = false;
         let reason = "";
 
+        const isRowBreakfast = !!row[6];
+
         if (options.forceUnavailable) {
           isUnavailable = true;
           reason = options.forceReason || "データなし";
-        } else if (options.forceBreakfast) {
-          isUnavailable = false; // 朝食モード時はグレーアウトしない
         } else {
-          if (!status.open) {
-            isUnavailable = true;
-            reason = "時間外";
+          if (isRowBreakfast) {
+            // 朝食メニュー
+            if (!isBreakfastTime) {
+              isUnavailable = true;
+              reason = "朝食時間外 (8:15〜9:30)";
+            }
           } else {
-            const menuName = row[3] || "";
-            if (menuName.includes("コスパ丼")) {
-              const isLunchTime = (status.mealType === 'lunch');
-              const isCospaTime = (currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60);
-              if (!isLunchTime || !isCospaTime) {
-                isUnavailable = true;
-                reason = "13:30〜提供";
+            // 通常メニュー
+            if (isBreakfastTime) {
+              isUnavailable = true;
+              reason = "朝食時間帯は提供なし";
+            } else if (!status.open) {
+              isUnavailable = true;
+              reason = "時間外";
+            } else {
+              const menuName = row[3] || "";
+              if (menuName.includes("コスパ丼")) {
+                const isLunchTime = (status.mealType === 'lunch');
+                const isCospaTime = (currentMinutes >= 13 * 60 + 30 && currentMinutes < 14 * 60);
+                if (!isLunchTime || !isCospaTime) {
+                  isUnavailable = true;
+                  reason = "13:30〜提供";
+                }
               }
             }
           }
@@ -5845,11 +6149,11 @@
         }
 
         row.forEach((cell, index) => {
+          if (index > 5) return; // 朝食フラグはループさせない
           let cellText = cell;
           if (index === 5 && !cellText) cellText = "-";
 
           const td = document.createElement('td');
-
           td.setAttribute('data-label', headers[index]);
 
           if (index === 0) {
@@ -5876,7 +6180,6 @@
 
               td.innerHTML = `<span style="font-size:12px; font-weight:500; color:var(--md-sys-color-on-surface-variant);">${month}月${date}日</span><br><span class="badge ${badgeClass}" style="margin-top:4px;">(${dayName})</span>`;
             } else {
-              // 日付形式でない（モック等の曜日単体の文字列）場合
               const dayText = formatDayCell(rawCell);
               let badgeClass = "badge-day";
               if (dayText === "月" || dayText === "火" || dayText === "木" || dayText === "金") {
@@ -5896,7 +6199,12 @@
             td.innerHTML = `<strong class="price-text">${cellText}</strong>`;
             td.classList.add('text-right');
           } else if (index === 5) {
-            const calDisplay = cellText !== "-" ? `${cellText} kcal` : "-";
+            let calDisplay = "-";
+            if (cellText === "---") {
+              calDisplay = "---";
+            } else if (cellText !== "-" && cellText !== "") {
+              calDisplay = `${cellText} kcal`;
+            }
             td.innerHTML = `<span style="font-family:'Outfit',sans-serif; font-weight:500;">${calDisplay}</span>`;
             td.classList.add('text-right');
           } else if (index === 3) {
@@ -5919,6 +6227,10 @@
           tdCal.classList.add('text-right');
           tr.appendChild(tdCal);
         }
+
+        tbody.appendChild(tr);
+      });
+    }
 
         tbody.appendChild(tr);
       });
