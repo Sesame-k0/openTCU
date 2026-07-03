@@ -10696,6 +10696,8 @@
         rtdb.ref(`rooms/${roomId}/guestSignal/answer`).off();
         rtdb.ref(`rooms/${roomId}/hostSignal/candidates`).off();
         rtdb.ref(`rooms/${roomId}/guestSignal/candidates`).off();
+        // Clear Firebase room from database if it exists to prevent stale/abandoned data
+        rtdb.ref(`rooms/${roomId}`).remove().catch(e => {});
       }
       
       if (dataChannel) {
