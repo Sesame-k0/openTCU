@@ -11,6 +11,15 @@
     (function () {
       const savedTheme = localStorage.getItem('theme') || 'light';
       document.documentElement.setAttribute('data-theme', savedTheme);
+      
+      // Override localStorage.setItem to keep track of modifications
+      const originalSetItem = localStorage.setItem;
+      localStorage.setItem = function(key, value) {
+        originalSetItem.apply(this, arguments);
+        if (key.startsWith('opentcu_') && key !== 'opentcu_last_modified' && !window.preventAutoLastModifiedUpdate) {
+          originalSetItem.call(this, 'opentcu_last_modified', Date.now().toString());
+        }
+      };
     })();
   </script>
   <script>
@@ -33,6 +42,9 @@
   <script src="./config.js"></script>
   <!-- HTML to Canvas for timetable image export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
   <!-- QR Code generation and scanning libraries -->
   <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js" defer></script>
@@ -3052,6 +3064,39 @@
         font-size: 12px !important;
       }
     }
+    
+    /* === デバイス間同期 (P2P) 用のCSS === */
+    @keyframes pulse-green {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(76, 175, 80, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+      }
+    }
+    .sync-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #4caf50;
+      box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    }
+    .sync-dot.active {
+      animation: pulse-green 2s infinite;
+    }
+    .sync-dot.inactive {
+      background-color: var(--md-sys-color-outline-variant);
+      animation: none;
+    }
   </style>
 </head>
 
@@ -3075,7 +3120,12 @@
       <span
         style="font-size: 10px; font-weight: 700; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); padding: 2px 8px; border-radius: 20px; line-height: 1; margin-left: 2px; border: 1px solid var(--md-sys-color-outline-variant);">Beta</span>
     </div>
-    <button class="icon-button" onclick="openContactModal()" aria-label="Contact" style="margin-left: auto;">
+    <!-- Sync Status Indicator -->
+    <button class="icon-button" id="sync-status-indicator" onclick="switchView('sync', document.getElementById('nav-sync'))" aria-label="Sync Status" style="margin-left: auto; position: relative;">
+      <span class="material-symbols-outlined" id="sync-status-icon" style="color: var(--md-sys-color-outline-variant);">sync</span>
+      <span class="sync-dot inactive" id="sync-status-dot" style="display: none;"></span>
+    </button>
+    <button class="icon-button" onclick="openContactModal()" aria-label="Contact" style="margin-left: 0;">
       <span class="material-symbols-outlined">mail</span>
     </button>
     <button class="icon-button theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
@@ -3132,6 +3182,9 @@
       <div style="flex-grow: 1;"></div>
       <li class="nav-item" id="nav-links" onclick="switchView('links', this)">
         <span class="material-symbols-outlined">open_in_new</span>外部リンク集
+      </li>
+      <li class="nav-item" id="nav-sync" onclick="switchView('sync', this)">
+        <span class="material-symbols-outlined">sync</span>デバイス間同期
       </li>
       <li class="nav-item" id="nav-settings" onclick="switchView('settings', this)">
         <span class="material-symbols-outlined">settings</span>設定
@@ -3996,6 +4049,9 @@
         <button class="btn btn-outline" onclick="triggerImportAllJSON()" style="height: 40px; border-radius: 20px;">
           <span class="material-symbols-outlined">publish</span>データをインポート (JSON)
         </button>
+        <button class="btn btn-outline" onclick="switchView('sync', document.getElementById('nav-sync'))" style="height: 40px; border-radius: 20px;">
+          <span class="material-symbols-outlined">sync</span>デバイス間で同期 (P2P)
+        </button>
         <input type="file" id="importAllFileInput" accept=".json" style="display: none;"
           onchange="importAllDataJSON(event)" />
       </div>
@@ -4030,6 +4086,121 @@
           onclick="resetAllData()">
           <span class="material-symbols-outlined">delete_forever</span>すべてのデータをリセット
         </button>
+      </div>
+    </section>
+
+    <!-- デバイス間同期 (P2P) -->
+    <section id="view-sync" class="view-section">
+      <h2 style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
+        <span class="material-symbols-outlined" style="font-size: 24px;">sync</span>デバイス間同期 (P2P)
+      </h2>
+      
+      <div class="material-card" style="margin-bottom: 24px; padding: 20px; border-radius: 16px; background-color: var(--md-sys-color-surface-container-low);">
+        <!-- State 1: Initial Screen -->
+        <div id="sync-state-initial" class="sync-state-panel">
+          <p style="font-size: 14px; line-height: 1.6; color: var(--md-sys-color-on-surface); margin-top: 0; margin-bottom: 16px;">
+            スマートフォンやPCなど、ご自身のデバイス間で時間割データや簡易メモのデータを安全に直接同期します。<br>
+            データはWebRTCによる直接暗号化通信（P2P）で送信され、サーバー等には一切保存されません。
+          </p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+            <button class="btn btn-primary" onclick="startSyncFlow()" style="height: 40px; border-radius: 20px;">
+              <span class="material-symbols-outlined">play_arrow</span>同期を開始する
+            </button>
+            <button class="btn btn-outline" onclick="resetSyncFlow()" style="height: 40px; border-radius: 20px; color: var(--md-sys-color-error); border-color: var(--md-sys-color-error);">
+              <span class="material-symbols-outlined">refresh</span>同期をリセットする
+            </button>
+          </div>
+        </div>
+
+        <!-- State 2-4: Connecting / Setup Screen -->
+        <div id="sync-state-connecting" class="sync-state-panel" style="display: none; text-align: center; padding: 16px 0;">
+          <div class="google-spinner" id="sync-spinner" style="width: 32px; height: 32px; margin: 0 auto 16px;"></div>
+          <h3 id="sync-status-title" style="font-size: 16px; margin: 0 0 12px 0; font-weight: 600; color: var(--md-sys-color-on-surface);">同期を開始します</h3>
+          <p id="sync-status-desc" style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin: 0 0 20px 0; line-height: 1.5;">2つのデバイスを同時に起動してください</p>
+          
+          <!-- Role selection (when starting flow) -->
+          <div id="sync-role-selection" style="display: none; justify-content: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+            <button class="btn btn-outline" onclick="selectSyncRole('host')" style="height: 40px; border-radius: 20px;">
+              <span class="material-symbols-outlined">qr_code</span>QRコードを表示する
+            </button>
+            <button class="btn btn-outline" onclick="selectSyncRole('guest')" style="height: 40px; border-radius: 20px;">
+              <span class="material-symbols-outlined">qr_code_scanner</span>QRコードをスキャンする
+            </button>
+          </div>
+
+          <!-- Host QR Code view -->
+          <div id="sync-host-qr-container" style="display: none; margin: 16px 0;">
+            <div style="background-color: white; padding: 16px; display: inline-block; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant);">
+              <canvas id="syncQRCanvas" width="200" height="200"></canvas>
+            </div>
+            <p style="font-size: 12px; color: var(--md-sys-color-outline); margin-top: 8px;">Room ID: <span id="sync-room-id-label" style="font-weight: 700;">-</span></p>
+          </div>
+
+          <!-- Guest Camera scanner view -->
+          <div id="sync-guest-scanner-container" style="display: none; margin: 16px 0;">
+            <div style="position: relative; width: 100%; max-width: 320px; aspect-ratio: 1; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 2px solid var(--md-sys-color-primary); background-color: #000;">
+              <video id="syncScanVideo" style="width: 100%; height: 100%; object-fit: cover;" playsinline></video>
+              <canvas id="syncScanHiddenCanvas" style="display: none;"></canvas>
+              <!-- Scan target overlay -->
+              <div style="position: absolute; top: 15%; left: 15%; width: 70%; height: 70%; border: 2px dashed #4caf50; border-radius: 12px; box-sizing: border-box; pointer-events: none;"></div>
+            </div>
+            <div id="syncScanFeedback" style="font-size: 12px; color: var(--md-sys-color-error); margin-top: 8px;"></div>
+          </div>
+          
+          <button class="btn btn-outline" onclick="cancelSyncFlow()" style="height: 36px; border-radius: 18px; margin-top: 16px;">
+            キャンセル
+          </button>
+        </div>
+
+        <!-- State 5: Confirmation Dialog -->
+        <div id="sync-state-confirm" class="sync-state-panel" style="display: none; text-align: center; padding: 16px 0;">
+          <span class="material-symbols-outlined" style="font-size: 48px; color: var(--md-sys-color-primary); margin-bottom: 12px;">help_outline</span>
+          <h3 style="font-size: 16px; margin: 0 0 12px 0; font-weight: 600;">このデバイスと同期しますか？</h3>
+          <p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin: 0 0 20px 0; line-height: 1.5;">
+            デバイスとの接続に成功しました。このデバイスと時間割・メモの同期を実行しますか？<br>
+            ※両方のデバイスで「はい」を押すと、編集日時がより新しい方のデータでお互いのデータが自動的に上書き・同期されます。
+          </p>
+          <div style="display: flex; justify-content: center; gap: 16px;">
+            <button class="btn btn-primary" onclick="confirmSync()" style="height: 40px; border-radius: 20px;">
+              はい
+            </button>
+            <button class="btn btn-outline" onclick="cancelSyncFlow()" style="height: 40px; border-radius: 20px;">
+              いいえ
+            </button>
+          </div>
+        </div>
+
+        <!-- State 6: Syncing -->
+        <div id="sync-state-progress" class="sync-state-panel" style="display: none; text-align: center; padding: 16px 0;">
+          <div class="google-spinner" style="width: 32px; height: 32px; margin: 0 auto 16px;"></div>
+          <h3 style="font-size: 16px; margin: 0 0 12px 0; font-weight: 600;">データを同期しています</h3>
+          <p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin: 0; line-height: 1.5;">WebRTC経由で直接データを送信しています。しばらくお待ちください。</p>
+        </div>
+
+        <!-- State 7: Completed -->
+        <div id="sync-state-complete" class="sync-state-panel" style="display: none; text-align: center; padding: 16px 0;">
+          <span class="material-symbols-outlined" style="font-size: 48px; color: #4caf50; margin-bottom: 12px;">check_circle</span>
+          <h3 style="font-size: 16px; margin: 0 0 12px 0; font-weight: 600;">完了しました</h3>
+          <p style="font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin: 0; line-height: 1.5;">数秒後にダッシュボードへ自動で戻ります。</p>
+        </div>
+      </div>
+      
+      <!-- Network warning (shown when blocked or timed out) -->
+      <div id="sync-network-error-card" class="material-card" style="display: none; border-color: var(--md-sys-color-error); margin-bottom: 24px; padding: 16px; background-color: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container);">
+        <div style="display: flex; gap: 8px; align-items: flex-start;">
+          <span class="material-symbols-outlined" style="color: var(--md-sys-color-error);">error</span>
+          <div>
+            <strong style="display: block; margin-bottom: 4px;">接続が拒否されています。</strong>
+            <span style="font-size: 12px; line-height: 1.5; display: block;">
+              ヒント: 大学構内（学内Wi-Fi）ではセキュリティ制限のため接続できない可能性があります。この場合は、ご自宅のWi-Fiやマイテザリング環境等でご接続ください。
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Subtle Disclaimer text at the bottom -->
+      <div style="font-size: 10px; color: var(--md-sys-color-outline); line-height: 1.5; max-width: 600px; margin-top: 16px;">
+        ※当同期機能は、エンドツーエンドで暗号化された時間割・メモの自己デバイス間同期にのみ使用されます。不特定多数とのファイル共有や違法ダウンロード機能は構造上一切含まれていません。
       </div>
     </section>
 
@@ -6378,7 +6549,9 @@
       try { localStorage.setItem('opentcu_activeView', viewId); } catch (e) { }
 
       // ビュー特有の更新処理
-      if (viewId === 'home') {
+      if (viewId === 'sync') {
+        try { checkAutoRecovery(); } catch (e) { console.error("Error checkAutoRecovery:", e); }
+      } else if (viewId === 'home') {
         try { updateHomeView(); } catch (e) { console.error("Error updating home:", e); }
       } else if (viewId === 'settings') {
         try { loadSettingsIntoForm(); } catch (e) { console.error("Error loading settings:", e); }
@@ -9976,6 +10149,652 @@
       const modal = document.getElementById('pwaInstallModalOverlay');
       if (modal) modal.classList.remove('show');
     }
+  </script>
+
+  <!-- Device to Device Sync Handler (P2P WebRTC & Firebase RTDB Signaling) -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4KRGI5v0jUjkW6LKNXNwrbz6CyABFaWo",
+      authDomain: "gen-lang-client-0286356544.firebaseapp.com",
+      databaseURL: "https://gen-lang-client-0286356544-default-rtdb.firebaseio.com",
+      projectId: "gen-lang-client-0286356544",
+      storageBucket: "gen-lang-client-0286356544.firebasestorage.app",
+      messagingSenderId: "434175724838",
+      appId: "1:434175724838:web:e5dca15139d80d57a5c5e7"
+    };
+
+    let db = null;
+    let peerConnection = null;
+    let dataChannel = null;
+    let roomId = null;
+    let syncRole = null; // 'host' or 'guest'
+    let syncScannerStream = null;
+    let syncScannerAnimId = null;
+    let syncTimeoutId = null;
+    let isReconnecting = false;
+    let localConfirmed = false;
+    let remoteConfirmed = false;
+
+    const rtcConfig = {
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' }
+      ]
+    };
+
+    function initFirebase() {
+      if (db) return db;
+      if (typeof firebase !== 'undefined') {
+        try {
+          const app = firebase.initializeApp(firebaseConfig, "openTCUSync");
+          db = app.database();
+        } catch (e) {
+          try {
+            db = firebase.database();
+          } catch(err) {
+            console.error("Firebase Database init failed:", err);
+          }
+        }
+        return db;
+      }
+      return null;
+    }
+
+    function checkAutoRecovery() {
+      const savedRoomId = localStorage.getItem('opentcu_sync_room_id');
+      const savedRole = localStorage.getItem('opentcu_sync_role');
+      
+      showSyncPanel('initial');
+      const errCard = document.getElementById('sync-network-error-card');
+      if (errCard) errCard.style.display = 'none';
+      
+      if (savedRoomId && savedRole) {
+        console.log("Found previous sync room session:", savedRoomId, "as", savedRole);
+        startAutomaticReconnect(savedRoomId, savedRole);
+      }
+    }
+
+    function startAutomaticReconnect(savedRoomId, role) {
+      isReconnecting = true;
+      roomId = savedRoomId;
+      syncRole = role;
+      
+      showSyncPanel('connecting');
+      document.getElementById('sync-status-title').textContent = "自動再接続しています...";
+      document.getElementById('sync-status-desc').textContent = "前回のデバイスとの接続を再確立しています...";
+      document.getElementById('sync-role-selection').style.display = 'none';
+      document.getElementById('sync-host-qr-container').style.display = 'none';
+      document.getElementById('sync-guest-scanner-container').style.display = 'none';
+      const spinner = document.getElementById('sync-spinner');
+      if (spinner) spinner.style.display = 'block';
+      
+      initiateP2PConnection(true);
+    }
+
+    function initiateP2PConnection(isAutoReconnect = false) {
+      const rtdb = initFirebase();
+      if (!rtdb) {
+        console.error("Firebase is not loaded.");
+        alert("P2P同期用データベースの初期化に失敗しました。接続環境をご確認ください。");
+        cancelSyncFlow();
+        return;
+      }
+      
+      cleanupRTC();
+      
+      try {
+        peerConnection = new RTCPeerConnection(rtcConfig);
+      } catch(e) {
+        console.error("Failed to create RTCPeerConnection:", e);
+        alert("ブラウザがWebRTCをサポートしていない可能性があります。");
+        cancelSyncFlow();
+        return;
+      }
+      
+      peerConnection.onicecandidate = (event) => {
+        if (event.candidate && roomId) {
+          const candidateData = JSON.stringify(event.candidate);
+          const candidatePath = `rooms/${roomId}/${syncRole}Signal/candidates`;
+          rtdb.ref(candidatePath).push(candidateData);
+        }
+      };
+      
+      // Set connection timeout (15 seconds)
+      syncTimeoutId = setTimeout(() => {
+        console.warn("Sync connection timed out.");
+        handleSyncTimeout();
+      }, 15000);
+      
+      if (syncRole === 'host') {
+        // HOST FLOW
+        dataChannel = peerConnection.createDataChannel("opentcu-sync");
+        setupDataChannel(dataChannel);
+        
+        // Listen for Answer
+        const answerRef = rtdb.ref(`rooms/${roomId}/guestSignal/answer`);
+        answerRef.on('value', async (snapshot) => {
+          const answerVal = snapshot.val();
+          if (answerVal && peerConnection && peerConnection.signalingState === 'have-local-offer') {
+            try {
+              const desc = new RTCSessionDescription(JSON.parse(answerVal));
+              await peerConnection.setRemoteDescription(desc);
+              console.log("Host set remote description (answer)");
+            } catch (e) {
+              console.error("Error setting guest answer:", e);
+            }
+          }
+        });
+        
+        // Listen for Guest Candidates
+        const guestCandRef = rtdb.ref(`rooms/${roomId}/guestSignal/candidates`);
+        guestCandRef.on('child_added', async (snapshot) => {
+          const candVal = snapshot.val();
+          if (candVal && peerConnection) {
+            try {
+              const cand = new RTCIceCandidate(JSON.parse(candVal));
+              await peerConnection.addIceCandidate(cand);
+            } catch (e) {
+              console.error("Error adding guest candidate:", e);
+            }
+          }
+        });
+        
+        // Create Offer
+        peerConnection.createOffer()
+          .then(async (offer) => {
+            if (peerConnection) {
+              await peerConnection.setLocalDescription(offer);
+              await rtdb.ref(`rooms/${roomId}/hostSignal/offer`).set(JSON.stringify(offer));
+              console.log("Host set local description and wrote offer to Firebase");
+            }
+          })
+          .catch(err => {
+            console.error("Host failed to create offer:", err);
+          });
+          
+      } else {
+        // GUEST FLOW
+        peerConnection.ondatachannel = (event) => {
+          dataChannel = event.channel;
+          setupDataChannel(dataChannel);
+        };
+        
+        // Listen for Offer
+        const offerRef = rtdb.ref(`rooms/${roomId}/hostSignal/offer`);
+        offerRef.on('value', async (snapshot) => {
+          const offerVal = snapshot.val();
+          if (offerVal && peerConnection && peerConnection.signalingState === 'stable') {
+            try {
+              const desc = new RTCSessionDescription(JSON.parse(offerVal));
+              await peerConnection.setRemoteDescription(desc);
+              console.log("Guest set remote description (offer)");
+              
+              const answer = await peerConnection.createAnswer();
+              await peerConnection.setLocalDescription(answer);
+              
+              await rtdb.ref(`rooms/${roomId}/guestSignal/answer`).set(JSON.stringify(answer));
+              console.log("Guest set local description and wrote answer to Firebase");
+            } catch (e) {
+              console.error("Error creating/setting guest answer:", e);
+            }
+          }
+        });
+        
+        // Listen for Host Candidates
+        const hostCandRef = rtdb.ref(`rooms/${roomId}/hostSignal/candidates`);
+        hostCandRef.on('child_added', async (snapshot) => {
+          const candVal = snapshot.val();
+          if (candVal && peerConnection) {
+            try {
+              const cand = new RTCIceCandidate(JSON.parse(candVal));
+              await peerConnection.addIceCandidate(cand);
+            } catch (e) {
+              console.error("Error adding host candidate:", e);
+            }
+          }
+        });
+      }
+    }
+
+    function handleSyncTimeout() {
+      cleanupRTC();
+      
+      if (isReconnecting) {
+        isReconnecting = false;
+        localStorage.removeItem('opentcu_sync_room_id');
+        localStorage.removeItem('opentcu_sync_role');
+        startSyncFlow();
+        return;
+      }
+      
+      showSyncPanel('initial');
+      const errCard = document.getElementById('sync-network-error-card');
+      if (errCard) errCard.style.display = 'block';
+    }
+
+    function setupDataChannel(channel) {
+      channel.onopen = () => {
+        console.log("WebRTC DataChannel opened!");
+        
+        if (syncTimeoutId) {
+          clearTimeout(syncTimeoutId);
+          syncTimeoutId = null;
+        }
+        
+        deleteFirebaseRoom();
+        
+        localStorage.setItem('opentcu_sync_room_id', roomId);
+        localStorage.setItem('opentcu_sync_role', syncRole);
+        isReconnecting = false;
+        
+        setSyncIndicatorStatus('active');
+        showSyncPanel('confirm');
+      };
+      
+      channel.onclose = () => {
+        console.log("WebRTC DataChannel closed.");
+        setSyncIndicatorStatus('inactive');
+        if (document.getElementById('sync-state-progress').style.display !== 'none' ||
+            document.getElementById('sync-state-confirm').style.display !== 'none') {
+          showSyncPanel('initial');
+        }
+      };
+      
+      channel.onerror = (err) => {
+        console.error("DataChannel error:", err);
+        setSyncIndicatorStatus('inactive');
+      };
+      
+      channel.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          handleDataChannelMessage(msg);
+        } catch (e) {
+          console.error("Error handling data channel message:", e);
+        }
+      };
+    }
+
+    function deleteFirebaseRoom() {
+      const rtdb = initFirebase();
+      if (rtdb && roomId) {
+        console.log("Direct P2P tunnel established. Instantly destroying Firebase room:", roomId);
+        rtdb.ref(`rooms/${roomId}`).remove()
+          .then(() => console.log("Firebase room deleted successfully."))
+          .catch(e => console.error("Error deleting Firebase room:", e));
+      }
+    }
+
+    function handleDataChannelMessage(msg) {
+      if (msg.type === 'user_confirmed') {
+        remoteConfirmed = true;
+        if (localConfirmed) {
+          const lastMod = parseInt(localStorage.getItem('opentcu_last_modified') || '0');
+          sendSyncMessage({ type: 'sync_timestamp', lastModified: lastMod });
+        }
+      } else if (msg.type === 'sync_timestamp') {
+        const localLastMod = parseInt(localStorage.getItem('opentcu_last_modified') || '0');
+        const remoteLastMod = msg.lastModified;
+        
+        console.log("Local modified:", localLastMod, "Remote modified:", remoteLastMod);
+        
+        if (localLastMod > remoteLastMod) {
+          console.log("Local data is newer. Sending to remote...");
+          const backupData = getSyncBackupData();
+          sendSyncMessage({ 
+            type: 'sync_payload', 
+            payload: backupData,
+            lastModified: localLastMod
+          });
+          showSyncPanel('progress');
+        } else if (localLastMod < remoteLastMod) {
+          console.log("Remote data is newer. Waiting for remote payload...");
+          showSyncPanel('progress');
+        } else {
+          console.log("Timestamps are equal. No overwrite needed.");
+          sendSyncMessage({ type: 'sync_complete' });
+          showSyncPanel('complete');
+          setTimeout(() => {
+            switchView('home', document.getElementById('nav-home'));
+          }, 3000);
+        }
+        
+      } else if (msg.type === 'sync_payload') {
+        console.log("Received sync payload from remote.");
+        applySyncBackupData(msg.payload, msg.lastModified);
+        sendSyncMessage({ type: 'sync_complete' });
+        
+        showSyncPanel('complete');
+        setTimeout(() => {
+          switchView('home', document.getElementById('nav-home'));
+        }, 3000);
+        
+      } else if (msg.type === 'sync_complete') {
+        console.log("Remote reports sync complete.");
+        showSyncPanel('complete');
+        setTimeout(() => {
+          switchView('home', document.getElementById('nav-home'));
+        }, 3000);
+      }
+    }
+
+    function getSyncBackupData() {
+      return {
+        timetablesList: localStorage.getItem('opentcu_timetablesList'),
+        activeTimetableId: localStorage.getItem('opentcu_activeTimetableId'),
+        userProfile: localStorage.getItem('opentcu_userProfile'),
+        memosList: localStorage.getItem('opentcu_memosList'),
+        activeMemoId: localStorage.getItem('opentcu_activeMemoId'),
+        theme: localStorage.getItem('theme'),
+        myLinks: localStorage.getItem('opentcu_myLinks'),
+        dayStartTimes: localStorage.getItem('opentcu_timetableDayStartTimes')
+      };
+    }
+
+    function applySyncBackupData(payload, lastModified) {
+      window.preventAutoLastModifiedUpdate = true;
+      try {
+        if (payload.timetablesList) localStorage.setItem('opentcu_timetablesList', payload.timetablesList);
+        if (payload.activeTimetableId) localStorage.setItem('opentcu_activeTimetableId', payload.activeTimetableId);
+        if (payload.userProfile) localStorage.setItem('opentcu_userProfile', payload.userProfile);
+        if (payload.memosList) localStorage.setItem('opentcu_memosList', payload.memosList);
+        if (payload.activeMemoId) localStorage.setItem('opentcu_activeMemoId', payload.activeMemoId);
+        if (payload.theme) {
+          localStorage.setItem('theme', payload.theme);
+          try {
+            handleSettingsThemeChange(payload.theme);
+          } catch (e) {}
+        }
+        if (payload.myLinks) localStorage.setItem('opentcu_myLinks', payload.myLinks);
+        if (payload.dayStartTimes) localStorage.setItem('opentcu_timetableDayStartTimes', payload.dayStartTimes);
+        
+        localStorage.setItem('opentcu_last_modified', lastModified.toString());
+        
+        console.log("Successfully applied synced data. Reloading views...");
+        try { initTimetable(); } catch(e){}
+        try { initMemos(); } catch(e){}
+        try { updateHomeView(); } catch(e){}
+      } catch (err) {
+        console.error("Failed to apply synced data:", err);
+      } finally {
+        window.preventAutoLastModifiedUpdate = false;
+      }
+    }
+
+    function confirmSync() {
+      localConfirmed = true;
+      sendSyncMessage({ type: 'user_confirmed' });
+      showSyncPanel('progress');
+      
+      if (remoteConfirmed) {
+        const lastMod = parseInt(localStorage.getItem('opentcu_last_modified') || '0');
+        sendSyncMessage({ type: 'sync_timestamp', lastModified: lastMod });
+      }
+    }
+
+    function startSyncFlow() {
+      const errCard = document.getElementById('sync-network-error-card');
+      if (errCard) errCard.style.display = 'none';
+      showSyncPanel('connecting');
+      
+      document.getElementById('sync-status-title').textContent = "同期を開始します";
+      document.getElementById('sync-status-desc').textContent = "2つのデバイスを同時に起動してください";
+      
+      document.getElementById('sync-role-selection').style.display = 'flex';
+      document.getElementById('sync-host-qr-container').style.display = 'none';
+      document.getElementById('sync-guest-scanner-container').style.display = 'none';
+      const spinner = document.getElementById('sync-spinner');
+      if (spinner) spinner.style.display = 'none';
+    }
+
+    function selectSyncRole(role) {
+      syncRole = role;
+      document.getElementById('sync-role-selection').style.display = 'none';
+      const spinner = document.getElementById('sync-spinner');
+      if (spinner) spinner.style.display = 'block';
+      
+      document.getElementById('sync-status-title').textContent = "QRコードを読み取らせてください";
+      document.getElementById('sync-status-desc').textContent = "2つのデバイスを同時に起動してください";
+      
+      if (role === 'host') {
+        roomId = generateRandomRoomId();
+        const roomLabel = document.getElementById('sync-room-id-label');
+        if (roomLabel) roomLabel.textContent = roomId;
+        
+        const qrUrl = window.location.origin + window.location.pathname + '#sync-room=' + roomId;
+        const canvas = document.getElementById('syncQRCanvas');
+        if (typeof QRious !== 'undefined') {
+          new QRious({
+            element: canvas,
+            value: qrUrl,
+            size: 200
+          });
+        }
+        
+        document.getElementById('sync-host-qr-container').style.display = 'block';
+        initiateP2PConnection(false);
+      } else {
+        document.getElementById('sync-guest-scanner-container').style.display = 'block';
+        startSyncScanner();
+      }
+    }
+
+    function generateRandomRoomId() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < 8; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    function startSyncScanner() {
+      const video = document.getElementById('syncScanVideo');
+      const feedback = document.getElementById('syncScanFeedback');
+      if (feedback) feedback.textContent = 'カメラ起動中...';
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(stream => {
+          syncScannerStream = stream;
+          if (video) {
+            video.srcObject = stream;
+            video.setAttribute("playsinline", true);
+            video.play();
+          }
+          if (feedback) feedback.textContent = '';
+          syncScannerAnimId = requestAnimationFrame(syncScanTick);
+        })
+        .catch(err => {
+          console.error("Camera access error in sync scanner:", err);
+          if (feedback) feedback.textContent = 'カメラの起動に失敗しました。利用許可をご確認ください。';
+        });
+    }
+
+    function stopSyncScanner() {
+      if (syncScannerStream) {
+        syncScannerStream.getTracks().forEach(track => track.stop());
+        syncScannerStream = null;
+      }
+      if (syncScannerAnimId) {
+        cancelAnimationFrame(syncScannerAnimId);
+        syncScannerAnimId = null;
+      }
+    }
+
+    function syncScanTick() {
+      const video = document.getElementById('syncScanVideo');
+      const hiddenCanvas = document.getElementById('syncScanHiddenCanvas');
+      const feedback = document.getElementById('syncScanFeedback');
+
+      if (!syncScannerStream) return;
+
+      if (video && video.readyState === video.HAVE_ENOUGH_DATA) {
+        const ctx = hiddenCanvas.getContext('2d');
+        hiddenCanvas.height = video.videoHeight;
+        hiddenCanvas.width = video.videoWidth;
+        ctx.drawImage(video, 0, 0, hiddenCanvas.width, hiddenCanvas.height);
+
+        const imageData = ctx.getImageData(0, 0, hiddenCanvas.width, hiddenCanvas.height);
+        if (typeof jsQR !== 'undefined') {
+          const code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: "dontInvert"
+          });
+
+          if (code) {
+            const qrText = code.data;
+            let scannedRoomId = null;
+            if (qrText.includes('#sync-room=')) {
+              scannedRoomId = qrText.split('#sync-room=')[1].split('&')[0];
+            } else if (qrText.length === 8) {
+              scannedRoomId = qrText;
+            }
+            
+            if (scannedRoomId) {
+              if (navigator.vibrate) {
+                navigator.vibrate(100);
+              }
+              stopSyncScanner();
+              document.getElementById('sync-guest-scanner-container').style.display = 'none';
+              
+              roomId = scannedRoomId;
+              initiateP2PConnection(false);
+              return;
+            } else {
+              if (feedback) feedback.textContent = '有効な同期用コードではありません。';
+            }
+          }
+        }
+      }
+      syncScannerAnimId = requestAnimationFrame(syncScanTick);
+    }
+
+    function cancelSyncFlow() {
+      cleanupRTC();
+      showSyncPanel('initial');
+    }
+
+    function resetSyncFlow() {
+      cleanupRTC();
+      localStorage.removeItem('opentcu_sync_room_id');
+      localStorage.removeItem('opentcu_sync_role');
+      setSyncIndicatorStatus('inactive');
+      showSyncPanel('initial');
+      alert("同期設定をリセットしました。");
+    }
+
+    function cleanupRTC() {
+      stopSyncScanner();
+      
+      if (syncTimeoutId) {
+        clearTimeout(syncTimeoutId);
+        syncTimeoutId = null;
+      }
+      
+      const rtdb = initFirebase();
+      if (rtdb && roomId) {
+        rtdb.ref(`rooms/${roomId}/hostSignal/offer`).off();
+        rtdb.ref(`rooms/${roomId}/guestSignal/answer`).off();
+        rtdb.ref(`rooms/${roomId}/hostSignal/candidates`).off();
+        rtdb.ref(`rooms/${roomId}/guestSignal/candidates`).off();
+      }
+      
+      if (dataChannel) {
+        try { dataChannel.close(); } catch(e){}
+        dataChannel = null;
+      }
+      if (peerConnection) {
+        try { peerConnection.close(); } catch(e){}
+        peerConnection = null;
+      }
+      
+      localConfirmed = false;
+      remoteConfirmed = false;
+      isReconnecting = false;
+    }
+
+    function sendSyncMessage(msg) {
+      if (dataChannel && dataChannel.readyState === 'open') {
+        try {
+          dataChannel.send(JSON.stringify(msg));
+        } catch (e) {
+          console.error("Error sending message over data channel:", e);
+        }
+      }
+    }
+
+    function showSyncPanel(panelId) {
+      const panelInit = document.getElementById('sync-state-initial');
+      const panelConn = document.getElementById('sync-state-connecting');
+      const panelConf = document.getElementById('sync-state-confirm');
+      const panelProg = document.getElementById('sync-state-progress');
+      const panelComp = document.getElementById('sync-state-complete');
+      
+      if (panelInit) panelInit.style.display = 'none';
+      if (panelConn) panelConn.style.display = 'none';
+      if (panelConf) panelConf.style.display = 'none';
+      if (panelProg) panelProg.style.display = 'none';
+      if (panelComp) panelComp.style.display = 'none';
+      
+      const targetPanel = document.getElementById('sync-state-' + panelId);
+      if (targetPanel) targetPanel.style.display = 'block';
+    }
+
+    function setSyncIndicatorStatus(status) {
+      const indicator = document.getElementById('sync-status-indicator');
+      const dot = document.getElementById('sync-status-dot');
+      const icon = document.getElementById('sync-status-icon');
+      
+      if (!indicator || !dot || !icon) return;
+      
+      if (status === 'active') {
+        indicator.style.display = 'inline-flex';
+        dot.className = 'sync-dot active';
+        dot.style.display = 'block';
+        icon.style.color = '#4caf50';
+      } else {
+        indicator.style.display = 'inline-flex';
+        dot.className = 'sync-dot inactive';
+        dot.style.display = 'none';
+        icon.style.color = 'var(--md-sys-color-outline-variant)';
+      }
+    }
+
+    function handleHashChange() {
+      const hash = window.location.hash;
+      if (hash.includes('#sync-room=')) {
+        const matchedRoomId = hash.split('#sync-room=')[1].split('&')[0];
+        if (matchedRoomId) {
+          console.log("Detected room ID in hash:", matchedRoomId);
+          window.location.hash = '';
+          
+          switchView('sync', document.getElementById('nav-sync'));
+          
+          roomId = matchedRoomId;
+          syncRole = 'guest';
+          
+          showSyncPanel('connecting');
+          document.getElementById('sync-status-title').textContent = "接続しています...";
+          document.getElementById('sync-status-desc').textContent = "デバイスとの接続を確立しています...";
+          document.getElementById('sync-role-selection').style.display = 'none';
+          document.getElementById('sync-host-qr-container').style.display = 'none';
+          document.getElementById('sync-guest-scanner-container').style.display = 'none';
+          const spinner = document.getElementById('sync-spinner');
+          if (spinner) spinner.style.display = 'block';
+          
+          initiateP2PConnection(false);
+        }
+      }
+    }
+
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('load', () => {
+      try {
+        setSyncIndicatorStatus('inactive');
+        handleHashChange();
+      } catch (e) {
+        console.error("Error initializing P2P sync on load:", e);
+      }
+    });
   </script>
 
   <!-- Loading Splash Screen Handler -->
