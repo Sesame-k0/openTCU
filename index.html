@@ -268,8 +268,8 @@
       /* ヘッダーの高さ分下げる */
       left: calc(-1 * var(--sidebar-width));
       width: var(--sidebar-width);
-      height: calc(100% - 64px);
-      /* ヘッダーを除いた残りの高さ */
+      bottom: 0;
+      overflow: hidden;
       background-color: var(--md-sys-color-surface-container-low);
       border-radius: 0 0 28px 0;
       /* 右下のみ丸める */
@@ -4471,11 +4471,11 @@
 
       <div style="display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap;">
         <button class="btn btn-outline" id="btnPwaInstall" onclick="handlePwaInstallClick()"
-          style="height: 32px; padding: 4px 14px; font-size: 11px; border-radius: 16px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--md-sys-color-outline);">
+          style="height: 32px; padding: 4px 14px; font-size: 11px; border-radius: 16px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--md-sys-color-outline); width: 180px; justify-content: center;">
           <span class="material-symbols-outlined" style="font-size: 16px;">install_mobile</span>ホーム画面に追加する
         </button>
         <a class="btn btn-outline" href="https://github.com/Sesame-k0/openTCU" target="_blank" rel="noopener noreferrer"
-          style="height: 32px; padding: 4px 14px; font-size: 11px; border-radius: 16px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--md-sys-color-outline); text-decoration: none; color: inherit;">
+          style="height: 32px; padding: 4px 14px; font-size: 11px; border-radius: 16px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--md-sys-color-outline); text-decoration: none; color: inherit; width: 180px; justify-content: center;">
           <span class="material-symbols-outlined" style="font-size: 16px;">code</span>GitHub (オープンソース)
         </a>
       </div>
