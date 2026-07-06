@@ -3509,7 +3509,7 @@
                 <h3>シャトルバス車両紹介</h3>
               </div>
               <div class="bus-info-card-body">
-                <img src="images/oneroma.png" alt="東急バス ワンロマ車" class="oneroma-img">
+                <img src="images/oneroma.jpg" alt="東急バス ワンロマ車" class="oneroma-img">
                 <div id="oneroma-desc-container">
                   <!-- ここからワンロマ車の説明文 -->
                   <p>このシャトルバスでは、東急バスの<strong>「ワンロマ車」</strong>と呼ばれる特別な車両が使用されています。</p>
@@ -10174,6 +10174,8 @@
     let isReconnecting = false;
     let localConfirmed = false;
     let remoteConfirmed = false;
+    let useFirebaseFallback = false;
+    let fallbackOpponentReady = false;
 
     const rtcConfig = {
       iceServers: [
@@ -10259,11 +10261,11 @@
         }
       };
       
-      // Set connection timeout (15 seconds)
+      // Set connection timeout (7 seconds for WebRTC, then fall back to Firebase)
       syncTimeoutId = setTimeout(() => {
-        console.warn("Sync connection timed out.");
-        handleSyncTimeout();
-      }, 15000);
+        console.warn("P2P connection slow, switching to Firebase fallback...");
+        switchToFirebaseFallback();
+      }, 7000);
       
       if (syncRole === 'host') {
         // HOST FLOW
@@ -10464,6 +10466,9 @@
         applySyncBackupData(msg.payload, msg.lastModified);
         sendSyncMessage({ type: 'sync_complete' });
         
+        // Clean up Firebase fallback space immediately
+        deleteFirebaseRoom();
+        
         showSyncPanel('complete');
         setTimeout(() => {
           switchView('home', document.getElementById('nav-home'));
@@ -10471,6 +10476,9 @@
         
       } else if (msg.type === 'sync_complete') {
         console.log("Remote reports sync complete.");
+        // Clean up Firebase fallback space immediately
+        deleteFirebaseRoom();
+        
         showSyncPanel('complete');
         setTimeout(() => {
           switchView('home', document.getElementById('nav-home'));
@@ -10696,6 +10704,8 @@
         rtdb.ref(`rooms/${roomId}/guestSignal/answer`).off();
         rtdb.ref(`rooms/${roomId}/hostSignal/candidates`).off();
         rtdb.ref(`rooms/${roomId}/guestSignal/candidates`).off();
+        rtdb.ref(`rooms/${roomId}/fallback/hostMessages`).off();
+        rtdb.ref(`rooms/${roomId}/fallback/guestMessages`).off();
         // Clear Firebase room from database if it exists to prevent stale/abandoned data
         rtdb.ref(`rooms/${roomId}`).remove().catch(e => {});
       }
@@ -10712,15 +10722,111 @@
       localConfirmed = false;
       remoteConfirmed = false;
       isReconnecting = false;
+      useFirebaseFallback = false;
+      fallbackOpponentReady = false;
     }
 
     function sendSyncMessage(msg) {
-      if (dataChannel && dataChannel.readyState === 'open') {
-        try {
-          dataChannel.send(JSON.stringify(msg));
-        } catch (e) {
-          console.error("Error sending message over data channel:", e);
+      if (useFirebaseFallback) {
+        const rtdb = initFirebase();
+        if (rtdb && roomId) {
+          try {
+            rtdb.ref(`rooms/${roomId}/fallback/${syncRole}Messages`).push(msg);
+          } catch (e) {
+            console.error("Error sending message over Firebase fallback:", e);
+          }
         }
+      } else {
+        if (dataChannel && dataChannel.readyState === 'open') {
+          try {
+            dataChannel.send(JSON.stringify(msg));
+          } catch (e) {
+            console.error("Error sending message over data channel:", e);
+          }
+        }
+      }
+    }
+
+    function switchToFirebaseFallback() {
+      if (useFirebaseFallback) return;
+      console.log("Switching to Firebase database sync fallback...");
+      useFirebaseFallback = true;
+      
+      if (syncTimeoutId) {
+        clearTimeout(syncTimeoutId);
+      }
+      
+      // Set backup fallback connection timeout (15 seconds)
+      syncTimeoutId = setTimeout(() => {
+        console.warn("Firebase fallback sync connection timed out.");
+        handleSyncTimeout();
+      }, 15000);
+
+      // Update UI Status Text
+      const statusTitle = document.getElementById('sync-status-title');
+      const statusDesc = document.getElementById('sync-status-desc');
+      if (statusTitle) statusTitle.textContent = "クラウド経由で接続中...";
+      if (statusDesc) statusDesc.textContent = "P2P直接接続が制限されているため、安全な一時クラウドサーバーを経由して同期を試みています。しばらくお待ちください...";
+      
+      // Clean up WebRTC peer connections but keep Firebase session
+      if (dataChannel) {
+        try { dataChannel.close(); } catch(e){}
+        dataChannel = null;
+      }
+      if (peerConnection) {
+        try { peerConnection.close(); } catch(e){}
+        peerConnection = null;
+      }
+      
+      const rtdb = initFirebase();
+      if (!rtdb || !roomId) {
+        console.error("Firebase database not available for fallback.");
+        handleSyncTimeout();
+        return;
+      }
+      
+      // Stop listening to original WebRTC signals to avoid collision
+      rtdb.ref(`rooms/${roomId}/hostSignal/offer`).off();
+      rtdb.ref(`rooms/${roomId}/guestSignal/answer`).off();
+      rtdb.ref(`rooms/${roomId}/hostSignal/candidates`).off();
+      rtdb.ref(`rooms/${roomId}/guestSignal/candidates`).off();
+      
+      // Listen for opposite peer messages
+      const oppRole = syncRole === 'host' ? 'guest' : 'host';
+      rtdb.ref(`rooms/${roomId}/fallback/${oppRole}Messages`).on('child_added', (snapshot) => {
+        const msg = snapshot.val();
+        if (msg) {
+          console.log(`[Firebase Fallback] Received message from ${oppRole}:`, msg.type);
+          if (msg.type === 'fallback_ready') {
+            handleFallbackReady();
+          } else {
+            handleDataChannelMessage(msg);
+          }
+        }
+      });
+      
+      // Send signal to let the other device know this device is ready for fallback
+      setTimeout(() => {
+        sendSyncMessage({ type: 'fallback_ready' });
+      }, 500);
+    }
+
+    function handleFallbackReady() {
+      fallbackOpponentReady = true;
+      if (fallbackOpponentReady) {
+        console.log("Both devices ready for Firebase fallback sync.");
+        if (syncTimeoutId) {
+          clearTimeout(syncTimeoutId);
+          syncTimeoutId = null;
+        }
+        
+        // Pseudo-establish connection
+        localStorage.setItem('opentcu_sync_room_id', roomId);
+        localStorage.setItem('opentcu_sync_role', syncRole);
+        isReconnecting = false;
+        
+        setSyncIndicatorStatus('active');
+        showSyncPanel('confirm');
       }
     }
 
