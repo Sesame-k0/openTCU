@@ -3136,7 +3136,7 @@
         style="font-size: 10px; font-weight: 700; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); padding: 2px 8px; border-radius: 20px; line-height: 1; margin-left: 2px; border: 1px solid var(--md-sys-color-outline-variant);">Beta</span>
     </div>
     <!-- Sync Status Indicator -->
-    <button class="icon-button" id="sync-status-indicator" onclick="switchView('sync', document.getElementById('nav-sync'))" aria-label="Sync Status" style="margin-left: auto; position: relative;">
+    <button class="icon-button" id="sync-status-indicator" onclick="switchView('settings', document.getElementById('nav-settings')); setTimeout(() => document.getElementById('settings-sync-section').scrollIntoView({behavior: 'smooth'}), 100)" aria-label="Sync Status" style="margin-left: auto; position: relative;">
       <span class="material-symbols-outlined" id="sync-status-icon" style="color: var(--md-sys-color-outline-variant);">sync</span>
       <span class="sync-dot inactive" id="sync-status-dot" style="display: none;"></span>
     </button>
@@ -3194,9 +3194,6 @@
       <div style="flex-grow: 1;"></div>
       <li class="nav-item" id="nav-links" onclick="switchView('links', this)">
         <span class="material-symbols-outlined">open_in_new</span>外部リンク集
-      </li>
-      <li class="nav-item" id="nav-sync" onclick="switchView('sync', this)">
-        <span class="material-symbols-outlined">sync</span>デバイス間同期
       </li>
       <li class="nav-item" id="nav-settings" onclick="switchView('settings', this)">
         <span class="material-symbols-outlined">settings</span>設定
@@ -4073,12 +4070,6 @@
         <button class="btn btn-outline" onclick="exportAllDataJSON()" style="height: 40px; border-radius: 20px;">
           <span class="material-symbols-outlined">file_download</span>すべてのデータを出力 (JSON)
         </button>
-        <button class="btn btn-outline" onclick="triggerImportAllJSON()" style="height: 40px; border-radius: 20px;">
-          <span class="material-symbols-outlined">publish</span>データをインポート (JSON)
-        </button>
-        <button class="btn btn-outline" onclick="switchView('sync', document.getElementById('nav-sync'))" style="height: 40px; border-radius: 20px;">
-          <span class="material-symbols-outlined">sync</span>デバイス間で同期 (P2P)
-        </button>
         <input type="file" id="importAllFileInput" accept=".json" style="display: none;"
           onchange="importAllDataJSON(event)" />
       </div>
@@ -4102,25 +4093,8 @@
         </div>
       </div>
 
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <button class="btn btn-outline"
-          style="height: 40px; border-radius: 20px; color: var(--md-sys-color-error); border-color: var(--md-sys-color-error);"
-          onclick="resetTimetableData()">
-          <span class="material-symbols-outlined">delete_forever</span>時間割のみリセット
-        </button>
-        <button class="btn btn-outline"
-          style="height: 40px; border-radius: 20px; color: var(--md-sys-color-error); border-color: var(--md-sys-color-error);"
-          onclick="resetAllData()">
-          <span class="material-symbols-outlined">delete_forever</span>すべてのデータをリセット
-        </button>
-      </div>
-    </section>
-
-    <!-- デバイス間同期 (P2P) -->
-    <section id="view-sync" class="view-section">
-      <h2 style="margin-top:0; font-weight:600; font-size:20px; color: var(--md-sys-color-on-background); display: flex; align-items: center; gap: 8px;">
-        <span class="material-symbols-outlined" style="font-size: 24px;">sync</span>デバイス間同期 (P2P)
-      </h2>
+      <!-- デバイス間同期 (P2P) -->
+      <div id="settings-sync-section" class="settings-group-title" style="margin-top: 24px; margin-bottom: 12px;">デバイス間同期 (P2P)</div>
       
       <div class="material-card" style="margin-bottom: 24px; padding: 20px; border-radius: 16px; background-color: var(--md-sys-color-surface-container-low);">
         <!-- State 1: Initial Screen -->
@@ -4218,18 +4192,27 @@
           <span class="material-symbols-outlined" style="color: var(--md-sys-color-error);">error</span>
           <div>
             <strong style="display: block; margin-bottom: 4px;">接続が拒否されています。</strong>
-            <span style="font-size: 12px; line-height: 1.5; display: block;">
-              ヒント: 大学構内（学内Wi-Fi）ではセキュリティ制限のため接続できない可能性があります。この場合は、ご自宅のWi-Fiやマイテザリング環境等でご接続ください。
-            </span>
+            <span style="font-size: 12px; line-height: 1.5;">P2P通信に必要なICEネゴシエーションが、ネットワークの制限やファイアウォール（大学の学内Wi-Fiなど）によってブロックされた可能性があります。<br>
+            恐れ入りますが、異なるネットワーク（モバイル回線や自宅Wi-Fiなど）でお試しいただくか、または上部「JSONデータを出力」ボタンからファイルを保存し、別の端末でインポートしてください。</span>
           </div>
         </div>
       </div>
-      
-      <!-- Subtle Disclaimer text at the bottom -->
-      <div style="font-size: 10px; color: var(--md-sys-color-outline); line-height: 1.5; max-width: 600px; margin-top: 16px;">
-        ※当同期機能は、エンドツーエンドで暗号化された時間割・メモの自己デバイス間同期にのみ使用されます。不特定多数とのファイル共有や違法ダウンロード機能は構造上一切含まれていません。
+
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <button class="btn btn-outline"
+          style="height: 40px; border-radius: 20px; color: var(--md-sys-color-error); border-color: var(--md-sys-color-error);"
+          onclick="resetTimetableData()">
+          <span class="material-symbols-outlined">delete_forever</span>時間割のみリセット
+        </button>
+        <button class="btn btn-outline"
+          style="height: 40px; border-radius: 20px; color: var(--md-sys-color-error); border-color: var(--md-sys-color-error);"
+          onclick="resetAllData()">
+          <span class="material-symbols-outlined">delete_forever</span>すべてのデータをリセット
+        </button>
       </div>
     </section>
+
+
 
     <!-- openTCUとは（説明書・利用規約） -->
     <section id="view-about" class="view-section">
@@ -5471,10 +5454,9 @@
               <thead>
                 <tr>
                   <th style="width: 15%;">発車 (Time)</th>
-                  <th style="width: 35%;">行先 (Destination)</th>
-                  <th style="width: 20%;">のりば/始発 (Origin)</th>
-                  <th style="width: 15%;">備考 (Remarks)</th>
-                  <th style="width: 15%; text-align: right;">発車まで (Countdown)</th>
+                  <th style="width: 45%;">行先 (Destination)</th>
+                  <th style="width: 20%;">備考 (Remarks)</th>
+                  <th style="width: 20%; text-align: right;">発車まで (Countdown)</th>
                 </tr>
               </thead>
               <tbody id="led-tbody-${stopId}">
@@ -5488,7 +5470,7 @@
         if (runs.length === 0) {
           tbody.innerHTML = `
             <tr>
-              <td colspan="5" style="text-align: center; color: #555; padding: 20px;">
+              <td colspan="4" style="text-align: center; color: #555; padding: 20px;">
                 表示可能な運行便はありません。
               </td>
             </tr>
@@ -5553,7 +5535,6 @@
           tr.innerHTML = `
             <td><span class="led-time ${runsToday && currentMin < depMin ? 'led-text-green' : 'led-text-gray'}">${run.depTime}</span></td>
             <td><span class="${runsToday && currentMin < depMin ? destColorClass : 'led-text-gray'}">${destName}</span></td>
-            <td>${runsToday && currentMin < depMin ? shihatsuBadge : (shihatsuBadge ? '<span style="opacity: 0.35;">' + shihatsuBadge + '</span>' : '')}</td>
             <td><span class="${runsToday && currentMin < depMin ? remarksColorClass : 'led-text-gray'}">${remarksText}</span></td>
             <td style="text-align: right;"><span class="${countdownColorClass}">${countdownText}</span></td>
           `;
@@ -6590,12 +6571,11 @@
       try { localStorage.setItem('opentcu_activeView', viewId); } catch (e) { }
 
       // ビュー特有の更新処理
-      if (viewId === 'sync') {
-        try { checkAutoRecovery(); } catch (e) { console.error("Error checkAutoRecovery:", e); }
-      } else if (viewId === 'home') {
+      if (viewId === 'home') {
         try { updateHomeView(); } catch (e) { console.error("Error updating home:", e); }
       } else if (viewId === 'settings') {
         try { loadSettingsIntoForm(); } catch (e) { console.error("Error loading settings:", e); }
+        try { checkAutoRecovery(); } catch (e) { console.error("Error checkAutoRecovery:", e); }
       } else if (viewId === 'memo') {
         try { renderMemoTabs(); renderMemoEditor(); } catch (e) { console.error("Error loading memo:", e); }
       } else if (viewId === 'toolbox') {
@@ -10244,17 +10224,9 @@
     }
 
     function checkAutoRecovery() {
-      const savedRoomId = localStorage.getItem('opentcu_sync_room_id');
-      const savedRole = localStorage.getItem('opentcu_sync_role');
-      
       showSyncPanel('initial');
       const errCard = document.getElementById('sync-network-error-card');
       if (errCard) errCard.style.display = 'none';
-      
-      if (savedRoomId && savedRole) {
-        console.log("Found previous sync room session:", savedRoomId, "as", savedRole);
-        startAutomaticReconnect(savedRoomId, savedRole);
-      }
     }
 
     function startAutomaticReconnect(savedRoomId, role) {
@@ -10497,6 +10469,8 @@
           console.log("Timestamps are equal. No overwrite needed.");
           sendSyncMessage({ type: 'sync_complete' });
           showSyncPanel('complete');
+          localStorage.removeItem('opentcu_sync_room_id');
+          localStorage.removeItem('opentcu_sync_role');
           setTimeout(() => {
             switchView('home', document.getElementById('nav-home'));
           }, 3000);
@@ -10511,6 +10485,8 @@
         deleteFirebaseRoom();
         
         showSyncPanel('complete');
+        localStorage.removeItem('opentcu_sync_room_id');
+        localStorage.removeItem('opentcu_sync_role');
         setTimeout(() => {
           switchView('home', document.getElementById('nav-home'));
         }, 3000);
@@ -10521,6 +10497,8 @@
         deleteFirebaseRoom();
         
         showSyncPanel('complete');
+        localStorage.removeItem('opentcu_sync_room_id');
+        localStorage.removeItem('opentcu_sync_role');
         setTimeout(() => {
           switchView('home', document.getElementById('nav-home'));
         }, 3000);
@@ -10719,6 +10697,8 @@
 
     function cancelSyncFlow() {
       cleanupRTC();
+      localStorage.removeItem('opentcu_sync_room_id');
+      localStorage.removeItem('opentcu_sync_role');
       showSyncPanel('initial');
     }
 
