@@ -352,6 +352,7 @@
         color var(--md-transition-duration) var(--md-transition-easing);
       box-sizing: border-box;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-item:hover {
@@ -453,6 +454,7 @@
       padding: 32px;
       margin-bottom: 24px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      box-sizing: border-box;
     }
 
     .filter-bar {
@@ -1542,6 +1544,7 @@
       opacity: 0;
       overflow: hidden;
       transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+      flex-shrink: 0;
     }
     .submenu-list.show {
       max-height: 300px;
@@ -2972,43 +2975,47 @@
         /* セルの隙間を極限まで縮める */
       }
 
-      /* 一番左の時限列の横幅をスリム化 */
+      /* 一番左の時限列の横幅を適正化 */
       .timetable-table th:first-child {
-        width: 38px !important;
+        width: 60px !important;
       }
 
       /* 各曜日列の横幅を均等配分 */
       .timetable-table th:not(:first-child) {
-        width: calc((100% - 38px) / 6) !important;
+        width: calc((100% - 60px) / 6) !important;
       }
 
       .timetable-table th {
-        height: 28px !important;
+        height: 38px !important;
         font-size: 11px !important;
         border-radius: 6px !important;
       }
 
       .timetable-table td {
-        height: 56px !important;
-        /* 縦方向もコンパクトに */
+        height: 68px !important;
+        /* 縦方向も適正化 */
         border-radius: 8px !important;
       }
 
-      /* 時限列のサブテキスト（曜日別設定、時間など）を非表示にして「1限」だけにする */
+      /* 時限列のサブテキスト（授業時間）を小さくして表示 */
       .timetable-time-col {
-        font-size: 10px !important;
+        font-size: 9px !important;
         padding: 2px !important;
         font-weight: 700;
       }
 
       .timetable-time-col span:not(:first-child) {
-        display: none !important;
-        /* サブテキストを非表示 */
+        font-size: 7.5px !important;
+        font-weight: normal;
+        opacity: 0.8;
       }
 
-      /* 曜日ヘッダー内の時間表示（1限 09:20など）を非表示にする */
+      /* 曜日ヘッダー内の時間表示（1限 09:20など）を小さくして表示 */
       .first-period-header {
-        display: none !important;
+        font-size: 7.5px !important;
+        padding: 1px 4px !important;
+        margin-top: 2px !important;
+        display: inline-block !important;
       }
 
       /* コマ内の文字サイズを極小化し、パディングを極小に */
@@ -3017,16 +3024,23 @@
       }
 
       .timetable-subject {
-        font-size: 9px !important;
-        margin-bottom: 2px !important;
-        line-height: 1.2 !important;
+        font-size: 8px !important;
+        margin-bottom: 1px !important;
+        line-height: 1.1 !important;
         -webkit-line-clamp: 3 !important;
         /* 3行まで許可 */
       }
 
-      /* 教員名や教室名（サブ情報）はスペース不足のためアイコン含めて非表示 */
+      /* 教員名や教室名（サブ情報）を小さくして表示 */
       .timetable-info {
-        display: none !important;
+        display: flex !important;
+        font-size: 7.5px !important;
+        gap: 2px !important;
+        line-height: 1.1 !important;
+      }
+
+      .timetable-info .material-symbols-outlined {
+        font-size: 9px !important;
       }
 
       /* 空コマのプラスマークのサイズ調整 */
@@ -3166,9 +3180,6 @@
         <span class="material-symbols-outlined" id="toolbox-chevron" style="margin-left: auto; transition: transform 0.3s;">expand_more</span>
       </li>
       <div class="submenu-list" id="toolbox-submenu">
-        <li class="nav-item submenu-item" id="nav-toolbox-dashboard" onclick="switchView('toolbox', this)">
-          <span class="material-symbols-outlined">dashboard</span>一覧 (3分割)
-        </li>
         <li class="nav-item submenu-item" id="nav-toolbox-timer" onclick="switchView('toolbox-timer', this)">
           <span class="material-symbols-outlined">timer</span>タイマー
         </li>
@@ -3459,6 +3470,21 @@
               <div class="led-ticker-title">先発バス案内 / DEPARTURE BOARD TICKER</div>
               <div class="led-ticker-content" id="ledTickerContent">
                 現在、本日の運行便はありません。
+              </div>
+            </div>
+
+            <!-- シャトルバス乗車登録カード -->
+            <div id="shuttleRegisterCard" class="material-card bus-info-card header-primary" style="display: none;">
+              <div class="bus-info-card-header">
+                <span class="material-symbols-outlined">edit_calendar</span>
+                <h3>シャトルバス乗車登録</h3>
+              </div>
+              <div class="bus-info-card-body" style="display: flex; flex-direction: column; gap: 12px;">
+                <p style="margin: 0;">シャトルバスの乗車には<strong>事前の乗車登録が必要</strong>です。乗車前に以下のリンクより登録を完了してください。</p>
+                <a id="shuttleRegisterLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; justify-content: center; text-decoration: none; box-sizing: border-box;">
+                  <span class="material-symbols-outlined">open_in_new</span>
+                  乗車登録フォームを開く (外部サイト)
+                </a>
               </div>
             </div>
 
@@ -5237,6 +5263,7 @@
     let showOtherRuns = false;
 
     const DEFAULT_BUS_SCHEDULE = {
+      shuttleBusRegisterUrl: "https://forms.office.com/r/pfQkhaOPei",
       stops: [
         { id: "S", name: "世田谷キャンパス", color: "#4CAF50", showOnMap: true, enabled: true },
         { id: "Y", name: "横浜キャンパス", color: "#2196F3", showOnMap: true, enabled: true },
@@ -5274,6 +5301,19 @@
       } catch (e) {
         console.warn('Failed to load bus schedule JSON. Using local fallback database.', e);
         busScheduleData = DEFAULT_BUS_SCHEDULE;
+      }
+
+      // 乗車登録フォームURLの適用
+      const registerUrl = busScheduleData.shuttleBusRegisterUrl || DEFAULT_BUS_SCHEDULE.shuttleBusRegisterUrl;
+      if (registerUrl) {
+        const registerCard = document.getElementById('shuttleRegisterCard');
+        const registerLink = document.getElementById('shuttleRegisterLink');
+        if (registerLink) {
+          registerLink.href = registerUrl;
+        }
+        if (registerCard) {
+          registerCard.style.display = 'block';
+        }
       }
 
       const chk = document.getElementById('showOtherRunsCheckbox');
@@ -6512,7 +6552,7 @@
         if (chevron) chevron.textContent = 'expand_less';
       }
       // また、ツールボックスの一覧画面に遷移させる
-      switchView('toolbox', document.getElementById('nav-toolbox-dashboard'));
+      switchView('toolbox', document.getElementById('nav-toolbox'));
       if (event) event.stopPropagation();
     }
 
@@ -6569,7 +6609,7 @@
         try { loadAndRenderQA(); } catch (e) { console.error("Error loading QA:", e); }
       }
 
-      if (window.innerWidth < 1024) {
+      if (window.innerWidth < 1024 && viewId !== 'toolbox') {
         sidebar.classList.remove('open');
         overlay.classList.remove('show');
       }
