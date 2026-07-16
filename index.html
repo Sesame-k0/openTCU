@@ -8597,10 +8597,10 @@
         const isEarly = dayStartTimes && dayStartTimes[day];
         periods = [
           { p: 1, start: isEarly ? "09:00" : "09:20", end: isEarly ? "10:40" : "11:00", sm: isEarly ? 540 : 560, em: isEarly ? 640 : 660 },
-          { p: 2, start: isEarly ? "10:50" : "11:10", end: isEarly ? "12:30" : "12:50", sm: isEarly ? 650 : 670, em: isEarly ? 750 : 770 },
-          { p: 3, start: isEarly ? "13:30" : "13:50", end: isEarly ? "15:10" : "15:30", sm: isEarly ? 810 : 830, em: isEarly ? 910 : 930 },
-          { p: 4, start: isEarly ? "15:20" : "15:40", end: isEarly ? "17:00" : "17:20", sm: isEarly ? 920 : 940, em: isEarly ? 1020 : 1040 },
-          { p: 5, start: isEarly ? "17:10" : "17:30", end: isEarly ? "18:50" : "19:10", sm: isEarly ? 1030 : 1050, em: isEarly ? 1130 : 1150 }
+          { p: 2, start: "11:10", end: "12:50", sm: 670, em: 770 },
+          { p: 3, start: "13:40", end: "15:20", sm: 820, em: 920 },
+          { p: 4, start: "15:30", end: "17:10", sm: 930, em: 1030 },
+          { p: 5, start: "17:20", end: "19:00", sm: 1040, em: 1140 }
         ];
       }
 
