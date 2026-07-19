@@ -6147,6 +6147,22 @@
         row6.style.display = isExam ? 'table-row' : 'none';
       }
 
+      // 昼休み行の移動 (通常モードは2限の後/3限の前、定期試験モードは3限の後/4限の前)
+      const lunchRow = document.querySelector('.timetable-lunch-row');
+      if (lunchRow) {
+        if (isExam) {
+          const row4 = document.getElementById('row-period-4');
+          if (row4 && row4.parentNode) {
+            row4.parentNode.insertBefore(lunchRow, row4);
+          }
+        } else {
+          const row3 = document.getElementById('row-period-3');
+          if (row3 && row3.parentNode) {
+            row3.parentNode.insertBefore(lunchRow, row3);
+          }
+        }
+      }
+
       // 昼休みテキスト更新
       const lunchText = document.getElementById('timetable-lunch-text');
       if (lunchText) {
@@ -8727,7 +8743,8 @@
 
       // 今日のすべての授業が終わっている、または登録授業がない場合
       let hasAnyClassToday = false;
-      for (let p = 1; p <= 5; p++) {
+      const maxP = isExam ? 6 : 5;
+      for (let p = 1; p <= maxP; p++) {
         const key = `${day}-${p}`;
         const classObj = timetableData && timetableData[key];
         if (classObj && !classObj.isEmptySlot && classObj.subject) {
