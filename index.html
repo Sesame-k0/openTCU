@@ -41,8 +41,6 @@
 
   <!-- External Configurations -->
   <script src="./config.js"></script>
-  <!-- HTML to Canvas for timetable image export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
   <!-- Firebase Compat SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -5327,7 +5325,10 @@
       }
 
       renderBusBoards();
-      setInterval(renderBusBoards, 10000);
+      // バス案内板の更新はバス画面表示中かつタブがフォアグラウンドにある時のみ実行
+      setInterval(() => {
+        if (!document.hidden && isViewActive('bus')) renderBusBoards();
+      }, 10000);
     }
 
     function timeStringToMinutes(timeStr) {
@@ -6312,8 +6313,29 @@
       openTimetableAddModal(day, period);
     }
 
+    // html2canvas を必要になった時点で1度だけ非同期読み込み (初期ロード高速化)
+    const HTML2CANVAS_URL = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+    let html2canvasPromise = null;
+    function loadHtml2Canvas() {
+      if (window.html2canvas) return Promise.resolve(window.html2canvas);
+      if (!html2canvasPromise) {
+        html2canvasPromise = new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = HTML2CANVAS_URL;
+          script.async = true;
+          script.onload = () => resolve(window.html2canvas);
+          script.onerror = () => {
+            html2canvasPromise = null;
+            reject(new Error("html2canvas の読み込みに失敗しました"));
+          };
+          document.head.appendChild(script);
+        });
+      }
+      return html2canvasPromise;
+    }
+
     // 画像エクスポート (html2canvas)
-    function exportTimetableToPNG() {
+    async function exportTimetableToPNG() {
       const table = document.getElementById('timetableTable');
       if (!table) return;
 
@@ -6331,7 +6353,9 @@
         useCORS: true
       };
 
-      html2canvas(table, options).then(canvas => {
+      try {
+        const h2c = await loadHtml2Canvas();
+        const canvas = await h2c(table, options);
         try {
           const link = document.createElement('a');
           link.download = 'timetable.png';
@@ -6341,6 +6365,10 @@
           console.error("Canvas export failed:", err);
           alert("画像の保存に失敗しました。お使いのブラウザでは制限されている可能性があります。");
         }
+      } catch (loadErr) {
+        console.error("html2canvas failed to load:", loadErr);
+        alert("画像出力ライブラリの読み込みに失敗しました。ネットワーク接続をご確認ください。");
+      }
 
         // 編集モードだった場合は戻す
         if (wasEditMode) {
@@ -6480,46 +6508,114 @@
     };
 
     // ==========================================
-    // 曜日の表示パーサー (ISO日付を曜日文字へ変換)
-    // formatStyle: 'short' → 曜日のみ (フィルタ用), 'long' → MM月DD日(改行)(曜日) (テーブル表示用)
+    // 日付・曜日パーサー (JST日本標準時基準で厳密にパース)
     // ==========================================
-    // formatStyle: 'short' → 曜日のみ (フィルタ用), 'long' → MM月DD日(改行)(曜日) (テーブル表示用)
-    // ==========================================
-    function formatDayCell(dayStr, formatStyle) {
-      if (!dayStr) return "";
-      if (!formatStyle) formatStyle = 'short';
+    const DAY_NAMES = ["日", "月", "火", "水", "木", "金", "土"];
 
-      const trimmed = dayStr.toString().trim();
+    function parseJstDateInfo(dayStr) {
+      if (!dayStr) return null;
+      const str = String(dayStr).trim();
+      if (!str) return null;
 
-      // すでに「月」「火」「水」「木」「金」「土」「日」等の曜日である場合
-      if (/^[月火水木金土日]$/.test(trimmed)) {
-        return trimmed;
+      // ヘッダー行などの除外
+      if (str === "日付" || str === "日付と曜日" || str.includes("ヘッダー")) {
+        return null;
       }
 
-      // ISO 8601形式 (2026-06-14T15:00:00.000Z等) か確認してDateオブジェクトにパース
-      const parsedDate = new Date(trimmed);
-      if (!isNaN(parsedDate.getTime())) {
-        const dayNames = ["日", "月", "火", "水", "木", "金", "土"];
-        const dayName = dayNames[parsedDate.getDay()];
+      // 1. すでに単一の曜日「月」「火」「水」「木」「金」「土」「日」の場合
+      if (/^[月火水木金土日]$/.test(str)) {
+        return {
+          dayName: str,
+          month: null,
+          date: null,
+          formattedDate: "",
+          fullDisplay: `(${str})`
+        };
+      }
 
-        if (formatStyle === 'long') {
-          // JSTに合わせた日付を取得 (UTCからの補正)
-          const jstDate = new Date(parsedDate.getTime() + 9 * 60 * 60 * 1000);
-          const month = jstDate.getUTCMonth() + 1;
-          const date = jstDate.getUTCDate();
-          return `${month}月${date}日<br>(${dayName})`;
+      // 2. 「（月）」「(火)」などの明示的な曜日が含まれているか検索
+      const explicitDayMatch = str.match(/[（(]?([月火水木金土日])[)）]?/);
+      const explicitDay = explicitDayMatch ? explicitDayMatch[1] : null;
+
+      // 3. YYYY-MM-DD または YYYY/MM/DD の日付形式
+      const ymdMatch = str.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})/);
+      if (ymdMatch) {
+        let year = parseInt(ymdMatch[1], 10);
+        let month = parseInt(ymdMatch[2], 10);
+        let date = parseInt(ymdMatch[3], 10);
+
+        // 時刻部分 (ISO 8601: T15:00:00.000Z などの処理)
+        const timeMatch = str.match(/T(\d{2}):(\d{2})/i);
+        if (timeMatch && str.toUpperCase().includes('Z')) {
+          const hours = parseInt(timeMatch[1], 10);
+          const minutes = parseInt(timeMatch[2], 10);
+          // UTC 12:00〜23:59 の場合、日本時(UTC+9)では「翌日」の日付になる
+          // 例: 2026-06-21T15:00:00.000Z → JST 2026-06-22 00:00:00
+          if (hours >= 12) {
+            const utcMillis = Date.UTC(year, month - 1, date, hours, minutes);
+            const jstDateObj = new Date(utcMillis + 9 * 60 * 60 * 1000);
+            year = jstDateObj.getUTCFullYear();
+            month = jstDateObj.getUTCMonth() + 1;
+            date = jstDateObj.getUTCDate();
+          }
         }
 
-        return dayName;
+        // 曜日計算 (Date.UTC を使用してローカル環境のタイムゾーン影響を完全排除)
+        const utcObj = new Date(Date.UTC(year, month - 1, date));
+        const calculatedDay = DAY_NAMES[utcObj.getUTCDay()];
+        const dayName = explicitDay || calculatedDay;
+
+        return {
+          year: year,
+          month: month,
+          date: date,
+          dayName: dayName,
+          formattedDate: `${month}月${date}日`,
+          fullDisplay: `${month}月${date}日<br>(${dayName})`
+        };
       }
 
-      // それ以外の場合、部分一致で曜日を探す
-      const match = trimmed.match(/[月火水木金土日]/);
-      if (match) {
-        return match[0];
+      // 4. 「6/22」「6月22日」のような月日形式
+      const mdMatch = str.match(/(\d{1,2})[月/](\d{1,2})/);
+      if (mdMatch) {
+        const month = parseInt(mdMatch[1], 10);
+        const date = parseInt(mdMatch[2], 10);
+        const year = new Date().getFullYear();
+        const utcObj = new Date(Date.UTC(year, month - 1, date));
+        const calculatedDay = DAY_NAMES[utcObj.getUTCDay()];
+        const dayName = explicitDay || calculatedDay;
+
+        return {
+          year: year,
+          month: month,
+          date: date,
+          dayName: dayName,
+          formattedDate: `${month}月${date}日`,
+          fullDisplay: `${month}月${date}日<br>(${dayName})`
+        };
       }
 
-      return trimmed;
+      // 5. その他の文字列から曜日のみ見つかった場合
+      if (explicitDay) {
+        return {
+          dayName: explicitDay,
+          month: null,
+          date: null,
+          formattedDate: "",
+          fullDisplay: `(${explicitDay})`
+        };
+      }
+
+      return null;
+    }
+
+    function formatDayCell(dayStr, formatStyle = 'short') {
+      const info = parseJstDateInfo(dayStr);
+      if (!info) return String(dayStr || "").trim();
+      if (formatStyle === 'long' && info.fullDisplay) {
+        return info.fullDisplay;
+      }
+      return info.dayName || String(dayStr || "").trim();
     }
 
     // ==========================================
@@ -6552,6 +6648,11 @@
       // また、ツールボックスの一覧画面に遷移させる
       switchView('toolbox', document.getElementById('nav-toolbox'));
       if (event) event.stopPropagation();
+    }
+
+    function isViewActive(viewId) {
+      const el = document.getElementById('view-' + viewId);
+      return el ? el.classList.contains('active') : false;
     }
 
     function switchView(viewId, element) {
@@ -6589,6 +6690,8 @@
       // ビュー特有の更新処理
       if (viewId === 'home') {
         try { updateHomeView(); } catch (e) { console.error("Error updating home:", e); }
+      } else if (viewId === 'bus') {
+        try { if (typeof renderBusBoards === 'function') renderBusBoards(); } catch (e) { }
       } else if (viewId === 'settings') {
         try { loadSettingsIntoForm(); } catch (e) { console.error("Error loading settings:", e); }
         try { checkAutoRecovery(); } catch (e) { console.error("Error checkAutoRecovery:", e); }
@@ -6646,6 +6749,100 @@
         resizeHandle.classList.remove('active');
       }
     });
+
+    // ==========================================
+    // 店舗名正規化エンジン
+    // ==========================================
+    const CANONICAL_SHOPS = [
+      "SC 学生食堂",
+      "ラウンジオーク",
+      "nana cafe",
+      "cafe sora",
+      "YC 学生食堂",
+      "YC 7号館カフェ"
+    ];
+
+    const SHOP_ALIAS_MAP = {
+      // SC 学生食堂
+      "sc学生食堂": "SC 学生食堂",
+      "sc 学生食堂": "SC 学生食堂",
+      "sc食堂": "SC 学生食堂",
+      "世田谷キャンパス学生食堂": "SC 学生食堂",
+      "世田谷キャンパス 学生食堂": "SC 学生食堂",
+      "世田谷学生食堂": "SC 学生食堂",
+      "世田谷食堂": "SC 学生食堂",
+      "世田谷キャンパス": "SC 学生食堂",
+      "学生食堂": "SC 学生食堂",
+
+      // ラウンジオーク
+      "ラウンジオーク": "ラウンジオーク",
+      "ラウンジ オーク": "ラウンジオーク",
+      "オーク": "ラウンジオーク",
+      "lounge oak": "ラウンジオーク",
+      "loungeoak": "ラウンジオーク",
+
+      // nana cafe
+      "nana cafe": "nana cafe",
+      "nanacafe": "nana cafe",
+      "ナナカフェ": "nana cafe",
+      "ナナ カフェ": "nana cafe",
+      "nana": "nana cafe",
+
+      // cafe sora
+      "cafe sora": "cafe sora",
+      "cafesora": "cafe sora",
+      "カフェソラ": "cafe sora",
+      "カフェ ソラ": "cafe sora",
+      "sora": "cafe sora",
+
+      // YC 学生食堂
+      "yc学生食堂": "YC 学生食堂",
+      "yc 学生食堂": "YC 学生食堂",
+      "yc食堂": "YC 学生食堂",
+      "横浜キャンパス学生食堂": "YC 学生食堂",
+      "横浜キャンパス 学生食堂": "YC 学生食堂",
+      "横浜学生食堂": "YC 学生食堂",
+      "横浜食堂": "YC 学生食堂",
+      "横浜キャンパス": "YC 学生食堂",
+
+      // YC 7号館カフェ
+      "yc 7号館カフェ": "YC 7号館カフェ",
+      "yc7号館カフェ": "YC 7号館カフェ",
+      "yc 7号カフェ": "YC 7号館カフェ",
+      "yc7号カフェ": "YC 7号館カフェ",
+      "横浜キャンパス7号館カフェ": "YC 7号館カフェ",
+      "横浜キャンパス 7号館カフェ": "YC 7号館カフェ",
+      "横浜7号館カフェ": "YC 7号館カフェ",
+      "7号館カフェ": "YC 7号館カフェ",
+      "7号カフェ": "YC 7号館カフェ"
+    };
+
+    function resolveShopCanonicalName(rawName) {
+      if (!rawName) return "";
+      const trimmed = String(rawName).trim();
+      if (!trimmed || trimmed === "ALL") return trimmed;
+
+      // 1. すでに正式名称と完全一致する場合
+      if (CANONICAL_SHOPS.includes(trimmed)) return trimmed;
+
+      // 2. 正規化（NFKCで全角英数を半角化、小文字化、連続空白の単一化）
+      const normalized = trimmed.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ');
+      if (SHOP_ALIAS_MAP[normalized]) return SHOP_ALIAS_MAP[normalized];
+
+      // 3. 空白を全消去してマッチング
+      const noSpace = normalized.replace(/\s+/g, '');
+      if (SHOP_ALIAS_MAP[noSpace]) return SHOP_ALIAS_MAP[noSpace];
+
+      // 4. 部分一致キーワード判定（セーフティネット）
+      if (noSpace.includes("オーク") || noSpace.includes("lounge")) return "ラウンジオーク";
+      if (noSpace.includes("nana") || noSpace.includes("ナナ")) return "nana cafe";
+      if (noSpace.includes("sora") || noSpace.includes("ソラ")) return "cafe sora";
+      if (noSpace.includes("7号館") || noSpace.includes("7号")) return "YC 7号館カフェ";
+      if (noSpace.includes("yc") || noSpace.includes("横浜")) return "YC 学生食堂";
+      if (noSpace.includes("sc") || noSpace.includes("世田谷") || noSpace.includes("学生食堂")) return "SC 学生食堂";
+
+      return trimmed;
+    }
 
     // ==========================================
     // 営業時間・ステータス制御
@@ -6769,7 +6966,8 @@
     };
 
     function getCafeteriaStatus() {
-      const selectedShop = document.getElementById('shopFilter') ? document.getElementById('shopFilter').value : "ALL";
+      const rawShop = document.getElementById('shopFilter') ? document.getElementById('shopFilter').value : "ALL";
+      const selectedShop = resolveShopCanonicalName(rawShop) || "ALL";
       const config = SHOP_CONFIG[selectedShop] || SHOP_CONFIG["ALL"];
 
       const now = new Date();
@@ -6782,7 +6980,8 @@
     }
 
     function updateCafeteriaStatusUI() {
-      const selectedShop = document.getElementById('shopFilter') ? document.getElementById('shopFilter').value : "ALL";
+      const rawShop = document.getElementById('shopFilter') ? document.getElementById('shopFilter').value : "ALL";
+      const selectedShop = resolveShopCanonicalName(rawShop) || "ALL";
       const config = SHOP_CONFIG[selectedShop] || SHOP_CONFIG["ALL"];
 
       const status = getCafeteriaStatus();
@@ -6888,12 +7087,12 @@
       const currentDay = now.getDay(); // 0:日, 1:月, ... 6:土
       const diffToMonday = currentDay === 0 ? -6 : 1 - currentDay;
 
-      // 今週の月曜日 0:00:00 (JST基準とするため、ローカル時間で生成)
+      // 今週の月曜日 0:00:00 (JST基準)
       const monday = new Date(now);
       monday.setDate(now.getDate() + diffToMonday);
       monday.setHours(0, 0, 0, 0);
 
-      // 今週の日曜日 23:59:59
+      // 今週の日曜日 23:59:59 (JST基準)
       const sunday = new Date(monday);
       sunday.setDate(monday.getDate() + 6);
       sunday.setHours(23, 59, 59, 999);
@@ -6901,15 +7100,11 @@
       let hasThisWeekData = false;
 
       for (const row of data) {
-        const dayStr = row[0];
-        if (!dayStr) continue;
-
-        const trimmed = dayStr.toString().trim();
-        const parsedDate = new Date(trimmed);
-        if (!isNaN(parsedDate.getTime())) {
-          // スプレッドシート側のUTC日付(JST+9h)を考慮してブラウザ実行環境(JST)で比較
-          const jstDate = new Date(parsedDate.getTime() + 9 * 60 * 60 * 1000);
-          if (jstDate >= monday && jstDate <= sunday) {
+        if (!row || !row[0]) continue;
+        const info = parseJstDateInfo(row[0]);
+        if (info && info.year && info.month && info.date) {
+          const rowDate = new Date(info.year, info.month - 1, info.date, 12, 0, 0);
+          if (rowDate >= monday && rowDate <= sunday) {
             hasThisWeekData = true;
             break;
           }
@@ -7067,20 +7262,30 @@
       const shops = new Set();
 
       allData.forEach(row => {
+        if (!row || !Array.isArray(row)) return;
         if (row[0]) {
           const formattedDay = formatDayCell(row[0]);
-          days.add(formattedDay);
+          if (formattedDay && formattedDay !== "日付" && formattedDay !== "日付と曜日") {
+            days.add(formattedDay);
+          }
         }
-        if (row[1]) shops.add(row[1]);
+        if (row[1]) {
+          const canonicalShop = resolveShopCanonicalName(row[1]);
+          if (canonicalShop && canonicalShop !== "飲食店") {
+            shops.add(canonicalShop);
+          }
+        }
       });
 
-      // 土曜日を強制追加
+      // 土曜日を強制追加（営業案内用）
       days.add("土");
 
       // 曜日をソート（月〜日の順）
       const dayOrder = ["月", "火", "水", "木", "金", "土", "日"];
       const sortedDays = Array.from(days).sort((a, b) => {
-        return dayOrder.indexOf(a) - dayOrder.indexOf(b);
+        const ia = dayOrder.indexOf(a);
+        const ib = dayOrder.indexOf(b);
+        return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
       });
 
       const dayFilter = document.getElementById('dayFilter');
@@ -7092,7 +7297,11 @@
 
       const shopFilter = document.getElementById('shopFilter');
       let shopHtml = '<option value="ALL">すべての店舗</option>';
-      shops.forEach(shop => {
+      const presentCanonicalShops = CANONICAL_SHOPS.filter(s => shops.size === 0 || shops.has(s));
+      const extraShops = Array.from(shops).filter(s => !CANONICAL_SHOPS.includes(s));
+      const allDisplayShops = presentCanonicalShops.length > 0 ? presentCanonicalShops.concat(extraShops) : CANONICAL_SHOPS;
+
+      allDisplayShops.forEach(shop => {
         shopHtml += `<option value="${shop}">${shop}</option>`;
       });
       shopFilter.innerHTML = shopHtml;
@@ -7125,7 +7334,8 @@
       updateCafeteriaStatusUI();
 
       const selectedDay = document.getElementById('dayFilter').value;
-      const selectedShop = document.getElementById('shopFilter').value;
+      const rawShop = document.getElementById('shopFilter').value;
+      const selectedShop = resolveShopCanonicalName(rawShop) || "ALL";
 
       const priceLimit = parseInt(document.getElementById('priceInput').value, 10);
       const priceCondition = document.getElementById('priceCondition').value;
@@ -7159,7 +7369,8 @@
       // 1. 朝食メニューのフィルター
       const filteredBreakfast = breakfastData.filter(row => {
         const matchDay = (selectedDay === "ALL" || row[0] === selectedDay);
-        const matchShop = (selectedShop === "ALL" || row[1] === selectedShop);
+        const rowShop = resolveShopCanonicalName(row[1]);
+        const matchShop = (selectedShop === "ALL" || rowShop === selectedShop);
 
         let matchPrice = true;
         if (!isNaN(priceLimit) && priceCondition !== "ALL") {
@@ -7173,15 +7384,22 @@
         return matchDay && matchShop && matchPrice;
       });
 
-      // 2. 通常メニューのフィルター
-      const filteredNormal = allData.map(row => {
+      // 2. 通常メニューのフィルター (ヘッダー行除外 & 店舗名正規化)
+      const filteredNormal = allData.filter(row => {
+        if (!row || !Array.isArray(row) || row.length < 3) return false;
+        const c0 = String(row[0] ?? "").trim();
+        const c1 = String(row[1] ?? "").trim();
+        if (!c0 || c0 === "日付" || c0 === "日付と曜日" || c1 === "飲食店") return false;
+        return true;
+      }).map(row => {
         const newRow = [...row];
         newRow[6] = false; // 朝食フラグをfalse
         return newRow;
       }).filter(row => {
         const rowDayFormatted = formatDayCell(row[0]);
         const matchDay = (selectedDay === "ALL" || rowDayFormatted === selectedDay);
-        const matchShop = (selectedShop === "ALL" || row[1] === selectedShop);
+        const rowShop = resolveShopCanonicalName(row[1]);
+        const matchShop = (selectedShop === "ALL" || rowShop === selectedShop);
 
         let matchPrice = true;
         if (!isNaN(priceLimit) && priceCondition !== "ALL") {
@@ -7219,7 +7437,14 @@
       }
 
       // 6. 通常＆朝食の表示
-      infoCard.style.display = 'none';
+      if (combinedData.length === 0 && selectedShop !== "ALL" && selectedDay !== "ALL") {
+        infoCard.style.display = 'block';
+        infoIcon.textContent = 'info';
+        infoTitle.textContent = `${selectedShop} のメニュー`;
+        infoText.innerHTML = `選択された曜日（${selectedDay}曜日）には該当メニューがありません。<br>「すべての曜日」を選択すると他の曜日のメニューを確認できます。`;
+      } else {
+        infoCard.style.display = 'none';
+      }
       renderTable(combinedData);
     }
 
@@ -7235,7 +7460,7 @@
       const isBreakfastTime = (status.mealType === 'breakfast');
 
       dataArray.forEach(row => {
-        if (!row[0]) return;
+        if (!row || !row[0]) return;
         const tr = document.createElement('tr');
 
         let isUnavailable = false;
@@ -7289,58 +7514,46 @@
 
           if (index === 0) {
             const rawCell = cell ? cell.toString().trim() : "";
-            const parsedDate = new Date(rawCell);
+            const info = parseJstDateInfo(rawCell);
+            const dayName = info ? info.dayName : formatDayCell(rawCell);
 
-            if (!isNaN(parsedDate.getTime())) {
-              const jstDate = new Date(parsedDate.getTime() + 9 * 60 * 60 * 1000);
-              const month = jstDate.getUTCMonth() + 1;
-              const date = jstDate.getUTCDate();
-              const dayNames = ["日", "月", "火", "水", "木", "金", "土"];
-              const dayName = dayNames[parsedDate.getDay()];
+            let badgeClass = "badge-day";
+            if (["月", "火", "木", "金"].includes(dayName)) {
+              badgeClass = "badge-day-mon";
+            } else if (dayName === "水") {
+              badgeClass = "badge-day-wed";
+            } else if (dayName === "土") {
+              badgeClass = "badge-day-sat";
+            } else if (dayName === "日") {
+              badgeClass = "badge-day-sun";
+            }
 
-              let badgeClass = "badge-day";
-              if (["月", "火", "木", "金"].includes(dayName)) {
-                badgeClass = "badge-day-mon";
-              } else if (dayName === "水") {
-                badgeClass = "badge-day-wed";
-              } else if (dayName === "土") {
-                badgeClass = "badge-day-sat";
-              } else if (dayName === "日") {
-                badgeClass = "badge-day-sun";
-              }
-
-              td.innerHTML = `<span style="font-size:12px; font-weight:500; color:var(--md-sys-color-on-surface-variant);">${month}月${date}日</span><br><span class="badge ${badgeClass}" style="margin-top:4px;">(${dayName})</span>`;
+            if (info && info.month && info.date) {
+              td.innerHTML = `<span style="font-size:12px; font-weight:500; color:var(--md-sys-color-on-surface-variant);">${info.month}月${info.date}日</span><br><span class="badge ${badgeClass}" style="margin-top:4px;">(${dayName})</span>`;
             } else {
-              const dayText = formatDayCell(rawCell);
-              let badgeClass = "badge-day";
-              if (dayText === "月" || dayText === "火" || dayText === "木" || dayText === "金") {
-                badgeClass = "badge-day-mon";
-              } else if (dayText === "水") {
-                badgeClass = "badge-day-wed";
-              } else if (dayText === "土") {
-                badgeClass = "badge-day-sat";
-              } else if (dayText === "日") {
-                badgeClass = "badge-day-sun";
-              }
-              td.innerHTML = `<span class="badge ${badgeClass}">${dayText}</span>`;
+              td.innerHTML = `<span class="badge ${badgeClass}">${escapeHtml(dayName)}</span>`;
             }
           } else if (index === 1) {
-            td.innerHTML = `<span class="badge badge-shop">${cellText}</span>`;
+            const displayShop = resolveShopCanonicalName(cellText) || String(cellText ?? "");
+            td.innerHTML = `<span class="badge badge-shop">${escapeHtml(displayShop)}</span>`;
           } else if (index === 4) {
-            td.innerHTML = `<strong class="price-text">${cellText}</strong>`;
+            const priceStr = cellText ? String(cellText).trim() : "-";
+            const formattedPrice = /^\d+$/.test(priceStr) ? `${priceStr}円` : priceStr;
+            td.innerHTML = `<strong class="price-text">${escapeHtml(formattedPrice)}</strong>`;
             td.classList.add('text-right');
           } else if (index === 5) {
             let calDisplay = "-";
             if (cellText === "---") {
               calDisplay = "---";
-            } else if (cellText !== "-" && cellText !== "") {
-              calDisplay = `${cellText} kcal`;
+            } else if (cellText !== "-" && cellText !== "" && cellText !== null && cellText !== undefined) {
+              const calStr = String(cellText).replace(/kcal/i, '').trim();
+              calDisplay = /^\d+$/.test(calStr) ? `${calStr} kcal` : `${calStr}`;
             }
-            td.innerHTML = `<span style="font-family:'Outfit',sans-serif; font-weight:500;">${calDisplay}</span>`;
+            td.innerHTML = `<span style="font-family:'Outfit',sans-serif; font-weight:500;">${escapeHtml(calDisplay)}</span>`;
             td.classList.add('text-right');
           } else if (index === 3) {
             if (isUnavailable && reason) {
-              td.innerHTML = `<span>${cellText}</span><span class="unavailable-reason">${reason}</span>`;
+              td.innerHTML = `<span>${escapeHtml(cellText)}</span><span class="unavailable-reason">${escapeHtml(reason)}</span>`;
             } else {
               td.textContent = cellText;
             }
@@ -8948,23 +9161,25 @@
       }
     }
 
-    function downloadBusinessCard(containerId, filename) {
+    async function downloadBusinessCard(containerId, filename) {
       const element = document.getElementById(containerId);
       if (!element) return;
 
-      html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: null
-      }).then(canvas => {
+      try {
+        const h2c = await loadHtml2Canvas();
+        const canvas = await h2c(element, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: null
+        });
         const link = document.createElement('a');
         link.download = filename;
         link.href = canvas.toDataURL('image/png');
         link.click();
-      }).catch(err => {
+      } catch (err) {
         console.error("Failed to export card image", err);
         alert("名刺画像の保存に失敗しました。");
-      });
+      }
     }
 
     function downloadMyBusinessCard() {

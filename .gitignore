@@ -15,3 +15,11 @@ Thumbs.db
 *.njsproj
 *.sln
 *.swp
+
+# PDF files (Cafeteria raw menus)
+*.pdf
+
+# Temporary scratch files
+cafeteria_*.txt
+cafeteria_*.js
+*.patch
