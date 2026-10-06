@@ -6370,11 +6370,10 @@
         alert("画像出力ライブラリの読み込みに失敗しました。ネットワーク接続をご確認ください。");
       }
 
-        // 編集モードだった場合は戻す
-        if (wasEditMode) {
-          toggleTimetableEditMode();
-        }
-      });
+      // 編集モードだった場合は戻す
+      if (wasEditMode) {
+        toggleTimetableEditMode();
+      }
     }
 
     // JSONエクスポート
